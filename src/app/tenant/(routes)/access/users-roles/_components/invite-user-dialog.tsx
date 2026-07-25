@@ -1,0 +1,141 @@
+"use client";
+
+import { type FormEvent, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { IconExternalLink } from "@tabler/icons-react";
+import { toast } from "sonner";
+
+import { CreatableSelect } from "@/components/reusable/creatable-select";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useTRPC } from "@/trpc/client";
+import { USER_ROLE_OPTIONS } from "./data";
+
+export function InviteUserDialog() {
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [role, setRole] = useState("");
+  const inviteUser = useMutation(
+    trpc.tenant.usersRoles.invite.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          trpc.tenant.usersRoles.list.queryFilter(),
+        );
+        toast.success("Invitation email sent.");
+        setEmail("");
+        setRole("");
+        setMessage("");
+        setOpen(false);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    }),
+  );
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!role.trim()) {
+      toast.error("Role is required.");
+      return;
+    }
+
+    inviteUser.mutate({
+      email,
+      roleName: role,
+      message,
+    });
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline" size="xs">
+          <IconExternalLink className="size-4" />
+          Invite User
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-lg!">
+        <DialogHeader>
+          <DialogTitle>Invite user</DialogTitle>
+          <DialogDescription>
+            Prepare an invitation for a staff member to join this workspace.
+          </DialogDescription>
+        </DialogHeader>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="inviteEmail">Email address</Label>
+            <Input
+              id="inviteEmail"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="name@company.com"
+              className="rounded-lg"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Role</Label>
+            <input type="hidden" name="role" value={role} />
+            <CreatableSelect
+              value={role}
+              onChange={setRole}
+              options={USER_ROLE_OPTIONS}
+              placeholder="Select or create role"
+              searchPlaceholder="Search or create role..."
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="inviteMessage">
+              Message
+              <span className="font-normal text-zinc-500">
+                (optional)
+              </span>
+            </Label>
+            <Textarea
+              id="inviteMessage"
+              name="message"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              placeholder="Add short context for this invite..."
+              className="min-h-24 rounded-lg"
+            />
+          </div>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              size="sm"
+              disabled={inviteUser.isPending}
+            >
+              Cancel
+            </Button>
+            <Button size="sm" type="submit" disabled={inviteUser.isPending}>
+              {inviteUser.isPending ? "Sending..." : "Send invite"}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}

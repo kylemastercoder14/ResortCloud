@@ -1,0 +1,14 @@
+-- AlterTable
+ALTER TABLE "tenant_staff_profile" ADD COLUMN     "allowance" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "basicSalary" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "bonus" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "commission" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "employmentType" TEXT NOT NULL DEFAULT 'Regular',
+ADD COLUMN     "incentives" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "leaveDeduction" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "otherDeductions" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "pagIbigContribution" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "philHealthContribution" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "sssContribution" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "withholdingTax" DECIMAL(12,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "workLocation" TEXT NOT NULL DEFAULT 'Resort Office';

@@ -1,0 +1,1214 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  ADMIN_STAFF
+  TENANT
+  TENANT_STAFF
+  CUSTOMER
+}
+
+enum TenantOnboardingStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TenantSubscriptionPlan {
+  FREE_TRIAL
+  STARTER
+  GROWTH
+  ENTERPRISE
+}
+
+enum TenantBillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+enum TenantSubscriptionStatus {
+  PENDING
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  REVOKED
+  SUSPENDED
+}
+
+enum TenantPaymentMethod {
+  CREDIT_CARD
+  BANK_TRANSFER
+  E_WALLET
+  CASH_DEPOSIT
+}
+
+enum TenantPaymentAccountType {
+  CREDIT_CARD
+  BANK_ACCOUNT
+  E_WALLET
+}
+
+enum TenantStaffStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
+}
+
+enum TenantTimeLogFlag {
+  ON_TIME
+  LATE
+  ABSENT
+}
+
+enum TenantScheduleShiftStatus {
+  ASSIGNED
+  OPEN
+  CHANGED
+}
+
+enum TenantLeaveRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TenantOtUndertimeType {
+  OVERTIME
+  UNDERTIME
+}
+
+enum TenantOtUndertimeStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TenantPayrollRunStatus {
+  DRAFT
+  COMPLETED
+  VOIDED
+}
+
+enum TenantPayrollPayType {
+  REGULAR
+  FINAL
+}
+
+enum TenantPayrollFrequency {
+  MONTHLY
+  BI_WEEKLY
+}
+
+enum TenantStaffInvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
+}
+
+enum TenantDepartmentStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum TenantAmenityStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum TenantAmenityScope {
+  ROOM_LEVEL
+  PROPERTY_LEVEL
+}
+
+enum TenantAmenityFeeUnit {
+  PER_STAY
+  PER_DAY
+  PER_USE
+}
+
+enum TenantRoomStatus {
+  AVAILABLE
+  OCCUPIED
+  MAINTENANCE
+  OUT_OF_SERVICE
+}
+
+enum TenantHousekeepingStatus {
+  CLEAN
+  DIRTY
+  OCCUPIED
+  VACANT
+}
+
+enum TenantHousekeepingDamageStatus {
+  OPEN
+  RESOLVED
+}
+
+enum TenantLaundryStatus {
+  RECEIVED
+  WASHING
+  DRYING
+  READY
+  RETURNED
+}
+
+enum TenantLaundryPriority {
+  NORMAL
+  URGENT
+}
+
+enum TenantRoomSmokingPolicy {
+  NON_SMOKING
+  SMOKING
+}
+
+enum TenantReservationStatus {
+  PENDING
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELED
+}
+
+enum TenantReceptionQueueStatus {
+  ARRIVING
+  IN_HOUSE
+  CHECKING_OUT
+  COMPLETED
+}
+
+enum TenantReceptionRequestPriority {
+  NORMAL
+  URGENT
+}
+
+enum TenantReceptionRequestStatus {
+  OPEN
+  SENT
+  RESOLVED
+}
+
+enum TenantMaintenancePriority {
+  NORMAL
+  URGENT
+}
+
+enum TenantMaintenanceRequestStatus {
+  PENDING
+  COMPLETED
+}
+
+enum TenantInventoryMovementType {
+  IN
+  OUT
+}
+
+enum TenantServiceStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum TenantServiceBillingType {
+  FIXED_PRICE
+  PER_HOUR
+  PER_GUEST
+  CUSTOM_QUOTE
+}
+
+enum TenantInvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+  VOID
+}
+
+enum TenantInvoiceReminderCadence {
+  STANDARD
+  LIGHT
+  STRICT
+  PAUSED
+}
+
+enum TenantFinanceEntryType {
+  REVENUE
+  EXPENSE
+}
+
+enum TenantFinanceEntrySource {
+  MANUAL
+  AUTO_BOOKING
+  INVOICE_PAYMENT
+}
+
+enum TenantFinanceEntryStatus {
+  CLEARED
+  PENDING
+}
+
+enum TenantTransactionExportFormat {
+  CSV
+  PDF
+  TXT
+  XLSX
+}
+
+enum TenantTransactionExportStatus {
+  READY
+  SCHEDULED
+  FAILED
+}
+
+enum TenantLeadStage {
+  INTAKE
+  QUALIFIED
+  PAYMENT_DONE
+  CONVERTED
+}
+
+enum TenantLeadChannel {
+  MESSENGER
+}
+
+enum TenantLeadMessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  appUser       AppUser?
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model AppUser {
+  authUserId    String              @id
+  email         String              @unique
+  firstName     String?
+  lastName      String?
+  displayName   String
+  role          UserRole
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  authUser      User                @relation(fields: [authUserId], references: [id], onDelete: Cascade)
+  tenantProfile TenantProfile?
+  staffProfile  TenantStaffProfile?
+  // customerProfile CustomerProfile?
+
+  @@index([role])
+  @@map("app_user")
+}
+
+model TenantProfile {
+  id                        String                           @id @default(cuid())
+  appUserId                 String                           @unique
+  resortName                String?
+  propertyType              String?
+  fullAddress               String?
+  region                    String?
+  province                  String?
+  municipality              String?
+  barangay                  String?
+  phoneNumber               String?
+  website                   String?
+  shortDescription          String?
+  subscriptionPlan          TenantSubscriptionPlan           @default(STARTER)
+  subscriptionStatus        TenantSubscriptionStatus         @default(PENDING)
+  billingCycle              TenantBillingCycle               @default(MONTHLY)
+  trialStartedAt            DateTime?
+  trialEndsAt               DateTime?
+  currentPeriodEnd          DateTime?
+  suspendedAt               DateTime?
+  stripeCustomerId          String?
+  stripeSubscriptionId      String?
+  polarCustomerId           String?
+  polarSubscriptionId       String?
+  polarProductId            String?
+  businessName              String?
+  billingEmail              String?
+  billingPhoneCountryCode   String?                          @default("+63")
+  billingPhoneNumber        String?
+  billingAddress            String?
+  billingCity               String?
+  billingStateProvince      String?
+  billingPostalCode         String?
+  billingCountry            String?                          @default("Philippines")
+  paymentMethod             TenantPaymentMethod?             @default(CREDIT_CARD)
+  paymentProvider           String?
+  paymentAccountName        String?
+  paymentAccountNumber      String?
+  cardholderName            String?
+  cardBrand                 String?
+  cardLastFour              String?
+  cardExpiry                String?
+  onboardingStatus          TenantOnboardingStatus           @default(PENDING)
+  onboardingCurrentStep     Int                              @default(0)
+  onboardingCompletedAt     DateTime?
+  createdAt                 DateTime                         @default(now())
+  updatedAt                 DateTime                         @updatedAt
+  appUser                   AppUser                          @relation(fields: [appUserId], references: [authUserId], onDelete: Cascade)
+  departments               TenantDepartment[]
+  amenities                 TenantAmenity[]
+  rooms                     TenantRoom[]
+  reservations              TenantReservation[]
+  services                  TenantService[]
+  invoices                  TenantInvoice[]
+  financeEntries            TenantFinanceEntry[]
+  transactionExports        TenantTransactionExport[]
+  messengerIntegrations     TenantMessengerIntegration[]
+  leads                     TenantLead[]
+  receptionRequests         TenantReceptionRequest[]
+  receptionShiftNotes       TenantReceptionShiftNote[]
+  maintenanceRequests       TenantMaintenanceRequest[]
+  inventoryItems            TenantInventoryItem[]
+  inventoryMovements        TenantInventoryMovement[]
+  housekeepingRooms         TenantHousekeepingRoom[]
+  housekeepingDamageReports TenantHousekeepingDamageReport[]
+  laundryJobs               TenantLaundryJob[]
+  staffProfiles             TenantStaffProfile[]
+  staffInvitations          TenantStaffInvitation[]
+  timeLogs                  TenantTimeLog[]
+  scheduleShifts            TenantScheduleShift[]
+  leaveRequests             TenantLeaveRequest[]
+  otUndertimeEntries        TenantOtUndertimeEntry[]
+  payrollRuns               TenantPayrollRun[]
+  payrollItems              TenantPayrollItem[]
+
+  @@map("tenant_profile")
+}
+
+model TenantMessengerIntegration {
+  id               String        @id @default(cuid())
+  tenantProfileId  String
+  pageId           String        @unique
+  pageName         String?
+  pageAccessToken  String?
+  verifyToken      String?
+  subscribedFields String[]      @default([])
+  isActive         Boolean       @default(true)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  tenantProfile    TenantProfile @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  leads            TenantLead[]
+
+  @@index([tenantProfileId])
+  @@index([isActive])
+  @@map("tenant_messenger_integration")
+}
+
+model TenantLead {
+  id                     String                      @id @default(cuid())
+  tenantProfileId        String
+  messengerIntegrationId String?
+  psid                   String
+  channel                TenantLeadChannel           @default(MESSENGER)
+  guestName              String                      @default("Messenger guest")
+  profilePictureUrl      String?
+  inquiry                String?
+  lastMessage            String?
+  source                 String                      @default("Organic")
+  stage                  TenantLeadStage             @default(INTAKE)
+  targetDate             DateTime?
+  lastMessageAt          DateTime?
+  createdAt              DateTime                    @default(now())
+  updatedAt              DateTime                    @updatedAt
+  tenantProfile          TenantProfile               @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  messengerIntegration   TenantMessengerIntegration? @relation(fields: [messengerIntegrationId], references: [id], onDelete: SetNull)
+  messages               TenantLeadMessage[]
+
+  @@unique([tenantProfileId, psid])
+  @@index([tenantProfileId])
+  @@index([messengerIntegrationId])
+  @@index([stage])
+  @@index([lastMessageAt])
+  @@map("tenant_lead")
+}
+
+model TenantLeadMessage {
+  id              String                     @id @default(cuid())
+  tenantLeadId    String
+  metaMessageId   String?                    @unique
+  senderId        String
+  recipientId     String
+  direction       TenantLeadMessageDirection @default(INBOUND)
+  text            String?
+  attachments     Json?
+  postbackPayload String?
+  raw             Json?
+  sentAt          DateTime
+  createdAt       DateTime                   @default(now())
+  lead            TenantLead                 @relation(fields: [tenantLeadId], references: [id], onDelete: Cascade)
+
+  @@index([tenantLeadId])
+  @@index([senderId])
+  @@index([recipientId])
+  @@index([sentAt])
+  @@map("tenant_lead_message")
+}
+
+model TenantStaffProfile {
+  id                     String                   @id @default(cuid())
+  tenantProfileId        String
+  appUserId              String                   @unique
+  departmentId           String?
+  username               String?                  @unique
+  phoneNumber            String?
+  roleName               String
+  status                 TenantStaffStatus        @default(INVITED)
+  permissions            String[]                 @default([])
+  isDepartmentHead       Boolean                  @default(false)
+  employmentType         String                   @default("Regular")
+  workLocation           String                   @default("Resort Office")
+  basicSalary            Decimal                  @default(0) @db.Decimal(12, 2)
+  allowance              Decimal                  @default(0) @db.Decimal(12, 2)
+  incentives             Decimal                  @default(0) @db.Decimal(12, 2)
+  commission             Decimal                  @default(0) @db.Decimal(12, 2)
+  bonus                  Decimal                  @default(0) @db.Decimal(12, 2)
+  leaveDeduction         Decimal                  @default(0) @db.Decimal(12, 2)
+  sssContribution        Decimal                  @default(0) @db.Decimal(12, 2)
+  philHealthContribution Decimal                  @default(0) @db.Decimal(12, 2)
+  pagIbigContribution    Decimal                  @default(0) @db.Decimal(12, 2)
+  withholdingTax         Decimal                  @default(0) @db.Decimal(12, 2)
+  otherDeductions        Decimal                  @default(0) @db.Decimal(12, 2)
+  notes                  String?
+  tags                   String[]                 @default([])
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  tenantProfile          TenantProfile            @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  department             TenantDepartment?        @relation("TenantDepartmentStaff", fields: [departmentId], references: [id], onDelete: SetNull)
+  headOfDepartment       TenantDepartment?        @relation("TenantDepartmentHead")
+  appUser                AppUser                  @relation(fields: [appUserId], references: [authUserId], onDelete: Cascade)
+  housekeepingRooms      TenantHousekeepingRoom[]
+  timeLogs               TenantTimeLog[]
+  scheduleShifts         TenantScheduleShift[]
+  leaveRequests          TenantLeaveRequest[]
+  otUndertimeEntries     TenantOtUndertimeEntry[]
+  payrollItems           TenantPayrollItem[]
+
+  @@index([tenantProfileId])
+  @@index([departmentId])
+  @@index([roleName])
+  @@index([status])
+  @@map("tenant_staff_profile")
+}
+
+model TenantTimeLog {
+  id              String             @id @default(cuid())
+  tenantProfileId String
+  staffProfileId  String
+  date            DateTime
+  clockIn         DateTime?
+  clockOut        DateTime?
+  flag            TenantTimeLogFlag  @default(ON_TIME)
+  notes           String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  tenantProfile   TenantProfile      @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  staffProfile    TenantStaffProfile @relation(fields: [staffProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([staffProfileId, date])
+  @@index([tenantProfileId])
+  @@index([staffProfileId])
+  @@index([date])
+  @@index([flag])
+  @@map("tenant_time_log")
+}
+
+model TenantScheduleShift {
+  id              String                    @id @default(cuid())
+  tenantProfileId String
+  staffProfileId  String?
+  shift           String
+  role            String
+  department      String?
+  startAt         DateTime
+  endAt           DateTime
+  status          TenantScheduleShiftStatus @default(ASSIGNED)
+  notes           String?
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
+  tenantProfile   TenantProfile             @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  staffProfile    TenantStaffProfile?       @relation(fields: [staffProfileId], references: [id], onDelete: SetNull)
+
+  @@index([tenantProfileId])
+  @@index([staffProfileId])
+  @@index([startAt])
+  @@index([status])
+  @@map("tenant_schedule_shift")
+}
+
+model TenantLeaveRequest {
+  id              String                   @id @default(cuid())
+  tenantProfileId String
+  staffProfileId  String
+  leaveType       String
+  startDate       DateTime
+  endDate         DateTime
+  reason          String
+  balanceDays     Int                      @default(0)
+  status          TenantLeaveRequestStatus @default(PENDING)
+  reviewedAt      DateTime?
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+  tenantProfile   TenantProfile            @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  staffProfile    TenantStaffProfile       @relation(fields: [staffProfileId], references: [id], onDelete: Cascade)
+
+  @@index([tenantProfileId])
+  @@index([staffProfileId])
+  @@index([status])
+  @@index([startDate])
+  @@map("tenant_leave_request")
+}
+
+model TenantOtUndertimeEntry {
+  id              String                  @id @default(cuid())
+  tenantProfileId String
+  staffProfileId  String
+  type            TenantOtUndertimeType
+  hours           String
+  payPeriod       String
+  reason          String
+  status          TenantOtUndertimeStatus @default(PENDING)
+  reviewedAt      DateTime?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  tenantProfile   TenantProfile           @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  staffProfile    TenantStaffProfile      @relation(fields: [staffProfileId], references: [id], onDelete: Cascade)
+
+  @@index([tenantProfileId])
+  @@index([staffProfileId])
+  @@index([type])
+  @@index([status])
+  @@map("tenant_ot_undertime_entry")
+}
+
+model TenantPayrollRun {
+  id                        String                 @id @default(cuid())
+  tenantProfileId           String
+  code                      String
+  name                      String
+  payPeriod                 String
+  periodStart               DateTime
+  periodEnd                 DateTime
+  payDate                   DateTime
+  payType                   TenantPayrollPayType   @default(REGULAR)
+  frequency                 TenantPayrollFrequency @default(MONTHLY)
+  department                String?
+  notes                     String?
+  status                    TenantPayrollRunStatus @default(DRAFT)
+  totalEmployees            Int                    @default(0)
+  includedEmployees         Int                    @default(0)
+  excludedEmployees         Int                    @default(0)
+  totalBasicSalary          Decimal                @default(0) @db.Decimal(12, 2)
+  totalAllowances           Decimal                @default(0) @db.Decimal(12, 2)
+  totalIncentives           Decimal                @default(0) @db.Decimal(12, 2)
+  totalCommission           Decimal                @default(0) @db.Decimal(12, 2)
+  totalBonus                Decimal                @default(0) @db.Decimal(12, 2)
+  totalOvertimePay          Decimal                @default(0) @db.Decimal(12, 2)
+  totalGrossPay             Decimal                @default(0) @db.Decimal(12, 2)
+  totalLeaveDeductions      Decimal                @default(0) @db.Decimal(12, 2)
+  totalUndertimeDeductions  Decimal                @default(0) @db.Decimal(12, 2)
+  totalGovernmentDeductions Decimal                @default(0) @db.Decimal(12, 2)
+  totalOtherDeductions      Decimal                @default(0) @db.Decimal(12, 2)
+  totalDeductions           Decimal                @default(0) @db.Decimal(12, 2)
+  totalNetPay               Decimal                @default(0) @db.Decimal(12, 2)
+  employerContributions     Decimal                @default(0) @db.Decimal(12, 2)
+  employerCost              Decimal                @default(0) @db.Decimal(12, 2)
+  options                   Json?
+  generatedBy               String?
+  generatedAt               DateTime?
+  createdAt                 DateTime               @default(now())
+  updatedAt                 DateTime               @updatedAt
+  tenantProfile             TenantProfile          @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  items                     TenantPayrollItem[]
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([periodStart])
+  @@index([status])
+  @@map("tenant_payroll_run")
+}
+
+model TenantPayrollItem {
+  id                   String             @id @default(cuid())
+  payrollRunId         String
+  tenantProfileId      String
+  staffProfileId       String
+  employeeName         String
+  employeeCode         String
+  roleName             String?
+  departmentName       String?
+  employmentType       String?
+  workLocation         String?
+  daysWorked           Int                @default(0)
+  lateCount            Int                @default(0)
+  absentCount          Int                @default(0)
+  leaveDays            Int                @default(0)
+  regularHours         Decimal            @default(0) @db.Decimal(8, 2)
+  overtimeHours        Decimal            @default(0) @db.Decimal(8, 2)
+  undertimeHours       Decimal            @default(0) @db.Decimal(8, 2)
+  basicSalary          Decimal            @default(0) @db.Decimal(12, 2)
+  allowance            Decimal            @default(0) @db.Decimal(12, 2)
+  incentives           Decimal            @default(0) @db.Decimal(12, 2)
+  commission           Decimal            @default(0) @db.Decimal(12, 2)
+  bonus                Decimal            @default(0) @db.Decimal(12, 2)
+  overtimePay          Decimal            @default(0) @db.Decimal(12, 2)
+  grossPay             Decimal            @default(0) @db.Decimal(12, 2)
+  leaveDeduction       Decimal            @default(0) @db.Decimal(12, 2)
+  undertimeDeduction   Decimal            @default(0) @db.Decimal(12, 2)
+  governmentDeductions Decimal            @default(0) @db.Decimal(12, 2)
+  otherDeductions      Decimal            @default(0) @db.Decimal(12, 2)
+  totalDeductions      Decimal            @default(0) @db.Decimal(12, 2)
+  netPay               Decimal            @default(0) @db.Decimal(12, 2)
+  included             Boolean            @default(true)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  payrollRun           TenantPayrollRun   @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  tenantProfile        TenantProfile      @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  staffProfile         TenantStaffProfile @relation(fields: [staffProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([payrollRunId, staffProfileId])
+  @@index([tenantProfileId])
+  @@index([staffProfileId])
+  @@map("tenant_payroll_item")
+}
+
+model TenantDepartment {
+  id                 String                 @id @default(cuid())
+  tenantProfileId    String
+  name               String
+  code               String
+  description        String?
+  email              String?
+  notes              String?
+  routing            String?
+  status             TenantDepartmentStatus @default(ACTIVE)
+  headStaffProfileId String?                @unique
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+  tenantProfile      TenantProfile          @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  headStaffProfile   TenantStaffProfile?    @relation("TenantDepartmentHead", fields: [headStaffProfileId], references: [id], onDelete: SetNull)
+  staffProfiles      TenantStaffProfile[]   @relation("TenantDepartmentStaff")
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([status])
+  @@map("tenant_department")
+}
+
+model TenantStaffInvitation {
+  id              String                      @id @default(cuid())
+  tenantProfileId String
+  email           String
+  roleName        String
+  message         String?
+  tokenHash       String                      @unique
+  expiresAt       DateTime
+  acceptedAt      DateTime?
+  status          TenantStaffInvitationStatus @default(PENDING)
+  createdAt       DateTime                    @default(now())
+  updatedAt       DateTime                    @updatedAt
+  tenantProfile   TenantProfile               @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+
+  @@index([tenantProfileId])
+  @@index([email])
+  @@index([status])
+  @@map("tenant_staff_invitation")
+}
+
+model TenantAmenity {
+  id                String               @id @default(cuid())
+  tenantProfileId   String
+  code              String
+  name              String
+  category          String
+  icon              String               @default("✨")
+  description       String?
+  appliesTo         TenantAmenityScope   @default(ROOM_LEVEL)
+  chargeable        Boolean              @default(false)
+  feeAmount         String?
+  feeUnit           TenantAmenityFeeUnit @default(PER_STAY)
+  status            TenantAmenityStatus  @default(ACTIVE)
+  showOnBookingPage Boolean              @default(true)
+  featured          Boolean              @default(false)
+  sortOrder         Int                  @default(0)
+  internalNotes     String?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  tenantProfile     TenantProfile        @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  rooms             TenantRoom[]         @relation("TenantRoomAmenities")
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([status])
+  @@index([category])
+  @@map("tenant_amenity")
+}
+
+model TenantRoom {
+  id                  String                           @id @default(cuid())
+  tenantProfileId     String
+  code                String
+  name                String
+  type                String
+  building            String
+  floor               String
+  baseRate            String
+  peakRate            String?
+  extraPersonCharge   String?
+  maxAdults           Int                              @default(0)
+  childrenOccupancy   Int                              @default(0)
+  bedConfiguration    String
+  roomSize            String?
+  viewType            String
+  smokingPolicy       TenantRoomSmokingPolicy          @default(NON_SMOKING)
+  status              TenantRoomStatus                 @default(AVAILABLE)
+  checkIn             String                           @default("14:00:00")
+  checkOut            String                           @default("12:00:00")
+  minNights           Int                              @default(1)
+  guestNote           String?
+  notes               String?
+  createdAt           DateTime                         @default(now())
+  updatedAt           DateTime                         @updatedAt
+  tenantProfile       TenantProfile                    @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  amenities           TenantAmenity[]                  @relation("TenantRoomAmenities")
+  photos              TenantRoomPhoto[]
+  reservations        TenantReservation[]
+  maintenanceRequests TenantMaintenanceRequest[]
+  housekeepingState   TenantHousekeepingRoom?
+  damageReports       TenantHousekeepingDamageReport[]
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([status])
+  @@index([type])
+  @@map("tenant_room")
+}
+
+model TenantRoomPhoto {
+  id        String     @id @default(cuid())
+  roomId    String
+  key       String
+  name      String
+  url       String
+  size      Int?
+  sortOrder Int        @default(0)
+  createdAt DateTime   @default(now())
+  room      TenantRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([key])
+  @@index([roomId])
+  @@map("tenant_room_photo")
+}
+
+model TenantHousekeepingRoom {
+  id                      String                   @id @default(cuid())
+  tenantProfileId         String
+  roomId                  String                   @unique
+  attendantStaffProfileId String?
+  status                  TenantHousekeepingStatus @default(VACANT)
+  lastPhotoKey            String?
+  lastPhotoName           String?
+  lastPhotoNote           String?
+  lastPhotoSize           Int?
+  lastPhotoUrl            String?
+  lastPhotoAt             DateTime?
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  tenantProfile           TenantProfile            @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  room                    TenantRoom               @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  attendantStaffProfile   TenantStaffProfile?      @relation(fields: [attendantStaffProfileId], references: [id], onDelete: SetNull)
+
+  @@index([tenantProfileId])
+  @@index([attendantStaffProfileId])
+  @@index([status])
+  @@map("tenant_housekeeping_room")
+}
+
+model TenantHousekeepingDamageReport {
+  id              String                         @id @default(cuid())
+  tenantProfileId String
+  roomId          String
+  title           String
+  details         String
+  photoKey        String?
+  photoName       String?
+  photoNote       String?
+  photoSize       Int?
+  photoUrl        String?
+  status          TenantHousekeepingDamageStatus @default(OPEN)
+  createdAt       DateTime                       @default(now())
+  updatedAt       DateTime                       @updatedAt
+  tenantProfile   TenantProfile                  @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  room            TenantRoom                     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([tenantProfileId])
+  @@index([roomId])
+  @@index([status])
+  @@map("tenant_housekeeping_damage_report")
+}
+
+model TenantLaundryJob {
+  id              String                @id @default(cuid())
+  tenantProfileId String
+  code            String
+  guestOrRoom     String
+  category        String
+  pieces          Int
+  dueTime         String
+  notes           String?
+  priority        TenantLaundryPriority @default(NORMAL)
+  status          TenantLaundryStatus   @default(RECEIVED)
+  receivedAt      DateTime              @default(now())
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  tenantProfile   TenantProfile         @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([category])
+  @@index([priority])
+  @@index([status])
+  @@index([receivedAt])
+  @@map("tenant_laundry_job")
+}
+
+model TenantReservation {
+  id                String                      @id @default(cuid())
+  tenantProfileId   String
+  roomId            String
+  guestName         String
+  guestEmail        String?
+  guestPhone        String?
+  checkIn           DateTime
+  checkOut          DateTime
+  adults            Int                         @default(1)
+  children          Int                         @default(0)
+  nights            Int                         @default(1)
+  rate              String
+  deposit           String?
+  totalAmount       String
+  paymentMethod     String?
+  status            TenantReservationStatus     @default(CONFIRMED)
+  frontDeskStatus   TenantReceptionQueueStatus?
+  notes             String?
+  createdAt         DateTime                    @default(now())
+  updatedAt         DateTime                    @updatedAt
+  tenantProfile     TenantProfile               @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  room              TenantRoom                  @relation(fields: [roomId], references: [id], onDelete: Restrict)
+  invoices          TenantInvoice[]
+  receptionRequests TenantReceptionRequest[]
+
+  @@index([tenantProfileId])
+  @@index([roomId])
+  @@index([status])
+  @@index([frontDeskStatus])
+  @@index([checkIn, checkOut])
+  @@map("tenant_reservation")
+}
+
+model TenantReceptionRequest {
+  id              String                         @id @default(cuid())
+  tenantProfileId String
+  reservationId   String?
+  department      String
+  roomOrArea      String
+  priority        TenantReceptionRequestPriority @default(NORMAL)
+  note            String
+  status          TenantReceptionRequestStatus   @default(SENT)
+  createdAt       DateTime                       @default(now())
+  updatedAt       DateTime                       @updatedAt
+  tenantProfile   TenantProfile                  @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  reservation     TenantReservation?             @relation(fields: [reservationId], references: [id], onDelete: SetNull)
+
+  @@index([tenantProfileId])
+  @@index([reservationId])
+  @@index([department])
+  @@index([status])
+  @@map("tenant_reception_request")
+}
+
+model TenantReceptionShiftNote {
+  id              String        @id @default(cuid())
+  tenantProfileId String
+  title           String
+  note            String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  tenantProfile   TenantProfile @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+
+  @@index([tenantProfileId])
+  @@index([createdAt])
+  @@map("tenant_reception_shift_note")
+}
+
+model TenantMaintenanceRequest {
+  id              String                         @id @default(cuid())
+  tenantProfileId String
+  roomId          String?
+  code            String
+  area            String
+  issue           String
+  notes           String?
+  forwardedBy     String                         @default("Reception")
+  priority        TenantMaintenancePriority      @default(NORMAL)
+  status          TenantMaintenanceRequestStatus @default(PENDING)
+  resolution      String?
+  completedAt     DateTime?
+  createdAt       DateTime                       @default(now())
+  updatedAt       DateTime                       @updatedAt
+  tenantProfile   TenantProfile                  @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  room            TenantRoom?                    @relation(fields: [roomId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([roomId])
+  @@index([priority])
+  @@index([status])
+  @@index([createdAt])
+  @@map("tenant_maintenance_request")
+}
+
+model TenantInventoryItem {
+  id              String                    @id @default(cuid())
+  tenantProfileId String
+  code            String
+  name            String
+  category        String
+  unit            String
+  quantity        Int                       @default(0)
+  threshold       Int                       @default(0)
+  description     String?
+  dashboardAlert  Boolean                   @default(true)
+  notes           String?
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
+  tenantProfile   TenantProfile             @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  movements       TenantInventoryMovement[]
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([category])
+  @@index([name])
+  @@map("tenant_inventory_item")
+}
+
+model TenantInventoryMovement {
+  id              String                      @id @default(cuid())
+  tenantProfileId String
+  itemId          String
+  code            String
+  type            TenantInventoryMovementType
+  quantity        Int
+  reason          String
+  createdAt       DateTime                    @default(now())
+  tenantProfile   TenantProfile               @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  item            TenantInventoryItem         @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([itemId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("tenant_inventory_movement")
+}
+
+model TenantService {
+  id                String                   @id @default(cuid())
+  tenantProfileId   String
+  code              String
+  title             String
+  category          String
+  provider          String?
+  baseCharge        String
+  billingType       TenantServiceBillingType @default(FIXED_PRICE)
+  duration          String?
+  bookingLeadTime   String?
+  feeNote           String?
+  description       String?
+  internalNotes     String?
+  showOnBookingPage Boolean                  @default(true)
+  status            TenantServiceStatus      @default(ACTIVE)
+  createdAt         DateTime                 @default(now())
+  updatedAt         DateTime                 @updatedAt
+  tenantProfile     TenantProfile            @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([status])
+  @@index([category])
+  @@map("tenant_service")
+}
+
+model TenantInvoice {
+  id                  String                       @id @default(cuid())
+  tenantProfileId     String
+  reservationId       String?
+  code                String
+  guestName           String
+  guestEmail          String?
+  invoiceDate         DateTime
+  dueDate             DateTime
+  status              TenantInvoiceStatus          @default(DRAFT)
+  paymentMethod       String?
+  reminderCadence     TenantInvoiceReminderCadence @default(STANDARD)
+  paymentInstructions String?
+  notes               String?
+  subtotal            String
+  discount            String                       @default("0")
+  tax                 String                       @default("0")
+  depositPaid         String                       @default("0")
+  totalAmount         String
+  balanceDue          String
+  sentAt              DateTime?
+  paidAt              DateTime?
+  lastReminderSentAt  DateTime?
+  nextReminderAt      DateTime?
+  createdAt           DateTime                     @default(now())
+  updatedAt           DateTime                     @updatedAt
+  tenantProfile       TenantProfile                @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  reservation         TenantReservation?           @relation(fields: [reservationId], references: [id], onDelete: SetNull)
+  lineItems           TenantInvoiceLineItem[]
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([reservationId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("tenant_invoice")
+}
+
+model TenantInvoiceLineItem {
+  id          String        @id @default(cuid())
+  invoiceId   String
+  description String
+  quantity    Int           @default(1)
+  rate        String
+  amount      String
+  sortOrder   Int           @default(0)
+  invoice     TenantInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@map("tenant_invoice_line_item")
+}
+
+model TenantFinanceEntry {
+  id              String                   @id @default(cuid())
+  tenantProfileId String
+  code            String
+  type            TenantFinanceEntryType
+  source          TenantFinanceEntrySource @default(MANUAL)
+  status          TenantFinanceEntryStatus @default(PENDING)
+  description     String
+  category        String
+  department      String?
+  amount          String
+  entryDate       DateTime
+  notes           String?
+  receiptKey      String?
+  receiptName     String?
+  receiptUrl      String?
+  receiptSize     Int?
+  receiptType     String?
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+  tenantProfile   TenantProfile            @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([type])
+  @@index([status])
+  @@index([entryDate])
+  @@map("tenant_finance_entry")
+}
+
+model TenantTransactionExport {
+  id              String                        @id @default(cuid())
+  tenantProfileId String
+  code            String
+  name            String
+  period          String
+  format          TenantTransactionExportFormat
+  status          TenantTransactionExportStatus @default(READY)
+  size            String                        @default("--")
+  rowCount        Int                           @default(0)
+  payload         Json?
+  createdAt       DateTime                      @default(now())
+  updatedAt       DateTime                      @updatedAt
+  tenantProfile   TenantProfile                 @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantProfileId, code])
+  @@index([tenantProfileId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("tenant_transaction_export")
+}
