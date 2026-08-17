@@ -58,6 +58,7 @@ export type TenantStaffProfileMinAggregateOutputType = {
   id: string | null
   tenantProfileId: string | null
   appUserId: string | null
+  accessRoleId: string | null
   departmentId: string | null
   username: string | null
   phoneNumber: string | null
@@ -86,6 +87,7 @@ export type TenantStaffProfileMaxAggregateOutputType = {
   id: string | null
   tenantProfileId: string | null
   appUserId: string | null
+  accessRoleId: string | null
   departmentId: string | null
   username: string | null
   phoneNumber: string | null
@@ -114,6 +116,7 @@ export type TenantStaffProfileCountAggregateOutputType = {
   id: number
   tenantProfileId: number
   appUserId: number
+  accessRoleId: number
   departmentId: number
   username: number
   phoneNumber: number
@@ -174,6 +177,7 @@ export type TenantStaffProfileMinAggregateInputType = {
   id?: true
   tenantProfileId?: true
   appUserId?: true
+  accessRoleId?: true
   departmentId?: true
   username?: true
   phoneNumber?: true
@@ -202,6 +206,7 @@ export type TenantStaffProfileMaxAggregateInputType = {
   id?: true
   tenantProfileId?: true
   appUserId?: true
+  accessRoleId?: true
   departmentId?: true
   username?: true
   phoneNumber?: true
@@ -230,6 +235,7 @@ export type TenantStaffProfileCountAggregateInputType = {
   id?: true
   tenantProfileId?: true
   appUserId?: true
+  accessRoleId?: true
   departmentId?: true
   username?: true
   phoneNumber?: true
@@ -347,6 +353,7 @@ export type TenantStaffProfileGroupByOutputType = {
   id: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId: string | null
   departmentId: string | null
   username: string | null
   phoneNumber: string | null
@@ -400,6 +407,7 @@ export type TenantStaffProfileWhereInput = {
   id?: Prisma.StringFilter<"TenantStaffProfile"> | string
   tenantProfileId?: Prisma.StringFilter<"TenantStaffProfile"> | string
   appUserId?: Prisma.StringFilter<"TenantStaffProfile"> | string
+  accessRoleId?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   departmentId?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   username?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
@@ -425,6 +433,7 @@ export type TenantStaffProfileWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"TenantStaffProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantStaffProfile"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
+  accessRole?: Prisma.XOR<Prisma.TenantAccessRoleNullableScalarRelationFilter, Prisma.TenantAccessRoleWhereInput> | null
   department?: Prisma.XOR<Prisma.TenantDepartmentNullableScalarRelationFilter, Prisma.TenantDepartmentWhereInput> | null
   headOfDepartment?: Prisma.XOR<Prisma.TenantDepartmentNullableScalarRelationFilter, Prisma.TenantDepartmentWhereInput> | null
   appUser?: Prisma.XOR<Prisma.AppUserScalarRelationFilter, Prisma.AppUserWhereInput>
@@ -440,6 +449,7 @@ export type TenantStaffProfileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   appUserId?: Prisma.SortOrder
+  accessRoleId?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
   username?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -465,6 +475,7 @@ export type TenantStaffProfileOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenantProfile?: Prisma.TenantProfileOrderByWithRelationInput
+  accessRole?: Prisma.TenantAccessRoleOrderByWithRelationInput
   department?: Prisma.TenantDepartmentOrderByWithRelationInput
   headOfDepartment?: Prisma.TenantDepartmentOrderByWithRelationInput
   appUser?: Prisma.AppUserOrderByWithRelationInput
@@ -484,6 +495,7 @@ export type TenantStaffProfileWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TenantStaffProfileWhereInput[]
   NOT?: Prisma.TenantStaffProfileWhereInput | Prisma.TenantStaffProfileWhereInput[]
   tenantProfileId?: Prisma.StringFilter<"TenantStaffProfile"> | string
+  accessRoleId?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   departmentId?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   roleName?: Prisma.StringFilter<"TenantStaffProfile"> | string
@@ -508,6 +520,7 @@ export type TenantStaffProfileWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"TenantStaffProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantStaffProfile"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
+  accessRole?: Prisma.XOR<Prisma.TenantAccessRoleNullableScalarRelationFilter, Prisma.TenantAccessRoleWhereInput> | null
   department?: Prisma.XOR<Prisma.TenantDepartmentNullableScalarRelationFilter, Prisma.TenantDepartmentWhereInput> | null
   headOfDepartment?: Prisma.XOR<Prisma.TenantDepartmentNullableScalarRelationFilter, Prisma.TenantDepartmentWhereInput> | null
   appUser?: Prisma.XOR<Prisma.AppUserScalarRelationFilter, Prisma.AppUserWhereInput>
@@ -523,6 +536,7 @@ export type TenantStaffProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   appUserId?: Prisma.SortOrder
+  accessRoleId?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
   username?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -561,6 +575,7 @@ export type TenantStaffProfileScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"TenantStaffProfile"> | string
   tenantProfileId?: Prisma.StringWithAggregatesFilter<"TenantStaffProfile"> | string
   appUserId?: Prisma.StringWithAggregatesFilter<"TenantStaffProfile"> | string
+  accessRoleId?: Prisma.StringNullableWithAggregatesFilter<"TenantStaffProfile"> | string | null
   departmentId?: Prisma.StringNullableWithAggregatesFilter<"TenantStaffProfile"> | string | null
   username?: Prisma.StringNullableWithAggregatesFilter<"TenantStaffProfile"> | string | null
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"TenantStaffProfile"> | string | null
@@ -613,6 +628,7 @@ export type TenantStaffProfileCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -628,6 +644,7 @@ export type TenantStaffProfileUncheckedCreateInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -687,6 +704,7 @@ export type TenantStaffProfileUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -702,6 +720,7 @@ export type TenantStaffProfileUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -739,6 +758,7 @@ export type TenantStaffProfileCreateManyInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -796,6 +816,7 @@ export type TenantStaffProfileUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -841,6 +862,7 @@ export type TenantStaffProfileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   appUserId?: Prisma.SortOrder
+  accessRoleId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   username?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
@@ -885,6 +907,7 @@ export type TenantStaffProfileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   appUserId?: Prisma.SortOrder
+  accessRoleId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   username?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
@@ -913,6 +936,7 @@ export type TenantStaffProfileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   appUserId?: Prisma.SortOrder
+  accessRoleId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   username?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
@@ -1058,6 +1082,48 @@ export type DecimalFieldUpdateOperationsInput = {
 export type TenantStaffProfileUpdatetagsInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type TenantStaffProfileCreateNestedManyWithoutAccessRoleInput = {
+  create?: Prisma.XOR<Prisma.TenantStaffProfileCreateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput> | Prisma.TenantStaffProfileCreateWithoutAccessRoleInput[] | Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput[]
+  connectOrCreate?: Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput | Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput[]
+  createMany?: Prisma.TenantStaffProfileCreateManyAccessRoleInputEnvelope
+  connect?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+}
+
+export type TenantStaffProfileUncheckedCreateNestedManyWithoutAccessRoleInput = {
+  create?: Prisma.XOR<Prisma.TenantStaffProfileCreateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput> | Prisma.TenantStaffProfileCreateWithoutAccessRoleInput[] | Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput[]
+  connectOrCreate?: Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput | Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput[]
+  createMany?: Prisma.TenantStaffProfileCreateManyAccessRoleInputEnvelope
+  connect?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+}
+
+export type TenantStaffProfileUpdateManyWithoutAccessRoleNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantStaffProfileCreateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput> | Prisma.TenantStaffProfileCreateWithoutAccessRoleInput[] | Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput[]
+  connectOrCreate?: Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput | Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput[]
+  upsert?: Prisma.TenantStaffProfileUpsertWithWhereUniqueWithoutAccessRoleInput | Prisma.TenantStaffProfileUpsertWithWhereUniqueWithoutAccessRoleInput[]
+  createMany?: Prisma.TenantStaffProfileCreateManyAccessRoleInputEnvelope
+  set?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  disconnect?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  delete?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  connect?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  update?: Prisma.TenantStaffProfileUpdateWithWhereUniqueWithoutAccessRoleInput | Prisma.TenantStaffProfileUpdateWithWhereUniqueWithoutAccessRoleInput[]
+  updateMany?: Prisma.TenantStaffProfileUpdateManyWithWhereWithoutAccessRoleInput | Prisma.TenantStaffProfileUpdateManyWithWhereWithoutAccessRoleInput[]
+  deleteMany?: Prisma.TenantStaffProfileScalarWhereInput | Prisma.TenantStaffProfileScalarWhereInput[]
+}
+
+export type TenantStaffProfileUncheckedUpdateManyWithoutAccessRoleNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantStaffProfileCreateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput> | Prisma.TenantStaffProfileCreateWithoutAccessRoleInput[] | Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput[]
+  connectOrCreate?: Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput | Prisma.TenantStaffProfileCreateOrConnectWithoutAccessRoleInput[]
+  upsert?: Prisma.TenantStaffProfileUpsertWithWhereUniqueWithoutAccessRoleInput | Prisma.TenantStaffProfileUpsertWithWhereUniqueWithoutAccessRoleInput[]
+  createMany?: Prisma.TenantStaffProfileCreateManyAccessRoleInputEnvelope
+  set?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  disconnect?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  delete?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  connect?: Prisma.TenantStaffProfileWhereUniqueInput | Prisma.TenantStaffProfileWhereUniqueInput[]
+  update?: Prisma.TenantStaffProfileUpdateWithWhereUniqueWithoutAccessRoleInput | Prisma.TenantStaffProfileUpdateWithWhereUniqueWithoutAccessRoleInput[]
+  updateMany?: Prisma.TenantStaffProfileUpdateManyWithWhereWithoutAccessRoleInput | Prisma.TenantStaffProfileUpdateManyWithWhereWithoutAccessRoleInput[]
+  deleteMany?: Prisma.TenantStaffProfileScalarWhereInput | Prisma.TenantStaffProfileScalarWhereInput[]
 }
 
 export type TenantStaffProfileCreateNestedOneWithoutTimeLogsInput = {
@@ -1232,6 +1298,7 @@ export type TenantStaffProfileCreateWithoutAppUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutAttendantStaffProfileInput
@@ -1245,6 +1312,7 @@ export type TenantStaffProfileCreateWithoutAppUserInput = {
 export type TenantStaffProfileUncheckedCreateWithoutAppUserInput = {
   id?: string
   tenantProfileId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -1320,6 +1388,7 @@ export type TenantStaffProfileUpdateWithoutAppUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutAttendantStaffProfileNestedInput
@@ -1333,6 +1402,7 @@ export type TenantStaffProfileUpdateWithoutAppUserInput = {
 export type TenantStaffProfileUncheckedUpdateWithoutAppUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1391,6 +1461,7 @@ export type TenantStaffProfileCreateWithoutTenantProfileInput = {
   tags?: Prisma.TenantStaffProfileCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -1405,6 +1476,7 @@ export type TenantStaffProfileCreateWithoutTenantProfileInput = {
 export type TenantStaffProfileUncheckedCreateWithoutTenantProfileInput = {
   id?: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -1471,6 +1543,7 @@ export type TenantStaffProfileScalarWhereInput = {
   id?: Prisma.StringFilter<"TenantStaffProfile"> | string
   tenantProfileId?: Prisma.StringFilter<"TenantStaffProfile"> | string
   appUserId?: Prisma.StringFilter<"TenantStaffProfile"> | string
+  accessRoleId?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   departmentId?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   username?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"TenantStaffProfile"> | string | null
@@ -1497,7 +1570,7 @@ export type TenantStaffProfileScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"TenantStaffProfile"> | Date | string
 }
 
-export type TenantStaffProfileCreateWithoutTimeLogsInput = {
+export type TenantStaffProfileCreateWithoutAccessRoleInput = {
   id?: string
   username?: string | null
   phoneNumber?: string | null
@@ -1527,6 +1600,107 @@ export type TenantStaffProfileCreateWithoutTimeLogsInput = {
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutAttendantStaffProfileInput
+  timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutStaffProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutStaffProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutStaffProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryCreateNestedManyWithoutStaffProfileInput
+  payrollItems?: Prisma.TenantPayrollItemCreateNestedManyWithoutStaffProfileInput
+}
+
+export type TenantStaffProfileUncheckedCreateWithoutAccessRoleInput = {
+  id?: string
+  tenantProfileId: string
+  appUserId: string
+  departmentId?: string | null
+  username?: string | null
+  phoneNumber?: string | null
+  roleName: string
+  status?: $Enums.TenantStaffStatus
+  permissions?: Prisma.TenantStaffProfileCreatepermissionsInput | string[]
+  isDepartmentHead?: boolean
+  employmentType?: string
+  workLocation?: string
+  basicSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  allowance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  incentives?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commission?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bonus?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  leaveDeduction?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sssContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  philHealthContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pagIbigContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  withholdingTax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  otherDeductions?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  tags?: Prisma.TenantStaffProfileCreatetagsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  headOfDepartment?: Prisma.TenantDepartmentUncheckedCreateNestedOneWithoutHeadStaffProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutAttendantStaffProfileInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutStaffProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutStaffProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutStaffProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedCreateNestedManyWithoutStaffProfileInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedCreateNestedManyWithoutStaffProfileInput
+}
+
+export type TenantStaffProfileCreateOrConnectWithoutAccessRoleInput = {
+  where: Prisma.TenantStaffProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantStaffProfileCreateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput>
+}
+
+export type TenantStaffProfileCreateManyAccessRoleInputEnvelope = {
+  data: Prisma.TenantStaffProfileCreateManyAccessRoleInput | Prisma.TenantStaffProfileCreateManyAccessRoleInput[]
+  skipDuplicates?: boolean
+}
+
+export type TenantStaffProfileUpsertWithWhereUniqueWithoutAccessRoleInput = {
+  where: Prisma.TenantStaffProfileWhereUniqueInput
+  update: Prisma.XOR<Prisma.TenantStaffProfileUpdateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedUpdateWithoutAccessRoleInput>
+  create: Prisma.XOR<Prisma.TenantStaffProfileCreateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedCreateWithoutAccessRoleInput>
+}
+
+export type TenantStaffProfileUpdateWithWhereUniqueWithoutAccessRoleInput = {
+  where: Prisma.TenantStaffProfileWhereUniqueInput
+  data: Prisma.XOR<Prisma.TenantStaffProfileUpdateWithoutAccessRoleInput, Prisma.TenantStaffProfileUncheckedUpdateWithoutAccessRoleInput>
+}
+
+export type TenantStaffProfileUpdateManyWithWhereWithoutAccessRoleInput = {
+  where: Prisma.TenantStaffProfileScalarWhereInput
+  data: Prisma.XOR<Prisma.TenantStaffProfileUpdateManyMutationInput, Prisma.TenantStaffProfileUncheckedUpdateManyWithoutAccessRoleInput>
+}
+
+export type TenantStaffProfileCreateWithoutTimeLogsInput = {
+  id?: string
+  username?: string | null
+  phoneNumber?: string | null
+  roleName: string
+  status?: $Enums.TenantStaffStatus
+  permissions?: Prisma.TenantStaffProfileCreatepermissionsInput | string[]
+  isDepartmentHead?: boolean
+  employmentType?: string
+  workLocation?: string
+  basicSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  allowance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  incentives?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commission?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bonus?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  leaveDeduction?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sssContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  philHealthContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pagIbigContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  withholdingTax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  otherDeductions?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  tags?: Prisma.TenantStaffProfileCreatetagsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
+  department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
+  headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
+  appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutAttendantStaffProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutStaffProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutStaffProfileInput
   otUndertimeEntries?: Prisma.TenantOtUndertimeEntryCreateNestedManyWithoutStaffProfileInput
@@ -1537,6 +1711,7 @@ export type TenantStaffProfileUncheckedCreateWithoutTimeLogsInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -1611,6 +1786,7 @@ export type TenantStaffProfileUpdateWithoutTimeLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -1625,6 +1801,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutTimeLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1683,6 +1860,7 @@ export type TenantStaffProfileCreateWithoutScheduleShiftsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -1697,6 +1875,7 @@ export type TenantStaffProfileUncheckedCreateWithoutScheduleShiftsInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -1771,6 +1950,7 @@ export type TenantStaffProfileUpdateWithoutScheduleShiftsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -1785,6 +1965,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutScheduleShiftsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1843,6 +2024,7 @@ export type TenantStaffProfileCreateWithoutLeaveRequestsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -1857,6 +2039,7 @@ export type TenantStaffProfileUncheckedCreateWithoutLeaveRequestsInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -1931,6 +2114,7 @@ export type TenantStaffProfileUpdateWithoutLeaveRequestsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -1945,6 +2129,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutLeaveRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2003,6 +2188,7 @@ export type TenantStaffProfileCreateWithoutOtUndertimeEntriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -2017,6 +2203,7 @@ export type TenantStaffProfileUncheckedCreateWithoutOtUndertimeEntriesInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -2091,6 +2278,7 @@ export type TenantStaffProfileUpdateWithoutOtUndertimeEntriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -2105,6 +2293,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutOtUndertimeEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2163,6 +2352,7 @@ export type TenantStaffProfileCreateWithoutPayrollItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -2177,6 +2367,7 @@ export type TenantStaffProfileUncheckedCreateWithoutPayrollItemsInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -2251,6 +2442,7 @@ export type TenantStaffProfileUpdateWithoutPayrollItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -2265,6 +2457,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutPayrollItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2323,6 +2516,7 @@ export type TenantStaffProfileCreateWithoutHeadOfDepartmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutAttendantStaffProfileInput
@@ -2337,6 +2531,7 @@ export type TenantStaffProfileUncheckedCreateWithoutHeadOfDepartmentInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -2400,6 +2595,7 @@ export type TenantStaffProfileCreateWithoutDepartmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutAttendantStaffProfileInput
@@ -2414,6 +2610,7 @@ export type TenantStaffProfileUncheckedCreateWithoutDepartmentInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   username?: string | null
   phoneNumber?: string | null
   roleName: string
@@ -2493,6 +2690,7 @@ export type TenantStaffProfileUpdateWithoutHeadOfDepartmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutAttendantStaffProfileNestedInput
@@ -2507,6 +2705,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutHeadOfDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2581,6 +2780,7 @@ export type TenantStaffProfileCreateWithoutHousekeepingRoomsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutStaffProfilesInput
+  accessRole?: Prisma.TenantAccessRoleCreateNestedOneWithoutStaffProfilesInput
   department?: Prisma.TenantDepartmentCreateNestedOneWithoutStaffProfilesInput
   headOfDepartment?: Prisma.TenantDepartmentCreateNestedOneWithoutHeadStaffProfileInput
   appUser: Prisma.AppUserCreateNestedOneWithoutStaffProfileInput
@@ -2595,6 +2795,7 @@ export type TenantStaffProfileUncheckedCreateWithoutHousekeepingRoomsInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -2669,6 +2870,7 @@ export type TenantStaffProfileUpdateWithoutHousekeepingRoomsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -2683,6 +2885,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutHousekeepingRoomsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2718,6 +2921,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutHousekeepingRoomsInput = {
 export type TenantStaffProfileCreateManyTenantProfileInput = {
   id?: string
   appUserId: string
+  accessRoleId?: string | null
   departmentId?: string | null
   username?: string | null
   phoneNumber?: string | null
@@ -2769,6 +2973,7 @@ export type TenantStaffProfileUpdateWithoutTenantProfileInput = {
   tags?: Prisma.TenantStaffProfileUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
@@ -2783,6 +2988,7 @@ export type TenantStaffProfileUpdateWithoutTenantProfileInput = {
 export type TenantStaffProfileUncheckedUpdateWithoutTenantProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2819,6 +3025,141 @@ export type TenantStaffProfileUncheckedUpdateWithoutTenantProfileInput = {
 export type TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleName?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStaffStatusFieldUpdateOperationsInput | $Enums.TenantStaffStatus
+  permissions?: Prisma.TenantStaffProfileUpdatepermissionsInput | string[]
+  isDepartmentHead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  workLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  basicSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  allowance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  incentives?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commission?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bonus?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  leaveDeduction?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sssContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  philHealthContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pagIbigContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  withholdingTax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  otherDeductions?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.TenantStaffProfileUpdatetagsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TenantStaffProfileCreateManyAccessRoleInput = {
+  id?: string
+  tenantProfileId: string
+  appUserId: string
+  departmentId?: string | null
+  username?: string | null
+  phoneNumber?: string | null
+  roleName: string
+  status?: $Enums.TenantStaffStatus
+  permissions?: Prisma.TenantStaffProfileCreatepermissionsInput | string[]
+  isDepartmentHead?: boolean
+  employmentType?: string
+  workLocation?: string
+  basicSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  allowance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  incentives?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commission?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bonus?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  leaveDeduction?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sssContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  philHealthContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pagIbigContribution?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  withholdingTax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  otherDeductions?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  tags?: Prisma.TenantStaffProfileCreatetagsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TenantStaffProfileUpdateWithoutAccessRoleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleName?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStaffStatusFieldUpdateOperationsInput | $Enums.TenantStaffStatus
+  permissions?: Prisma.TenantStaffProfileUpdatepermissionsInput | string[]
+  isDepartmentHead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  workLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  basicSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  allowance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  incentives?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commission?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bonus?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  leaveDeduction?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sssContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  philHealthContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pagIbigContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  withholdingTax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  otherDeductions?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.TenantStaffProfileUpdatetagsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  department?: Prisma.TenantDepartmentUpdateOneWithoutStaffProfilesNestedInput
+  headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
+  appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutAttendantStaffProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutStaffProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutStaffProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutStaffProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUpdateManyWithoutStaffProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUpdateManyWithoutStaffProfileNestedInput
+}
+
+export type TenantStaffProfileUncheckedUpdateWithoutAccessRoleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleName?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenantStaffStatusFieldUpdateOperationsInput | $Enums.TenantStaffStatus
+  permissions?: Prisma.TenantStaffProfileUpdatepermissionsInput | string[]
+  isDepartmentHead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  employmentType?: Prisma.StringFieldUpdateOperationsInput | string
+  workLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  basicSalary?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  allowance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  incentives?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commission?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bonus?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  leaveDeduction?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sssContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  philHealthContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pagIbigContribution?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  withholdingTax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  otherDeductions?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.TenantStaffProfileUpdatetagsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  headOfDepartment?: Prisma.TenantDepartmentUncheckedUpdateOneWithoutHeadStaffProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutAttendantStaffProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutStaffProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutStaffProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutStaffProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedUpdateManyWithoutStaffProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedUpdateManyWithoutStaffProfileNestedInput
+}
+
+export type TenantStaffProfileUncheckedUpdateManyWithoutAccessRoleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2849,6 +3190,7 @@ export type TenantStaffProfileCreateManyDepartmentInput = {
   id?: string
   tenantProfileId: string
   appUserId: string
+  accessRoleId?: string | null
   username?: string | null
   phoneNumber?: string | null
   roleName: string
@@ -2900,6 +3242,7 @@ export type TenantStaffProfileUpdateWithoutDepartmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput
+  accessRole?: Prisma.TenantAccessRoleUpdateOneWithoutStaffProfilesNestedInput
   headOfDepartment?: Prisma.TenantDepartmentUpdateOneWithoutHeadStaffProfileNestedInput
   appUser?: Prisma.AppUserUpdateOneRequiredWithoutStaffProfileNestedInput
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutAttendantStaffProfileNestedInput
@@ -2914,6 +3257,7 @@ export type TenantStaffProfileUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roleName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2950,6 +3294,7 @@ export type TenantStaffProfileUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessRoleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roleName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3055,6 +3400,7 @@ export type TenantStaffProfileSelect<ExtArgs extends runtime.Types.Extensions.In
   id?: boolean
   tenantProfileId?: boolean
   appUserId?: boolean
+  accessRoleId?: boolean
   departmentId?: boolean
   username?: boolean
   phoneNumber?: boolean
@@ -3080,6 +3426,7 @@ export type TenantStaffProfileSelect<ExtArgs extends runtime.Types.Extensions.In
   createdAt?: boolean
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  accessRole?: boolean | Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>
   department?: boolean | Prisma.TenantStaffProfile$departmentArgs<ExtArgs>
   headOfDepartment?: boolean | Prisma.TenantStaffProfile$headOfDepartmentArgs<ExtArgs>
   appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
@@ -3096,6 +3443,7 @@ export type TenantStaffProfileSelectCreateManyAndReturn<ExtArgs extends runtime.
   id?: boolean
   tenantProfileId?: boolean
   appUserId?: boolean
+  accessRoleId?: boolean
   departmentId?: boolean
   username?: boolean
   phoneNumber?: boolean
@@ -3121,6 +3469,7 @@ export type TenantStaffProfileSelectCreateManyAndReturn<ExtArgs extends runtime.
   createdAt?: boolean
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  accessRole?: boolean | Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>
   department?: boolean | Prisma.TenantStaffProfile$departmentArgs<ExtArgs>
   appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantStaffProfile"]>
@@ -3129,6 +3478,7 @@ export type TenantStaffProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.
   id?: boolean
   tenantProfileId?: boolean
   appUserId?: boolean
+  accessRoleId?: boolean
   departmentId?: boolean
   username?: boolean
   phoneNumber?: boolean
@@ -3154,6 +3504,7 @@ export type TenantStaffProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.
   createdAt?: boolean
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  accessRole?: boolean | Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>
   department?: boolean | Prisma.TenantStaffProfile$departmentArgs<ExtArgs>
   appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantStaffProfile"]>
@@ -3162,6 +3513,7 @@ export type TenantStaffProfileSelectScalar = {
   id?: boolean
   tenantProfileId?: boolean
   appUserId?: boolean
+  accessRoleId?: boolean
   departmentId?: boolean
   username?: boolean
   phoneNumber?: boolean
@@ -3188,9 +3540,10 @@ export type TenantStaffProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TenantStaffProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "appUserId" | "departmentId" | "username" | "phoneNumber" | "roleName" | "status" | "permissions" | "isDepartmentHead" | "employmentType" | "workLocation" | "basicSalary" | "allowance" | "incentives" | "commission" | "bonus" | "leaveDeduction" | "sssContribution" | "philHealthContribution" | "pagIbigContribution" | "withholdingTax" | "otherDeductions" | "notes" | "tags" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantStaffProfile"]>
+export type TenantStaffProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "appUserId" | "accessRoleId" | "departmentId" | "username" | "phoneNumber" | "roleName" | "status" | "permissions" | "isDepartmentHead" | "employmentType" | "workLocation" | "basicSalary" | "allowance" | "incentives" | "commission" | "bonus" | "leaveDeduction" | "sssContribution" | "philHealthContribution" | "pagIbigContribution" | "withholdingTax" | "otherDeductions" | "notes" | "tags" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantStaffProfile"]>
 export type TenantStaffProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  accessRole?: boolean | Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>
   department?: boolean | Prisma.TenantStaffProfile$departmentArgs<ExtArgs>
   headOfDepartment?: boolean | Prisma.TenantStaffProfile$headOfDepartmentArgs<ExtArgs>
   appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
@@ -3204,11 +3557,13 @@ export type TenantStaffProfileInclude<ExtArgs extends runtime.Types.Extensions.I
 }
 export type TenantStaffProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  accessRole?: boolean | Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>
   department?: boolean | Prisma.TenantStaffProfile$departmentArgs<ExtArgs>
   appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
 }
 export type TenantStaffProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  accessRole?: boolean | Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>
   department?: boolean | Prisma.TenantStaffProfile$departmentArgs<ExtArgs>
   appUser?: boolean | Prisma.AppUserDefaultArgs<ExtArgs>
 }
@@ -3217,6 +3572,7 @@ export type $TenantStaffProfilePayload<ExtArgs extends runtime.Types.Extensions.
   name: "TenantStaffProfile"
   objects: {
     tenantProfile: Prisma.$TenantProfilePayload<ExtArgs>
+    accessRole: Prisma.$TenantAccessRolePayload<ExtArgs> | null
     department: Prisma.$TenantDepartmentPayload<ExtArgs> | null
     headOfDepartment: Prisma.$TenantDepartmentPayload<ExtArgs> | null
     appUser: Prisma.$AppUserPayload<ExtArgs>
@@ -3231,6 +3587,7 @@ export type $TenantStaffProfilePayload<ExtArgs extends runtime.Types.Extensions.
     id: string
     tenantProfileId: string
     appUserId: string
+    accessRoleId: string | null
     departmentId: string | null
     username: string | null
     phoneNumber: string | null
@@ -3650,6 +4007,7 @@ readonly fields: TenantStaffProfileFieldRefs;
 export interface Prisma__TenantStaffProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenantProfile<T extends Prisma.TenantProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantProfileClient<runtime.Types.Result.GetResult<Prisma.$TenantProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  accessRole<T extends Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantStaffProfile$accessRoleArgs<ExtArgs>>): Prisma.Prisma__TenantAccessRoleClient<runtime.Types.Result.GetResult<Prisma.$TenantAccessRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   department<T extends Prisma.TenantStaffProfile$departmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantStaffProfile$departmentArgs<ExtArgs>>): Prisma.Prisma__TenantDepartmentClient<runtime.Types.Result.GetResult<Prisma.$TenantDepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   headOfDepartment<T extends Prisma.TenantStaffProfile$headOfDepartmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantStaffProfile$headOfDepartmentArgs<ExtArgs>>): Prisma.Prisma__TenantDepartmentClient<runtime.Types.Result.GetResult<Prisma.$TenantDepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   appUser<T extends Prisma.AppUserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AppUserDefaultArgs<ExtArgs>>): Prisma.Prisma__AppUserClient<runtime.Types.Result.GetResult<Prisma.$AppUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -3691,6 +4049,7 @@ export interface TenantStaffProfileFieldRefs {
   readonly id: Prisma.FieldRef<"TenantStaffProfile", 'String'>
   readonly tenantProfileId: Prisma.FieldRef<"TenantStaffProfile", 'String'>
   readonly appUserId: Prisma.FieldRef<"TenantStaffProfile", 'String'>
+  readonly accessRoleId: Prisma.FieldRef<"TenantStaffProfile", 'String'>
   readonly departmentId: Prisma.FieldRef<"TenantStaffProfile", 'String'>
   readonly username: Prisma.FieldRef<"TenantStaffProfile", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"TenantStaffProfile", 'String'>
@@ -4113,6 +4472,25 @@ export type TenantStaffProfileDeleteManyArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many TenantStaffProfiles to delete.
    */
   limit?: number
+}
+
+/**
+ * TenantStaffProfile.accessRole
+ */
+export type TenantStaffProfile$accessRoleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantAccessRole
+   */
+  select?: Prisma.TenantAccessRoleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantAccessRole
+   */
+  omit?: Prisma.TenantAccessRoleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantAccessRoleInclude<ExtArgs> | null
+  where?: Prisma.TenantAccessRoleWhereInput
 }
 
 /**

@@ -68,6 +68,11 @@ export type TenantLeadMessage = Prisma.TenantLeadMessageModel
  */
 export type TenantStaffProfile = Prisma.TenantStaffProfileModel
 /**
+ * Model TenantAccessRole
+ * 
+ */
+export type TenantAccessRole = Prisma.TenantAccessRoleModel
+/**
  * Model TenantTimeLog
  * 
  */

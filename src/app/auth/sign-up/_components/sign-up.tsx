@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useMemo, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { CheckIcon, Eye, EyeOff, XIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,21 +43,40 @@ export function SignUpView({
   selectedPlan,
   selectedBilling,
   checkoutIntent,
+  invitationToken,
 }: {
   userType?: "admin" | "tenant" | "customer";
   selectedPlan?: string;
   selectedBilling?: string;
   checkoutIntent?: string;
+  invitationToken?: string;
 }) {
   const router = useRouter();
   const trpc = useTRPC();
   const finalizeSignUp = useMutation(trpc.auth.finalizeSignUp.mutationOptions());
+  const acceptInvitation = useMutation(
+    trpc.auth.acceptInvitation.mutationOptions(),
+  );
+  const invitation = useQuery({
+    ...trpc.auth.validateInvitation.queryOptions({
+      token: invitationToken ?? "",
+    }),
+    enabled: Boolean(invitationToken),
+  });
   const [selectedRole, setSelectedRole] = useState<
     "tenant" | "customer" | null
-  >(userType === "tenant" || userType === "customer" ? userType : null);
+  >(
+    invitationToken
+      ? "tenant"
+      : userType === "tenant" || userType === "customer"
+        ? userType
+        : null,
+  );
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const isInvitationSignUp = Boolean(invitationToken);
   const activeUserType = userType ?? selectedRole ?? "customer";
   const quoteContent = getQuoteContent(activeUserType);
   const passwordStrength = passwordRequirements.map((requirement) => ({
@@ -71,7 +90,7 @@ export function SignUpView({
   const strengthPercent = Math.round(
     (strengthScore / passwordRequirements.length) * 100,
   );
-  const isSubmitting = finalizeSignUp.isPending;
+  const isSubmitting = finalizeSignUp.isPending || acceptInvitation.isPending;
   const isSocialSubmitting = isSubmitting;
   const role = activeUserType.toUpperCase() as
     | "ADMIN"
@@ -102,6 +121,11 @@ export function SignUpView({
   async function handleSocialSignIn(provider: "google" | "apple") {
     setError(null);
 
+    if (isInvitationSignUp) {
+      setError("Use email sign-up to accept this invitation.");
+      return;
+    }
+
     if (!userType && !selectedRole) {
       setError("Choose customer or tenant account type.");
       return;
@@ -121,7 +145,7 @@ export function SignUpView({
     event.preventDefault();
     setError(null);
 
-    if (!userType && !selectedRole) {
+    if (!isInvitationSignUp && !userType && !selectedRole) {
       setError("Choose customer or tenant account type.");
       return;
     }
@@ -130,7 +154,14 @@ export function SignUpView({
     const firstName = String(formData.get("firstName") ?? "").trim();
     const lastName = String(formData.get("lastName") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
+    const username = String(formData.get("username") ?? "").trim();
     const passwordValue = String(formData.get("password") ?? "");
+    const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+    if (passwordValue !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
 
     const signUpResult = await authClient.signUp.email({
       email,
@@ -144,6 +175,18 @@ export function SignUpView({
     }
 
     try {
+      if (invitationToken) {
+        const result = await acceptInvitation.mutateAsync({
+          token: invitationToken,
+          firstName,
+          lastName,
+          username,
+        });
+
+        router.push(result.redirectTo);
+        return;
+      }
+
       const result = await finalizeSignUp.mutateAsync({
         firstName,
         lastName,
@@ -163,6 +206,17 @@ export function SignUpView({
     }
   }
 
+  const invitationData = invitation.data?.valid ? invitation.data : null;
+  const emailValue = invitationData?.email;
+  const invitationError =
+    invitationToken && invitation.isError
+      ? invitation.error.message
+      : invitationToken && invitation.data && !invitation.data.valid
+        ? invitation.data.reason === "expired"
+          ? "Invitation expired."
+          : "Invitation invalid."
+        : null;
+
   return (
     <main className="min-h-screen bg-zinc-100">
       <div className="relative grid min-h-screen lg:grid-cols-2">
@@ -179,7 +233,7 @@ export function SignUpView({
                   priority
                 />
                 <h1 className="mt-2 text-lg font-semibold tracking-tight text-zinc-900">
-                  Create your account
+                  {isInvitationSignUp ? "Create staff account" : "Create your account"}
                 </h1>
               </div>
 
@@ -214,30 +268,34 @@ export function SignUpView({
 
               {userType || selectedRole ? (
                 <>
-              <div className="grid grid-cols-2 gap-2">
-                <SocialButton
-                  icon={<GoogleMark />}
-                  disabled={isSocialSubmitting}
-                  onClick={() => void handleSocialSignIn("google")}
-                >
-                  Google
-                </SocialButton>
-                <SocialButton
-                  icon={<AppleMark />}
-                  disabled={isSocialSubmitting}
-                  onClick={() => void handleSocialSignIn("apple")}
-                >
-                  Apple
-                </SocialButton>
-              </div>
+                  {!isInvitationSignUp ? (
+                    <>
+                      <div className="grid grid-cols-2 gap-2">
+                        <SocialButton
+                          icon={<GoogleMark />}
+                          disabled={isSocialSubmitting}
+                          onClick={() => void handleSocialSignIn("google")}
+                        >
+                          Google
+                        </SocialButton>
+                        <SocialButton
+                          icon={<AppleMark />}
+                          disabled={isSocialSubmitting}
+                          onClick={() => void handleSocialSignIn("apple")}
+                        >
+                          Apple
+                        </SocialButton>
+                      </div>
 
-              <div className="my-6 flex items-center gap-4">
-                <div className="h-px flex-1 bg-zinc-200" />
-                <span className="text-xs font-medium text-zinc-500">OR</span>
-                <div className="h-px flex-1 bg-zinc-200" />
-              </div>
+                      <div className="my-6 flex items-center gap-4">
+                        <div className="h-px flex-1 bg-zinc-200" />
+                        <span className="text-xs font-medium text-zinc-500">OR</span>
+                        <div className="h-px flex-1 bg-zinc-200" />
+                      </div>
+                    </>
+                  ) : null}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="hidden" name="role" value={activeUserType} />
                 <input type="hidden" name="plan" value={selectedPlan ?? ""} />
                 <input type="hidden" name="billing" value={selectedBilling ?? ""} />
@@ -288,9 +346,32 @@ export function SignUpView({
                     name="email"
                     type="email"
                     placeholder="Enter your email address"
+                    readOnly={isInvitationSignUp}
+                    disabled={isInvitationSignUp && invitation.isLoading}
+                    {...(isInvitationSignUp
+                      ? { value: emailValue ?? "" }
+                      : {})}
                     className="h-9 rounded-full border-zinc-200 px-4 text-sm"
                   />
                 </div>
+
+                {isInvitationSignUp ? (
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="username"
+                      className="text-sm font-medium text-zinc-950"
+                    >
+                      Username (optional)
+                    </Label>
+                    <Input
+                      id="username"
+                      name="username"
+                      type="text"
+                      placeholder="Choose a username"
+                      className="h-9 rounded-full border-zinc-200 px-4 text-sm"
+                    />
+                  </div>
+                ) : null}
 
                 <div className="space-y-1.5">
                   <Label
@@ -378,13 +459,57 @@ export function SignUpView({
                   </div>
                 </div>
 
-                {error ? (
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor="confirmPassword"
+                    className="text-sm font-medium text-zinc-950"
+                  >
+                    Confirm password
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm your password"
+                      className="h-9 rounded-full border-zinc-200 px-4 pr-11 text-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((value) => !value)}
+                      className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-zinc-400 hover:text-zinc-600"
+                      aria-label={
+                        showConfirmPassword
+                          ? "Hide confirm password"
+                          : "Show confirm password"
+                      }
+                      aria-pressed={showConfirmPassword}
+                      title={
+                        showConfirmPassword
+                          ? "Hide confirm password"
+                          : "Show confirm password"
+                      }
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="size-4" />
+                      ) : (
+                        <Eye className="size-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {invitationError || error ? (
                   <p className="rounded-full border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
-                    {error}
+                    {invitationError ?? error}
                   </p>
                 ) : null}
 
-                <Button type="submit" className="h-9 rounded-full w-full" disabled={isSubmitting}>
+                <Button
+                  type="submit"
+                  className="h-9 rounded-full w-full"
+                  disabled={isSubmitting || Boolean(invitationError) || invitation.isLoading}
+                >
                   {isSubmitting ? "Creating account..." : "Continue"}
                 </Button>
               </form>

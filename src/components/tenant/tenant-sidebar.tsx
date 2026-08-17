@@ -33,7 +33,10 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
+import { canAccessTenantPath } from "@/lib/tenant-permissions";
 import { cn } from "@/lib/utils";
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
 
 const ICONS = {
   House: IconHomeFilled,
@@ -64,30 +67,56 @@ const SETTINGS_ITEM = TENANT_NAVIGATION_DATA.find(
   (item) => item.label === "Settings",
 );
 
+type TenantSidebarChild = {
+  href: string;
+  label: string;
+  locked?: boolean;
+};
+
+type TenantSidebarItem = {
+  children?: TenantSidebarChild[];
+  href: string;
+  icon: string;
+  label: string;
+  locked?: boolean;
+};
+
 export function TenantSidebar() {
+  const trpc = useTRPC();
   const pathname = usePathname();
+  const profile = useQuery({
+    ...trpc.auth.profile.queryOptions(),
+    retry: false,
+  });
+  const permissions = profile.data?.permissions;
+  const primaryItems = PRIMARY_ITEMS.map((item) =>
+    filterNavItem(item, permissions),
+  ).filter((item): item is TenantSidebarItem => Boolean(item));
+  const settingsItem = SETTINGS_ITEM
+    ? filterNavItem(SETTINGS_ITEM, permissions)
+    : null;
 
   return (
     <aside className="hidden h-full w-60 shrink-0 flex-col overflow-hidden bg-[#EBEBEB] px-3 py-3 lg:flex">
       <nav className="no-scrollbar min-h-0 flex-1 overflow-y-auto pr-1">
         <div className="space-y-1">
-          {PRIMARY_ITEMS.slice(0, 5).map((item) => (
+          {primaryItems.slice(0, 5).map((item) => (
             <NavItem key={item.label} item={item} pathname={pathname} />
           ))}
         </div>
 
         <SidebarSection title="Operations">
-          {PRIMARY_ITEMS.slice(5, 8).map((item) => (
+          {primaryItems.slice(5, 8).map((item) => (
             <NavItem key={item.label} item={item} pathname={pathname} />
           ))}
         </SidebarSection>
 
         <SidebarSection title="Apps">
-          {PRIMARY_ITEMS.slice(8).map((item) => (
+          {primaryItems.slice(8).map((item) => (
             <NavItem key={item.label} item={item} pathname={pathname} />
           ))}
-          {SETTINGS_ITEM ? (
-            <NavItem item={SETTINGS_ITEM} pathname={pathname} />
+          {settingsItem ? (
+            <NavItem item={settingsItem} pathname={pathname} />
           ) : null}
         </SidebarSection>
       </nav>
@@ -96,6 +125,37 @@ export function TenantSidebar() {
       </div>
     </aside>
   );
+}
+
+function filterNavItem(
+  item: (typeof TENANT_NAVIGATION_DATA)[number],
+  permissions: readonly string[] | null | undefined,
+): TenantSidebarItem | null {
+  if ("children" in item && item.children) {
+    const children = item.children.filter((child) => {
+      return isLocked(child) || canAccessTenantPath(permissions, child.href);
+    });
+
+    if (!children.length) {
+      return null;
+    }
+
+    return {
+      ...item,
+      children,
+    };
+  }
+
+  if (isLocked(item) || canAccessTenantPath(permissions, item.href)) {
+    return {
+      href: item.href,
+      icon: item.icon,
+      label: item.label,
+      locked: "locked" in item ? item.locked : undefined,
+    };
+  }
+
+  return null;
 }
 
 function SidebarSection({
@@ -119,7 +179,7 @@ function NavItem({
   item,
   pathname,
 }: {
-  item: (typeof TENANT_NAVIGATION_DATA)[number];
+  item: TenantSidebarItem;
   pathname: string;
 }) {
   const Icon = ICONS[item.icon as keyof typeof ICONS] ?? IconLayoutDashboard;
@@ -137,22 +197,24 @@ function NavItem({
     Boolean(activeChildHref);
 
   if (children?.length) {
+    const parentHref = children[0]?.href ?? item.href;
+
     return (
       <Collapsible defaultOpen={isActive}>
         <CollapsibleTrigger asChild>
-          <button
+          <Link
+            href={parentHref}
             className={cn(
               "group flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-xs font-semibold text-[#303030] hover:bg-[#f7f7f7]",
               locked && "text-[#777777]",
               isActive && "bg-white shadow-sm",
             )}
-            type="button"
           >
             <Icon className="size-4 text-[#4a4a4a]" />
             <span className="min-w-0 flex-1 truncate">{item.label}</span>
             {locked ? <SoonBadge /> : null}
             <IconChevronRight className="size-4 text-[#616161] transition-transform duration-200 ease-out group-data-[state=open]:rotate-90" />
-          </button>
+          </Link>
         </CollapsibleTrigger>
         <CollapsibleContent className="ml-6 mt-1 space-y-1 pl-2">
           {children.map((child) => {

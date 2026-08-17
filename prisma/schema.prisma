@@ -435,6 +435,7 @@ model TenantProfile {
   housekeepingDamageReports TenantHousekeepingDamageReport[]
   laundryJobs               TenantLaundryJob[]
   staffProfiles             TenantStaffProfile[]
+  accessRoles               TenantAccessRole[]
   staffInvitations          TenantStaffInvitation[]
   timeLogs                  TenantTimeLog[]
   scheduleShifts            TenantScheduleShift[]
@@ -519,6 +520,7 @@ model TenantStaffProfile {
   id                     String                   @id @default(cuid())
   tenantProfileId        String
   appUserId              String                   @unique
+  accessRoleId           String?
   departmentId           String?
   username               String?                  @unique
   phoneNumber            String?
@@ -544,6 +546,7 @@ model TenantStaffProfile {
   createdAt              DateTime                 @default(now())
   updatedAt              DateTime                 @updatedAt
   tenantProfile          TenantProfile            @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  accessRole             TenantAccessRole?        @relation(fields: [accessRoleId], references: [id], onDelete: SetNull)
   department             TenantDepartment?        @relation("TenantDepartmentStaff", fields: [departmentId], references: [id], onDelete: SetNull)
   headOfDepartment       TenantDepartment?        @relation("TenantDepartmentHead")
   appUser                AppUser                  @relation(fields: [appUserId], references: [authUserId], onDelete: Cascade)
@@ -555,10 +558,27 @@ model TenantStaffProfile {
   payrollItems           TenantPayrollItem[]
 
   @@index([tenantProfileId])
+  @@index([accessRoleId])
   @@index([departmentId])
   @@index([roleName])
   @@index([status])
   @@map("tenant_staff_profile")
+}
+
+model TenantAccessRole {
+  id              String               @id @default(cuid())
+  tenantProfileId String
+  name            String
+  description     String?
+  permissions     String[]             @default([])
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  tenantProfile   TenantProfile        @relation(fields: [tenantProfileId], references: [id], onDelete: Cascade)
+  staffProfiles   TenantStaffProfile[]
+
+  @@unique([tenantProfileId, name])
+  @@index([tenantProfileId])
+  @@map("tenant_access_role")
 }
 
 model TenantTimeLog {

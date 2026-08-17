@@ -57,8 +57,6 @@ const STATUS_STYLES: Record<UserRoleStatus, string> = {
 const COLUMN_MENU = [
   "email",
   "role",
-  "permissionTemplate",
-  "permissionsCount",
   "status",
   "lastActive",
   "phone",
@@ -74,7 +72,7 @@ const DUMMY_ACTIVITY_LOGS = [
   {
     id: "ACT-002",
     action: "Permission set updated",
-    detail: "Workspace access permissions changed by tenant admin.",
+    detail: "Workspace access role changed by tenant admin.",
     time: "Yesterday, 4:18 PM",
   },
   {
@@ -117,7 +115,6 @@ export function UserRoleTable() {
         await queryClient.invalidateQueries(
           trpc.tenant.usersRoles.list.queryFilter(),
         );
-        toast.success("Staff deleted.");
       },
       onError: (error) => {
         toast.error(error.message);
@@ -142,8 +139,6 @@ export function UserRoleTable() {
         name: staffUser.displayName,
         email: staffUser.email,
         role: staffUser.roleName,
-        permissionTemplate: staffUser.roleName,
-        permissionsCount: staffUser.permissions.length,
         status: staffUser.status as UserRoleStatus,
         lastActive: "Never",
         phone: staffUser.phoneNumber,
@@ -186,7 +181,7 @@ export function UserRoleTable() {
       header: "User",
       cell: ({ row }) => (
         <Link
-          href={`/tenant/access/users-roles/${row.original.id}`}
+          href={`/tenant/access/users/${row.original.id}`}
           className="flex min-w-45 items-center gap-3"
         >
           <Avatar className="size-9">
@@ -210,11 +205,6 @@ export function UserRoleTable() {
       accessorKey: "role",
       header: "Role",
       cell: ({ row }) => formatCellValue(row.original.role),
-    },
-    {
-      accessorKey: "permissionsCount",
-      header: "Permissions",
-      cell: ({ row }) => `${row.original.permissionsCount} selected`,
     },
     {
       accessorKey: "status",
@@ -246,7 +236,20 @@ export function UserRoleTable() {
           isDeleting={deleteStaff.isPending}
           isSuspending={suspendStaff.isPending}
           row={row.original}
-          onDelete={(id) => deleteStaff.mutate({ id })}
+          onDelete={(deletedRow) =>
+            deleteStaff.mutate(
+              { id: deletedRow.id },
+              {
+                onSuccess: () => {
+                  toast.success(
+                    deletedRow.recordType === "invitation"
+                      ? "Invitation revoked."
+                      : "Staff deleted.",
+                  );
+                },
+              },
+            )
+          }
           onSuspend={(id) => suspendStaff.mutate({ id })}
         />
       ),
@@ -260,7 +263,7 @@ export function UserRoleTable() {
       columns={columns}
       data={tableData}
       emptyState={{
-        title: "No users or roles found",
+        title: "No users found",
         description: "Try changing the filters or search term.",
       }}
       filterOptions={[
@@ -269,7 +272,7 @@ export function UserRoleTable() {
         { label: "Invited", value: "invited" },
         { label: "Suspended", value: "suspended" },
       ]}
-      rowLabel="users or roles"
+      rowLabel="users"
     />
   );
 }
@@ -283,11 +286,11 @@ function UserRoleRowActions({
 }: {
   isDeleting: boolean;
   isSuspending: boolean;
-  onDelete: (id: string) => void;
+  onDelete: (row: UserRoleRecord) => void;
   onSuspend: (id: string) => void;
   row: UserRoleRecord;
 }) {
-  const detailsHref = `/tenant/access/users-roles/${row.id}`;
+  const detailsHref = `/tenant/access/users/${row.id}`;
   const displayName = formatCellValue(row.name);
   const isInvitation = row.recordType === "invitation";
   const [activityOpen, setActivityOpen] = useState(false);
@@ -445,7 +448,7 @@ function UserRoleRowActions({
             <AlertDialogCancel size="sm">Cancel</AlertDialogCancel>
             <AlertDialogAction
               size="sm"
-              onClick={() => onDelete(row.id)}
+              onClick={() => onDelete(row)}
               disabled={isDeleting}
             >
               {isDeleting
@@ -482,15 +485,15 @@ function UserRoleTableSkeleton() {
       </div>
       <div className="overflow-x-auto">
         <div className="min-w-250">
-          <div className="grid h-10 grid-cols-[48px_1.6fr_1.6fr_1fr_1fr_1fr_1fr_1fr_80px] items-center bg-zinc-50 px-4">
-            {Array.from({ length: 9 }).map((_, index) => (
+          <div className="grid h-10 grid-cols-[48px_1.6fr_1.6fr_1fr_1fr_1fr_1fr_80px] items-center bg-zinc-50 px-4">
+            {Array.from({ length: 8 }).map((_, index) => (
               <Skeleton key={index} className="h-4 w-20 max-w-[80%]" />
             ))}
           </div>
           {Array.from({ length: 6 }).map((_, rowIndex) => (
             <div
               key={rowIndex}
-              className="grid h-15 grid-cols-[48px_1.6fr_1.6fr_1fr_1fr_1fr_1fr_1fr_80px] items-center border-t border-zinc-100 px-4"
+              className="grid h-15 grid-cols-[48px_1.6fr_1.6fr_1fr_1fr_1fr_1fr_80px] items-center border-t border-zinc-100 px-4"
             >
               <Skeleton className="size-4 rounded-sm" />
               <div className="flex items-center gap-3">
@@ -502,7 +505,6 @@ function UserRoleTableSkeleton() {
               </div>
               <Skeleton className="h-4 w-40" />
               <Skeleton className="h-4 w-28" />
-              <Skeleton className="h-4 w-24" />
               <Skeleton className="h-6 w-20 rounded-full" />
               <Skeleton className="h-4 w-28" />
               <Skeleton className="h-4 w-24" />

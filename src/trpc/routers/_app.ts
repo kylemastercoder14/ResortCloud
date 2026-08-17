@@ -16,6 +16,7 @@ import {
   getInviteExpiresAt,
   hashInviteToken,
 } from "@/lib/invite-token";
+import { FULL_PERMISSION, hasTenantPermission } from "@/lib/tenant-permissions";
 import {
   extractMessengerTargetDate,
   fetchMessengerProfile,
@@ -222,6 +223,7 @@ const tenantPayrollEmployeeOverrideSchema = z.object({
   staffProfileId: z.string(),
 });
 const tenantPayrollInputSchema = z.object({
+  action: z.enum(["create", "update"]).optional(),
   backupPayrollData: z.boolean().default(false),
   createJournalEntry: z.boolean().default(true),
   department: optionalTrimmedString,
@@ -291,6 +293,7 @@ const onboardingSchema = z.object({
 });
 const tenantStaffProfileSchema = z.object({
   id: z.string().optional(),
+  accessRoleId: optionalTrimmedString,
   firstName: optionalTrimmedString,
   lastName: optionalTrimmedString,
   email: optionalEmail,
@@ -300,7 +303,6 @@ const tenantStaffProfileSchema = z.object({
   departmentId: optionalString,
   roleName: z.string().trim().min(1, "Role is required."),
   status: tenantStaffStatusSchema,
-  permissions: z.array(z.string()).default([]),
   employmentType: optionalString,
   workLocation: optionalString,
   basicSalary: payrollMoneySchema,
@@ -323,7 +325,14 @@ const tenantStaffProfileSchema = z.object({
 const tenantStaffInviteSchema = z.object({
   email: z.string().trim().email("Valid email is required."),
   message: optionalString,
+  accessRoleId: optionalTrimmedString,
   roleName: z.string().trim().min(1, "Role is required."),
+});
+const tenantAccessRoleSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().trim().min(1, "Role name is required."),
+  description: optionalString,
+  permissions: z.array(z.string()).default([]),
 });
 const tenantDepartmentSchema = z.object({
   id: z.string().optional(),
@@ -1200,6 +1209,71 @@ async function getTenantProfileForSession(authUserId: string) {
   return tenantProfile;
 }
 
+async function getTenantPermissionsForSession(authUserId: string) {
+  const appUser = await prisma.appUser.findUnique({
+    where: {
+      authUserId,
+    },
+    include: {
+      staffProfile: {
+        include: {
+          accessRole: true,
+        },
+      },
+    },
+  });
+
+  if (!appUser) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Tenant workspace access required.",
+    });
+  }
+
+  if (appUser.role === "TENANT") {
+    return [FULL_PERMISSION];
+  }
+
+  if (appUser.role === "TENANT_STAFF") {
+    return appUser.staffProfile?.accessRole?.permissions ??
+      appUser.staffProfile?.permissions ??
+      [];
+  }
+
+  throw new TRPCError({
+    code: "FORBIDDEN",
+    message: "Tenant workspace access required.",
+  });
+}
+
+async function requireTenantPermission(
+  authUserId: string,
+  permission: string,
+) {
+  const permissions = await getTenantPermissionsForSession(authUserId);
+
+  if (!hasTenantPermission(permissions, permission)) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "You do not have permission to perform this action.",
+    });
+  }
+}
+
+async function requireAnyTenantPermission(
+  authUserId: string,
+  permissionIds: string[],
+) {
+  const permissions = await getTenantPermissionsForSession(authUserId);
+
+  if (!permissionIds.some((permission) => hasTenantPermission(permissions, permission))) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "You do not have permission to perform this action.",
+    });
+  }
+}
+
 function toTenantStaffOutput(
   staffProfile: NonNullable<
     Awaited<ReturnType<typeof prisma.tenantStaffProfile.findUnique>>
@@ -1213,6 +1287,11 @@ function toTenantStaffOutput(
     };
     department?: {
       name: string;
+    } | null;
+    accessRole?: {
+      id: string;
+      name: string;
+      permissions: string[];
     } | null;
   },
 ) {
@@ -1254,9 +1333,10 @@ function toTenantStaffOutput(
     departmentId: staffProfile.departmentId ?? "",
     departmentName: staffProfile.department?.name ?? "",
     isDepartmentHead: staffProfile.isDepartmentHead,
-    roleName: staffProfile.roleName,
+    accessRoleId: staffProfile.accessRoleId ?? "",
+    roleName: staffProfile.accessRole?.name ?? staffProfile.roleName,
     status: fromTenantStaffStatus(staffProfile.status),
-    permissions: staffProfile.permissions,
+    permissions: staffProfile.accessRole?.permissions ?? staffProfile.permissions,
     employmentType: staffProfile.employmentType,
     workLocation: staffProfile.workLocation,
     basicSalary,
@@ -1279,6 +1359,57 @@ function toTenantStaffOutput(
     createdAt: staffProfile.createdAt,
     updatedAt: staffProfile.updatedAt,
   };
+}
+
+function toTenantAccessRoleOutput(role: {
+  id: string;
+  name: string;
+  description: string | null;
+  permissions: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  _count?: {
+    staffProfiles: number;
+  };
+}) {
+  return {
+    id: role.id,
+    name: role.name,
+    description: role.description ?? "",
+    permissions: role.permissions,
+    usersCount: role._count?.staffProfiles ?? 0,
+    createdAt: role.createdAt,
+    updatedAt: role.updatedAt,
+  };
+}
+
+async function resolveTenantAccessRole(input: {
+  accessRoleId?: string;
+  roleName?: string;
+  tenantProfileId: string;
+}) {
+  const role = input.accessRoleId
+    ? await prisma.tenantAccessRole.findFirst({
+        where: {
+          id: input.accessRoleId,
+          tenantProfileId: input.tenantProfileId,
+        },
+      })
+    : await prisma.tenantAccessRole.findFirst({
+        where: {
+          tenantProfileId: input.tenantProfileId,
+          name: input.roleName,
+        },
+      });
+
+  if (!role) {
+    throw new TRPCError({
+      code: "NOT_FOUND",
+      message: "Role not found. Create the role before assigning users.",
+    });
+  }
+
+  return role;
 }
 
 function getWorkdayStart(value = new Date()) {
@@ -1614,7 +1745,7 @@ async function buildTenantPayrollPreview(
       },
     },
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
   });
 
@@ -1958,6 +2089,108 @@ function toTenantPayrollOutput(payrollRun: {
       ),
     },
     updatedAt: payrollRun.updatedAt,
+  };
+}
+
+function toTenantPayrollHistoryOutput(item: {
+  id: string;
+  payrollRunId: string;
+  staffProfileId: string;
+  employeeName: string;
+  employeeCode: string;
+  roleName: string | null;
+  departmentName: string | null;
+  employmentType: string | null;
+  workLocation: string | null;
+  daysWorked: number;
+  lateCount: number;
+  absentCount: number;
+  leaveDays: number;
+  regularHours: Prisma.Decimal | number;
+  overtimeHours: Prisma.Decimal | number;
+  undertimeHours: Prisma.Decimal | number;
+  basicSalary: Prisma.Decimal | number;
+  allowance: Prisma.Decimal | number;
+  incentives: Prisma.Decimal | number;
+  commission: Prisma.Decimal | number;
+  bonus: Prisma.Decimal | number;
+  overtimePay: Prisma.Decimal | number;
+  grossPay: Prisma.Decimal | number;
+  leaveDeduction: Prisma.Decimal | number;
+  undertimeDeduction: Prisma.Decimal | number;
+  governmentDeductions: Prisma.Decimal | number;
+  otherDeductions: Prisma.Decimal | number;
+  totalDeductions: Prisma.Decimal | number;
+  netPay: Prisma.Decimal | number;
+  included: boolean;
+  payrollRun: {
+    id: string;
+    code: string;
+    name: string;
+    payPeriod: string;
+    periodStart: Date;
+    periodEnd: Date;
+    payDate: Date;
+    payType: "REGULAR" | "FINAL";
+    frequency: "MONTHLY" | "BI_WEEKLY";
+    notes: string | null;
+    status: "DRAFT" | "COMPLETED" | "VOIDED";
+    generatedAt: Date | null;
+    generatedBy: string | null;
+    createdAt: Date;
+  };
+}) {
+  return {
+    id: item.id,
+    payrollRunId: item.payrollRunId,
+    runCode: item.payrollRun.code,
+    runName: item.payrollRun.name,
+    payPeriod: item.payrollRun.payPeriod,
+    periodStart: item.payrollRun.periodStart,
+    periodEnd: item.payrollRun.periodEnd,
+    payDate: item.payrollRun.payDate,
+    payType: fromTenantPayrollPayType(item.payrollRun.payType),
+    frequency: fromTenantPayrollFrequency(item.payrollRun.frequency),
+    status:
+      item.payrollRun.status === "COMPLETED"
+        ? "Completed"
+        : item.payrollRun.status === "VOIDED"
+          ? "Voided"
+          : "Draft",
+    generatedAt: item.payrollRun.generatedAt,
+    generatedBy: item.payrollRun.generatedBy ?? "",
+    notes: item.payrollRun.notes ?? "",
+    item: {
+      absentCount: item.absentCount,
+      allowances: decimalNumber(item.allowance),
+      basicSalary: decimalNumber(item.basicSalary),
+      bonus: decimalNumber(item.bonus),
+      commission: decimalNumber(item.commission),
+      daysWorked: item.daysWorked,
+      department: item.departmentName ?? "Unassigned",
+      employeeId: item.employeeCode,
+      employmentType: item.employmentType ?? "Regular",
+      governmentDeductions: decimalNumber(item.governmentDeductions),
+      grossPay: decimalNumber(item.grossPay),
+      included: item.included,
+      incentives: decimalNumber(item.incentives),
+      lateCount: item.lateCount,
+      leaveDays: item.leaveDays,
+      leaveDeduction: decimalNumber(item.leaveDeduction),
+      location: item.workLocation ?? "Resort Office",
+      name: item.employeeName,
+      netPay: decimalNumber(item.netPay),
+      otherDeductions: decimalNumber(item.otherDeductions),
+      overtimeHours: decimalNumber(item.overtimeHours),
+      overtimePay: decimalNumber(item.overtimePay),
+      position: item.roleName ?? "Staff",
+      regularHours: decimalNumber(item.regularHours),
+      staffProfileId: item.staffProfileId,
+      totalDeductions: decimalNumber(item.totalDeductions),
+      totalEarnings: decimalNumber(item.grossPay),
+      undertimeDeduction: decimalNumber(item.undertimeDeduction),
+      undertimeHours: decimalNumber(item.undertimeHours),
+    },
   };
 }
 
@@ -2864,6 +3097,48 @@ export const appRouter = createTRPCRouter({
       };
     }),
   auth: createTRPCRouter({
+    profile: baseProcedure.query(async ({ ctx }) => {
+      const authUser = ctx.session?.user;
+
+      if (!authUser?.id) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Sign in required.",
+        });
+      }
+
+      const appUser = await prisma.appUser.findUnique({
+        where: {
+          authUserId: authUser.id,
+        },
+        include: {
+          staffProfile: {
+            include: {
+              accessRole: true,
+            },
+          },
+        },
+      });
+
+      return {
+        permissions:
+          appUser?.role === "TENANT_STAFF"
+            ? appUser.staffProfile?.accessRole?.permissions ??
+              appUser.staffProfile?.permissions ??
+              []
+            : [FULL_PERMISSION],
+        role:
+          appUser?.role === "TENANT_STAFF"
+            ? appUser.staffProfile?.accessRole?.name ??
+              appUser.staffProfile?.roleName ??
+              "Staff"
+            : appUser?.role === "TENANT"
+              ? "Administrator"
+              : appUser?.role
+                ? appUser.role.replace(/_/g, " ")
+                : "Administrator",
+      };
+    }),
     validateInvitation: baseProcedure
       .input(
         z.object({
@@ -2943,6 +3218,7 @@ export const appRouter = createTRPCRouter({
           },
           include: {
             appUser: true,
+            accessRole: true,
             department: true,
           },
         });
@@ -3122,6 +3398,182 @@ export const appRouter = createTRPCRouter({
           redirectTo: getAppRedirectPath({
             role: appUser.role,
             tenantOnboardingStatus: getTenantOnboardingStatusForAccess(appUser),
+          }),
+        };
+      }),
+    acceptInvitation: baseProcedure
+      .input(
+        z.object({
+          token: z.string().trim().min(1, "Invitation token is required."),
+          firstName: optionalTrimmedString,
+          lastName: optionalTrimmedString,
+          username: optionalUsername,
+        }),
+      )
+      .mutation(async ({ ctx, input }) => {
+        const authUser = ctx.session?.user;
+
+        if (!authUser?.id || !authUser.email) {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "Sign-up session missing.",
+          });
+        }
+
+        const invitation = await prisma.tenantStaffInvitation.findUnique({
+          where: {
+            tokenHash: hashInviteToken(input.token),
+          },
+          include: {
+            tenantProfile: true,
+          },
+        });
+
+        if (!invitation) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Invitation invalid.",
+          });
+        }
+
+        if (invitation.status !== "PENDING") {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Invitation already used.",
+          });
+        }
+
+        if (invitation.expiresAt <= new Date()) {
+          await prisma.tenantStaffInvitation.update({
+            where: {
+              id: invitation.id,
+            },
+            data: {
+              status: "EXPIRED",
+            },
+          });
+
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Invitation expired.",
+          });
+        }
+
+        if (authUser.email.toLowerCase() !== invitation.email.toLowerCase()) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Use the email address this invitation was sent to.",
+          });
+        }
+
+        const username = input.username?.toLowerCase() ?? null;
+        const [duplicateUsername, accessRole] = await Promise.all([
+          username
+            ? prisma.tenantStaffProfile.findFirst({
+                where: {
+                  username,
+                },
+              })
+            : null,
+          prisma.tenantAccessRole.findFirst({
+            where: {
+              tenantProfileId: invitation.tenantProfileId,
+              name: invitation.roleName,
+            },
+          }),
+        ]);
+
+        if (duplicateUsername) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "Username already exists in this workspace.",
+          });
+        }
+
+        const [fallbackFirstName = "User", ...fallbackLastNameParts] = (
+          authUser.name ||
+          authUser.email.split("@")[0] ||
+          "User"
+        )
+          .trim()
+          .split(/\s+/);
+        const firstName = input.firstName?.trim() || fallbackFirstName;
+        const lastName =
+          input.lastName?.trim() || fallbackLastNameParts.join(" ") || "";
+        const displayName =
+          `${firstName} ${lastName}`.trim() || authUser.name || authUser.email;
+
+        const appUser = await prisma.$transaction(async (tx) => {
+          await tx.user.update({
+            where: {
+              id: authUser.id,
+            },
+            data: {
+              email: authUser.email,
+              name: displayName,
+            },
+          });
+
+          const savedAppUser = await tx.appUser.upsert({
+            where: {
+              authUserId: authUser.id,
+            },
+            create: {
+              authUserId: authUser.id,
+              email: authUser.email,
+              firstName,
+              lastName,
+              displayName,
+              role: "TENANT_STAFF",
+            },
+            update: {
+              email: authUser.email,
+              firstName,
+              lastName,
+              displayName,
+              role: "TENANT_STAFF",
+            },
+          });
+
+          await tx.tenantStaffProfile.upsert({
+            where: {
+              appUserId: authUser.id,
+            },
+            create: {
+              tenantProfileId: invitation.tenantProfileId,
+              appUserId: authUser.id,
+              accessRoleId: accessRole?.id,
+              username,
+              roleName: invitation.roleName,
+              status: "ACTIVE",
+              permissions: [],
+            },
+            update: {
+              tenantProfileId: invitation.tenantProfileId,
+              accessRoleId: accessRole?.id,
+              username,
+              roleName: invitation.roleName,
+              status: "ACTIVE",
+            },
+          });
+
+          await tx.tenantStaffInvitation.update({
+            where: {
+              id: invitation.id,
+            },
+            data: {
+              acceptedAt: new Date(),
+              status: "ACCEPTED",
+            },
+          });
+
+          return savedAppUser;
+        });
+
+        return {
+          redirectTo: getAppRedirectPath({
+            role: appUser.role,
+            tenantOnboardingStatus: invitation.tenantProfile.onboardingStatus,
           }),
         };
       }),
@@ -4834,6 +5286,57 @@ export const appRouter = createTRPCRouter({
         }),
     }),
     payroll: createTRPCRouter({
+      myHistory: baseProcedure.query(async ({ ctx }) => {
+        const authUser = ctx.session?.user;
+
+        if (!authUser?.id) {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "Sign in required.",
+          });
+        }
+
+        const tenantProfile = await getTenantProfileForSession(authUser.id);
+        const appUser = await prisma.appUser.findUnique({
+          where: {
+            authUserId: authUser.id,
+          },
+          include: {
+            staffProfile: true,
+          },
+        });
+        const staffProfileId = appUser?.staffProfile?.id ?? null;
+
+        if (!staffProfileId) {
+          return [];
+        }
+
+        const payrollItems = await prisma.tenantPayrollItem.findMany({
+          where: {
+            included: true,
+            staffProfileId,
+            tenantProfileId: tenantProfile.id,
+            payrollRun: {
+              status: "COMPLETED",
+            },
+          },
+          include: {
+            payrollRun: true,
+          },
+          orderBy: [
+            {
+              payrollRun: {
+                payDate: "desc",
+              },
+            },
+            {
+              createdAt: "desc",
+            },
+          ],
+        });
+
+        return payrollItems.map(toTenantPayrollHistoryOutput);
+      }),
       preview: baseProcedure
         .input(tenantPayrollInputSchema)
         .query(async ({ ctx, input }) => {
@@ -4846,6 +5349,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "payroll.manage");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
 
           return buildTenantPayrollPreview(tenantProfile.id, input);
@@ -4866,6 +5370,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "payroll.view");
           if (input.id === "create") return null;
 
           const tenantProfile = await getTenantProfileForSession(authUser.id);
@@ -4902,6 +5407,7 @@ export const appRouter = createTRPCRouter({
           });
         }
 
+        await requireTenantPermission(authUser.id, "payroll.view");
         const tenantProfile = await getTenantProfileForSession(authUser.id);
         const payrollRuns = await prisma.tenantPayrollRun.findMany({
           where: {
@@ -4938,6 +5444,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "payroll.manage");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const appUser = await prisma.appUser.findUnique({
             where: {
@@ -4949,6 +5456,13 @@ export const appRouter = createTRPCRouter({
             throw new TRPCError({
               code: "FORBIDDEN",
               message: "Only tenant admin can generate payroll.",
+            });
+          }
+
+          if (input.action === "update" && !input.id) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Payroll update requires an existing payroll run.",
             });
           }
 
@@ -4969,6 +5483,25 @@ export const appRouter = createTRPCRouter({
           }
 
           const preview = await buildTenantPayrollPreview(tenantProfile.id, input);
+          if (!existingPayrollRun) {
+            const duplicatePayrollRun = await prisma.tenantPayrollRun.findFirst({
+              where: {
+                name: input.name,
+                periodEnd: preview.periodEnd,
+                periodStart: preview.periodStart,
+                tenantProfileId: tenantProfile.id,
+              },
+            });
+
+            if (duplicatePayrollRun) {
+              throw new TRPCError({
+                code: "CONFLICT",
+                message:
+                  "Payroll run already exists for this name and period. Use Edit payroll to update it.",
+              });
+            }
+          }
+
           const code =
             existingPayrollRun?.code ??
             (await getNextTenantPayrollCode(
@@ -5141,6 +5674,280 @@ export const appRouter = createTRPCRouter({
 
           return toTenantPayrollOutput(payrollRun);
         }),
+      delete: baseProcedure
+        .input(
+          z.object({
+            id: z.string().trim().min(1, "Payroll run is required."),
+          }),
+        )
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          await requireTenantPermission(authUser.id, "payroll.manage");
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const payrollRun = await prisma.tenantPayrollRun.findFirst({
+            where: {
+              id: input.id,
+              tenantProfileId: tenantProfile.id,
+            },
+          });
+
+          if (!payrollRun) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Payroll run not found.",
+            });
+          }
+
+          await prisma.tenantPayrollRun.delete({
+            where: {
+              id: payrollRun.id,
+            },
+          });
+
+          return {
+            id: payrollRun.id,
+          };
+        }),
+    }),
+    accessRoles: createTRPCRouter({
+      list: baseProcedure.query(async ({ ctx }) => {
+        const authUser = ctx.session?.user;
+
+        if (!authUser?.id) {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "Sign in required.",
+          });
+        }
+
+        await requireAnyTenantPermission(authUser.id, [
+          "usersRoles.view",
+          "usersRoles.permissions.manage",
+        ]);
+        const tenantProfile = await getTenantProfileForSession(authUser.id);
+        const roles = await prisma.tenantAccessRole.findMany({
+          where: {
+            tenantProfileId: tenantProfile.id,
+          },
+          include: {
+            _count: {
+              select: {
+                staffProfiles: true,
+              },
+            },
+          },
+          orderBy: {
+            name: "asc",
+          },
+        });
+
+        return roles.map(toTenantAccessRoleOutput);
+      }),
+      get: baseProcedure
+        .input(
+          z.object({
+            id: z.string(),
+          }),
+        )
+        .query(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          await requireAnyTenantPermission(authUser.id, [
+            "usersRoles.view",
+            "usersRoles.permissions.manage",
+          ]);
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const role = await prisma.tenantAccessRole.findFirst({
+            where: {
+              id: input.id,
+              tenantProfileId: tenantProfile.id,
+            },
+            include: {
+              _count: {
+                select: {
+                  staffProfiles: true,
+                },
+              },
+            },
+          });
+
+          if (!role) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Role not found.",
+            });
+          }
+
+          return toTenantAccessRoleOutput(role);
+        }),
+      save: baseProcedure
+        .input(tenantAccessRoleSchema)
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          await requireTenantPermission(authUser.id, "usersRoles.permissions.manage");
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          if (input.id) {
+            const existingRole = await prisma.tenantAccessRole.findFirst({
+              where: {
+                id: input.id,
+                tenantProfileId: tenantProfile.id,
+              },
+            });
+
+            if (!existingRole) {
+              throw new TRPCError({
+                code: "NOT_FOUND",
+                message: "Role not found.",
+              });
+            }
+          }
+
+          const duplicate = await prisma.tenantAccessRole.findFirst({
+            where: {
+              tenantProfileId: tenantProfile.id,
+              name: input.name,
+              ...(input.id
+                ? {
+                    id: {
+                      not: input.id,
+                    },
+                  }
+                : {}),
+            },
+          });
+
+          if (duplicate) {
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "Role already exists in this workspace.",
+            });
+          }
+
+          const role = input.id
+            ? await prisma.tenantAccessRole.update({
+                where: {
+                  id: input.id,
+                },
+                data: {
+                  name: input.name,
+                  description: input.description,
+                  permissions: input.permissions,
+                  staffProfiles: {
+                    updateMany: {
+                      where: {
+                        tenantProfileId: tenantProfile.id,
+                      },
+                      data: {
+                        roleName: input.name,
+                      },
+                    },
+                  },
+                },
+                include: {
+                  _count: {
+                    select: {
+                      staffProfiles: true,
+                    },
+                  },
+                },
+              })
+            : await prisma.tenantAccessRole.create({
+                data: {
+                  tenantProfileId: tenantProfile.id,
+                  name: input.name,
+                  description: input.description,
+                  permissions: input.permissions,
+                },
+                include: {
+                  _count: {
+                    select: {
+                      staffProfiles: true,
+                    },
+                  },
+                },
+              });
+
+          return toTenantAccessRoleOutput(role);
+        }),
+      delete: baseProcedure
+        .input(
+          z.object({
+            id: z.string(),
+          }),
+        )
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          await requireTenantPermission(authUser.id, "usersRoles.permissions.manage");
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const role = await prisma.tenantAccessRole.findFirst({
+            where: {
+              id: input.id,
+              tenantProfileId: tenantProfile.id,
+            },
+            include: {
+              _count: {
+                select: {
+                  staffProfiles: true,
+                },
+              },
+            },
+          });
+
+          if (!role) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Role not found.",
+            });
+          }
+
+          if (role._count.staffProfiles > 0) {
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "Role is assigned to users. Move users before deleting it.",
+            });
+          }
+
+          await prisma.tenantAccessRole.delete({
+            where: {
+              id: input.id,
+            },
+          });
+
+          return {
+            id: input.id,
+          };
+        }),
     }),
     usersRoles: createTRPCRouter({
       list: baseProcedure.query(async ({ ctx }) => {
@@ -5175,6 +5982,7 @@ export const appRouter = createTRPCRouter({
           },
           include: {
             appUser: true,
+            accessRole: true,
             department: true,
           },
           orderBy: {
@@ -5215,6 +6023,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "usersRoles.view");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const staffProfile = await prisma.tenantStaffProfile.findFirst({
             where: {
@@ -5223,6 +6032,7 @@ export const appRouter = createTRPCRouter({
             },
             include: {
               appUser: true,
+              accessRole: true,
             },
           });
 
@@ -5247,12 +6057,21 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireAnyTenantPermission(authUser.id, [
+            input.id ? "usersRoles.update" : "usersRoles.create",
+            "usersRoles.permissions.manage",
+          ]);
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const firstName = input.firstName ?? "";
           const lastName = input.lastName ?? "";
           const username = input.username?.toLowerCase() ?? null;
           const departmentId = input.departmentId || null;
           const status = toTenantStaffStatus(input.status);
+          const accessRole = await resolveTenantAccessRole({
+            accessRoleId: input.accessRoleId,
+            roleName: input.roleName,
+            tenantProfileId: tenantProfile.id,
+          });
           const payrollData = {
             employmentType: input.employmentType || "Regular",
             workLocation: input.workLocation || "Resort Office",
@@ -5391,10 +6210,11 @@ export const appRouter = createTRPCRouter({
                 data: {
                   username,
                   phoneNumber: input.phoneNumber,
+                  accessRoleId: accessRole.id,
                   departmentId,
-                  roleName: input.roleName,
+                  roleName: accessRole.name,
                   status,
-                  permissions: input.permissions,
+                  permissions: [],
                   ...payrollData,
                   notes: input.notes,
                   tags: input.tags,
@@ -5402,6 +6222,7 @@ export const appRouter = createTRPCRouter({
                 include: {
                   appUser: true,
                   department: true,
+                  accessRole: true,
                 },
               });
             });
@@ -5490,10 +6311,11 @@ export const appRouter = createTRPCRouter({
                 appUserId: authUserId,
                 username,
                 phoneNumber: input.phoneNumber,
+                accessRoleId: accessRole.id,
                 departmentId,
-                roleName: input.roleName,
+                roleName: accessRole.name,
                 status,
-                permissions: input.permissions,
+                permissions: [],
                 ...payrollData,
                 notes: input.notes,
                 tags: input.tags,
@@ -5501,6 +6323,7 @@ export const appRouter = createTRPCRouter({
               include: {
                 appUser: true,
                 department: true,
+                accessRole: true,
               },
             });
           });
@@ -5523,6 +6346,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "usersRoles.update");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const staffProfile = await prisma.tenantStaffProfile.findFirst({
             where: {
@@ -5531,6 +6355,7 @@ export const appRouter = createTRPCRouter({
             },
             include: {
               appUser: true,
+              accessRole: true,
               department: true,
             },
           });
@@ -5574,6 +6399,7 @@ export const appRouter = createTRPCRouter({
             },
             include: {
               appUser: true,
+              accessRole: true,
               department: true,
             },
           });
@@ -5596,6 +6422,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "usersRoles.delete");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const staffProfile = await prisma.tenantStaffProfile.findFirst({
             where: {
@@ -5605,6 +6432,29 @@ export const appRouter = createTRPCRouter({
           });
 
           if (!staffProfile) {
+            const invitation = await prisma.tenantStaffInvitation.findFirst({
+              where: {
+                id: input.id,
+                tenantProfileId: tenantProfile.id,
+                status: "PENDING",
+              },
+            });
+
+            if (invitation) {
+              await prisma.tenantStaffInvitation.update({
+                where: {
+                  id: invitation.id,
+                },
+                data: {
+                  status: "REVOKED",
+                },
+              });
+
+              return {
+                id: input.id,
+              };
+            }
+
             throw new TRPCError({
               code: "NOT_FOUND",
               message: "Staff user not found.",
@@ -5633,6 +6483,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "usersRoles.create");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const appUrl =
             process.env.NEXT_PUBLIC_APP_URL ??
@@ -5642,13 +6493,18 @@ export const appRouter = createTRPCRouter({
             tenantProfile.resortName ??
             tenantProfile.businessName ??
             "ResortCloud workspace";
+          const accessRole = await resolveTenantAccessRole({
+            accessRoleId: input.accessRoleId,
+            roleName: input.roleName,
+            tenantProfileId: tenantProfile.id,
+          });
           const token = generateInviteToken();
           const invitation = await prisma.tenantStaffInvitation.create({
             data: {
               email: input.email,
               expiresAt: getInviteExpiresAt(),
               message: input.message,
-              roleName: input.roleName,
+              roleName: accessRole.name,
               tenantProfileId: tenantProfile.id,
               tokenHash: hashInviteToken(token),
             },
@@ -5659,7 +6515,7 @@ export const appRouter = createTRPCRouter({
               appUrl,
               email: input.email,
               message: input.message,
-              role: input.roleName,
+              role: accessRole.name,
               token,
               workspaceName,
             });
@@ -5696,6 +6552,7 @@ export const appRouter = createTRPCRouter({
           });
         }
 
+        await requireTenantPermission(authUser.id, "departments.view");
         const tenantProfile = await getTenantProfileForSession(authUser.id);
         const departments = await prisma.tenantDepartment.findMany({
           where: {
@@ -5736,6 +6593,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "departments.view");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const department = await prisma.tenantDepartment.findFirst({
             where: {
@@ -6033,6 +6891,7 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          await requireTenantPermission(authUser.id, "departments.manage");
           const tenantProfile = await getTenantProfileForSession(authUser.id);
           const department = await prisma.tenantDepartment.findFirst({
             where: {
@@ -9002,11 +9861,41 @@ export const appRouter = createTRPCRouter({
           checks.push("Messenger integration active in ResortCloud.");
         }
 
-        const leadCount = await prisma.tenantLead.count({
-          where: {
-            tenantProfileId: tenantProfile.id,
-          },
-        });
+        const [leadCount, stageCounts, recentMessages] = await Promise.all([
+          prisma.tenantLead.count({
+            where: {
+              tenantProfileId: tenantProfile.id,
+            },
+          }),
+          prisma.tenantLead.groupBy({
+            by: ["stage"],
+            _count: {
+              _all: true,
+            },
+            where: {
+              tenantProfileId: tenantProfile.id,
+            },
+          }),
+          prisma.tenantLeadMessage.findMany({
+            where: {
+              lead: {
+                tenantProfileId: tenantProfile.id,
+              },
+            },
+            include: {
+              lead: {
+                select: {
+                  guestName: true,
+                  stage: true,
+                },
+              },
+            },
+            orderBy: {
+              sentAt: "desc",
+            },
+            take: 8,
+          }),
+        ]);
 
         if (pageId && pageAccessToken) {
           type MetaPageProbeBody = {
@@ -9127,6 +10016,18 @@ export const appRouter = createTRPCRouter({
           healthy: issues.length === 0,
           issues,
           leadCount,
+          recentMessages: recentMessages.map((message) => ({
+            direction: message.direction,
+            guestName: message.lead.guestName,
+            id: message.id,
+            sentAt: message.sentAt.toISOString(),
+            stage: message.lead.stage,
+            text: message.text ?? "Attachment or postback",
+          })),
+          stageCounts: stageCounts.map((item) => ({
+            count: item._count._all,
+            stage: item.stage,
+          })),
           warnings,
         };
       }),
@@ -9237,57 +10138,87 @@ export const appRouter = createTRPCRouter({
           },
         });
 
+        type MetaMessage = {
+          attachments?: unknown;
+          created_time?: string;
+          from?: { id?: string; name?: string };
+          id: string;
+          message?: string;
+          to?: { data?: Array<{ id?: string; name?: string }> };
+        };
+        type MetaGraphPage<T> = {
+          data?: T[];
+          error?: { message?: string };
+          paging?: {
+            next?: string;
+          };
+        };
         type MetaConversation = {
           id: string;
-          messages?: {
-            data?: Array<{
-              attachments?: unknown;
-              created_time?: string;
-              from?: { id?: string; name?: string };
-              id: string;
-              message?: string;
-              to?: { data?: Array<{ id?: string; name?: string }> };
-            }>;
-          };
           participants?: {
             data?: Array<{ id?: string; name?: string }>;
           };
           updated_time?: string;
         };
-        type MetaConversationResponse = {
-          data?: MetaConversation[];
-          error?: { message?: string };
+
+        const withAccessToken = (url: string) => {
+          const nextUrl = new URL(url);
+          if (!nextUrl.searchParams.has("access_token")) {
+            nextUrl.searchParams.set("access_token", pageAccessToken);
+          }
+          return nextUrl.toString();
+        };
+
+        const fetchMetaPage = async <T,>(url: string) => {
+          const response = await fetch(withAccessToken(url), {
+            cache: "no-store",
+          });
+          const body = (await response.json()) as MetaGraphPage<T>;
+
+          if (!response.ok) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Messenger inbox sync failed: ${body.error?.message ?? "Unknown Meta error."}`,
+            });
+          }
+
+          return body;
+        };
+
+        const fetchAllMetaPages = async <T,>(initialUrl: string) => {
+          const records: T[] = [];
+          const seenUrls = new Set<string>();
+          let nextUrl: string | undefined = initialUrl;
+
+          while (nextUrl && !seenUrls.has(nextUrl)) {
+            seenUrls.add(nextUrl);
+            const page: MetaGraphPage<T> = await fetchMetaPage<T>(nextUrl);
+            records.push(...(page.data ?? []));
+            nextUrl = page.paging?.next;
+          }
+
+          return records;
         };
 
         const fields = [
           "id",
           "updated_time",
           "participants{id,name}",
-          "messages.limit(10){id,message,created_time,from{id,name},to{id,name},attachments}",
         ].join(",");
-        const response = await fetch(
-          `https://graph.facebook.com/${graphVersion}/${pageId}/conversations?platform=messenger&fields=${encodeURIComponent(fields)}&limit=25&access_token=${encodeURIComponent(pageAccessToken)}`,
-          {
-            cache: "no-store",
-          },
+        const conversations = await fetchAllMetaPages<MetaConversation>(
+          `https://graph.facebook.com/${graphVersion}/${pageId}/conversations?platform=messenger&fields=${encodeURIComponent(fields)}&access_token=${encodeURIComponent(pageAccessToken)}`,
         );
-        const body = (await response.json()) as MetaConversationResponse;
-
-        if (!response.ok) {
-          throw new TRPCError({
-            code: "BAD_REQUEST",
-            message: `Messenger inbox sync failed: ${body.error?.message ?? "Unknown Meta error."}`,
-          });
-        }
 
         let syncedMessages = 0;
 
-        for (const conversation of body.data ?? []) {
+        for (const conversation of conversations) {
           const guest = conversation.participants?.data?.find(
             (participant) => participant.id && participant.id !== pageId,
           );
           const psid = guest?.id ?? conversation.id;
-          const messages = conversation.messages?.data ?? [];
+          const messages = await fetchAllMetaPages<MetaMessage>(
+            `https://graph.facebook.com/${graphVersion}/${conversation.id}/messages?fields=${encodeURIComponent("id,message,created_time,from{id,name},to{id,name},attachments")}&access_token=${encodeURIComponent(pageAccessToken)}`,
+          );
           const newestMessage =
             [...messages].sort(
               (a, b) =>
@@ -9410,7 +10341,7 @@ export const appRouter = createTRPCRouter({
         }
 
         return {
-          conversations: body.data?.length ?? 0,
+          conversations: conversations.length,
           messages: syncedMessages,
         };
       }),
@@ -9690,9 +10621,8 @@ export const appRouter = createTRPCRouter({
           include: {
             messages: {
               orderBy: {
-                sentAt: "desc",
+                sentAt: "asc",
               },
-              take: 20,
             },
             messengerIntegration: true,
           },

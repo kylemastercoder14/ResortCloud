@@ -1,11 +1,10 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IconExternalLink } from "@tabler/icons-react";
 import { toast } from "sonner";
 
-import { CreatableSelect } from "@/components/reusable/creatable-select";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,9 +17,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useTRPC } from "@/trpc/client";
-import { USER_ROLE_OPTIONS } from "./data";
 
 export function InviteUserDialog() {
   const trpc = useTRPC();
@@ -28,7 +33,12 @@ export function InviteUserDialog() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [roleId, setRoleId] = useState("");
   const [role, setRole] = useState("");
+  const accessRoles = useQuery({
+    ...trpc.tenant.accessRoles.list.queryOptions(),
+    retry: false,
+  });
   const inviteUser = useMutation(
     trpc.tenant.usersRoles.invite.mutationOptions({
       onSuccess: async () => {
@@ -37,6 +47,7 @@ export function InviteUserDialog() {
         );
         toast.success("Invitation email sent.");
         setEmail("");
+        setRoleId("");
         setRole("");
         setMessage("");
         setOpen(false);
@@ -50,13 +61,14 @@ export function InviteUserDialog() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!role.trim()) {
+    if (!roleId || !role.trim()) {
       toast.error("Role is required.");
       return;
     }
 
     inviteUser.mutate({
       email,
+      accessRoleId: roleId,
       roleName: role,
       message,
     });
@@ -95,13 +107,26 @@ export function InviteUserDialog() {
           <div className="space-y-2">
             <Label>Role</Label>
             <input type="hidden" name="role" value={role} />
-            <CreatableSelect
-              value={role}
-              onChange={setRole}
-              options={USER_ROLE_OPTIONS}
-              placeholder="Select or create role"
-              searchPlaceholder="Search or create role..."
-            />
+            <Select
+              value={roleId}
+              onValueChange={(value) => {
+                const selectedRole = accessRoles.data?.find((item) => item.id === value);
+
+                setRoleId(value);
+                setRole(selectedRole?.name ?? "");
+              }}
+            >
+              <SelectTrigger className="h-10 w-full rounded-lg">
+                <SelectValue placeholder="Select workspace role" />
+              </SelectTrigger>
+              <SelectContent>
+                {(accessRoles.data ?? []).map((item) => (
+                  <SelectItem key={item.id} value={item.id}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="space-y-2">
             <Label htmlFor="inviteMessage">

@@ -63,6 +63,7 @@ export type ReusableDataTableProps<TData> = {
   filterColumnId?: string;
   filterOptions?: DataTableFilterOption[];
   initialColumnVisibility?: VisibilityState;
+  preventHorizontalScroll?: boolean;
   rowLabel?: string;
   searchPlaceholder?: string;
   toolbarActions?: React.ReactNode;
@@ -76,6 +77,7 @@ export function ReusableDataTable<TData>({
   filterColumnId = "status",
   filterOptions = [{ label: "All", value: "all" }],
   initialColumnVisibility = {},
+  preventHorizontalScroll = false,
   rowLabel = "records",
   searchPlaceholder = "Search and filter",
   toolbarActions,
@@ -175,8 +177,8 @@ export function ReusableDataTable<TData>({
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <Table>
+      <div className={preventHorizontalScroll ? "overflow-x-hidden" : "overflow-x-auto"}>
+        <Table className={preventHorizontalScroll ? "w-full table-fixed" : undefined}>
           <TableHeader className="bg-zinc-50">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-zinc-50">
@@ -184,7 +186,8 @@ export function ReusableDataTable<TData>({
                   <TableHead
                     key={header.id}
                     className={cn(
-                      "h-10 whitespace-nowrap px-4 font-semibold text-zinc-600",
+                      "h-10 px-4 font-semibold text-zinc-600",
+                      preventHorizontalScroll ? "min-w-0 whitespace-normal" : "whitespace-nowrap",
                       header.id === "select" && "w-12",
                       header.id === "actions" && "w-20 text-right",
                     )}
@@ -208,7 +211,8 @@ export function ReusableDataTable<TData>({
                     <TableCell
                       key={cell.id}
                       className={cn(
-                        "whitespace-nowrap px-4 text-sm text-zinc-700",
+                        "px-4 text-sm text-zinc-700",
+                        preventHorizontalScroll ? "min-w-0 whitespace-normal" : "whitespace-nowrap",
                         cell.column.id === "actions" && "text-right",
                       )}
                     >

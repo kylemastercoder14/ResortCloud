@@ -61,6 +61,7 @@ export const ModelName = {
   TenantLead: 'TenantLead',
   TenantLeadMessage: 'TenantLeadMessage',
   TenantStaffProfile: 'TenantStaffProfile',
+  TenantAccessRole: 'TenantAccessRole',
   TenantTimeLog: 'TenantTimeLog',
   TenantScheduleShift: 'TenantScheduleShift',
   TenantLeaveRequest: 'TenantLeaveRequest',
@@ -287,6 +288,7 @@ export const TenantStaffProfileScalarFieldEnum = {
   id: 'id',
   tenantProfileId: 'tenantProfileId',
   appUserId: 'appUserId',
+  accessRoleId: 'accessRoleId',
   departmentId: 'departmentId',
   username: 'username',
   phoneNumber: 'phoneNumber',
@@ -314,6 +316,19 @@ export const TenantStaffProfileScalarFieldEnum = {
 } as const
 
 export type TenantStaffProfileScalarFieldEnum = (typeof TenantStaffProfileScalarFieldEnum)[keyof typeof TenantStaffProfileScalarFieldEnum]
+
+
+export const TenantAccessRoleScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  name: 'name',
+  description: 'description',
+  permissions: 'permissions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantAccessRoleScalarFieldEnum = (typeof TenantAccessRoleScalarFieldEnum)[keyof typeof TenantAccessRoleScalarFieldEnum]
 
 
 export const TenantTimeLogScalarFieldEnum = {

@@ -19,8 +19,8 @@ const Page = () => {
             size="xs"
             asChild
           >
-            <Link href="/tenant/access/users-roles/create">
-              <IconPlus className="size-4" />Add user role
+            <Link href="/tenant/access/users/create">
+              <IconPlus className="size-4" />Add user
             </Link>
           </Button>
         </div>

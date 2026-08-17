@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -330,6 +330,7 @@ function getEmployeeColumns({
   employees,
   onToggleEmployeeIncluded,
   onUpdateEmployeeAmount,
+  readOnly = false,
 }: {
   employees: Employee[];
   onToggleEmployeeIncluded: (staffProfileId: string, included: boolean) => void;
@@ -338,6 +339,7 @@ function getEmployeeColumns({
     field: EditableEmployeeMoneyField,
     value: number,
   ) => void;
+  readOnly?: boolean;
 }): ColumnDef<Employee>[] {
   const allIncluded =
     employees.length > 0 && employees.every((employee) => employee.included);
@@ -349,8 +351,10 @@ function getEmployeeColumns({
       header: () => (
         <Checkbox
           checked={allIncluded ? true : someIncluded ? "indeterminate" : false}
+          disabled={readOnly}
           aria-label="Select all employees"
           onCheckedChange={(value) => {
+            if (readOnly) return;
             const included = value === true;
             employees.forEach((employee) =>
               onToggleEmployeeIncluded(employee.staffProfileId, included),
@@ -361,10 +365,12 @@ function getEmployeeColumns({
       cell: ({ row }) => (
         <Checkbox
           checked={row.original.included}
+          disabled={readOnly}
           aria-label={`Select ${row.original.name}`}
-          onCheckedChange={(value) =>
+          onCheckedChange={(value) => {
+            if (readOnly) return;
             onToggleEmployeeIncluded(row.original.staffProfileId, value === true)
-          }
+          }}
         />
       ),
     },
@@ -396,6 +402,7 @@ function getEmployeeColumns({
       header: "Basic Salary",
       cell: ({ row }) => (
         <EditableMoneyCell
+          readOnly={readOnly}
           value={row.original.basicSalary}
           onChange={(value) =>
             onUpdateEmployeeAmount(
@@ -412,6 +419,7 @@ function getEmployeeColumns({
       header: "Allowances",
       cell: ({ row }) => (
         <EditableMoneyCell
+          readOnly={readOnly}
           value={row.original.allowances}
           onChange={(value) =>
             onUpdateEmployeeAmount(
@@ -428,6 +436,7 @@ function getEmployeeColumns({
       header: "Incentives",
       cell: ({ row }) => (
         <EditableMoneyCell
+          readOnly={readOnly}
           value={row.original.incentives}
           onChange={(value) =>
             onUpdateEmployeeAmount(
@@ -444,6 +453,7 @@ function getEmployeeColumns({
       header: "Commission",
       cell: ({ row }) => (
         <EditableMoneyCell
+          readOnly={readOnly}
           value={row.original.commission}
           onChange={(value) =>
             onUpdateEmployeeAmount(
@@ -460,6 +470,7 @@ function getEmployeeColumns({
       header: "Bonus",
       cell: ({ row }) => (
         <EditableMoneyCell
+          readOnly={readOnly}
           value={row.original.bonus}
           onChange={(value) =>
             onUpdateEmployeeAmount(row.original.staffProfileId, "bonus", value)
@@ -472,6 +483,7 @@ function getEmployeeColumns({
       header: "Deductions",
       cell: ({ row }) => (
         <EditableMoneyCell
+          readOnly={readOnly}
           value={row.original.otherDeductions}
           onChange={(value) =>
             onUpdateEmployeeAmount(
@@ -502,15 +514,18 @@ function getEmployeeColumns({
 
 function EditableMoneyCell({
   onChange,
+  readOnly = false,
   value,
 }: {
   onChange: (value: number) => void;
+  readOnly?: boolean;
   value: number;
 }) {
   const [draft, setDraft] = useState(String(value));
   const [isEditing, setIsEditing] = useState(false);
 
   function startEditing() {
+    if (readOnly) return;
     setDraft(String(value));
     setIsEditing(true);
   }
@@ -561,10 +576,12 @@ function EditableMoneyCell({
 export default function PayrollWizardPage() {
   const router = useRouter();
   const params = useParams<{ payrollId: string }>();
+  const searchParams = useSearchParams();
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const payrollId = params.payrollId;
   const isCreateMode = payrollId === "create";
+  const isViewMode = !isCreateMode && searchParams.get("mode") === "view";
   const payrollRun = useQuery({
     ...trpc.tenant.payroll.get.queryOptions({
       id: payrollId,
@@ -573,7 +590,7 @@ export default function PayrollWizardPage() {
     retry: false,
   });
 
-  const [step, setStep] = useState<WizardStep>(1);
+  const [step, setStep] = useState<WizardStep>(isViewMode ? 2 : 1);
   const [confirmed, setConfirmed] = useState(false);
   const [department, setDepartment] = useState("all");
   const [employmentType, setEmploymentType] = useState("all");
@@ -635,12 +652,13 @@ export default function PayrollWizardPage() {
   );
   const payrollInput = useMemo(
     () => ({
+      action: isCreateMode ? ("create" as const) : ("update" as const),
       backupPayrollData,
       createJournalEntry,
       department: department === "all" ? undefined : department,
       employeeOverrides: employeeOverridePayload,
       frequency,
-      id: isCreateMode ? undefined : payrollId,
+      id: isCreateMode ? undefined : payrollRun.data?.id ?? payrollId,
       includeAllowance,
       includeBasicSalary,
       includeBonus,
@@ -683,13 +701,16 @@ export default function PayrollWizardPage() {
       payPeriod.start,
       payType,
       payrollId,
+      payrollRun.data?.id,
       payrollName,
       roundingOption,
       sendPayslipNotification,
     ],
   );
   const payrollPreview = useQuery({
-    ...trpc.tenant.payroll.preview.queryOptions(payrollInput),
+    ...trpc.tenant.payroll.preview.queryOptions(payrollInput, {
+      enabled: !isViewMode,
+    }),
     retry: false,
   });
   const savePayroll = useMutation(
@@ -711,12 +732,18 @@ export default function PayrollWizardPage() {
   const employees = useMemo(
     () =>
       applyEmployeeOverrides(
-        ((payrollPreview.data?.employees ??
-          payrollRun.data?.items ??
-          []) as Employee[]),
+        ((isViewMode
+          ? payrollRun.data?.items
+          : payrollPreview.data?.employees ?? payrollRun.data?.items) ??
+          []) as Employee[],
         employeeOverrides,
       ),
-    [employeeOverrides, payrollPreview.data?.employees, payrollRun.data?.items],
+    [
+      employeeOverrides,
+      isViewMode,
+      payrollPreview.data?.employees,
+      payrollRun.data?.items,
+    ],
   );
   const totals = useMemo(
     () => calculatePayrollTotals(employees),
@@ -780,6 +807,8 @@ export default function PayrollWizardPage() {
     staffProfileId: string,
     included: boolean,
   ) {
+    if (isViewMode) return;
+
     setEmployeeOverrides((current) => ({
       ...current,
       [staffProfileId]: {
@@ -794,6 +823,8 @@ export default function PayrollWizardPage() {
     field: EditableEmployeeMoneyField,
     value: number,
   ) {
+    if (isViewMode) return;
+
     setEmployeeOverrides((current) => ({
       ...current,
       [staffProfileId]: {
@@ -837,8 +868,16 @@ export default function PayrollWizardPage() {
             : "Update payroll";
 
   const kpis = getKpis(step, totals);
+  const isSavingDisabled =
+    savePayroll.isPending ||
+    payrollPreview.isPending ||
+    (!isCreateMode && payrollRun.isPending);
 
   function handleNext() {
+    if (isViewMode) {
+      return;
+    }
+
     if (step < 4) {
       setStep((step + 1) as WizardStep);
       return;
@@ -857,7 +896,17 @@ export default function PayrollWizardPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <TenantBreadcrumb />
         <div className="flex items-center gap-2">
-          {step > 1 ? (
+          {isViewMode ? (
+            <Button
+              type="button"
+              variant="secondary"
+              size="xs"
+              onClick={() => router.push("/tenant/hr/generate-payroll")}
+            >
+              <ArrowLeft className="size-4" />
+              Back
+            </Button>
+          ) : step > 1 ? (
             <Button
               type="button"
               variant="secondary"
@@ -868,60 +917,84 @@ export default function PayrollWizardPage() {
               Back
             </Button>
           ) : null}
-          <Button asChild size="xs" variant="secondary">
-            <Link href="/tenant/hr/generate-payroll">Cancel</Link>
-          </Button>
-          <Button
-            size="xs"
-            type="button"
-            disabled={savePayroll.isPending || payrollPreview.isPending}
-            onClick={handleNext}
-          >
-            {savePayroll.isPending ? "Saving..." : nextLabel}
-            <ArrowRight className="size-4" />
-          </Button>
+          {isViewMode ? (
+            <Button
+              size="xs"
+              type="button"
+              onClick={() => router.push(`/tenant/hr/generate-payroll/${payrollId}`)}
+            >
+              Edit payroll
+              <ArrowRight className="size-4" />
+            </Button>
+          ) : (
+            <>
+              <Button asChild size="xs" variant="secondary">
+                <Link href="/tenant/hr/generate-payroll">Cancel</Link>
+              </Button>
+              <Button
+                size="xs"
+                type="button"
+                disabled={isSavingDisabled}
+                onClick={handleNext}
+              >
+                {savePayroll.isPending ? "Saving..." : nextLabel}
+                <ArrowRight className="size-4" />
+              </Button>
+            </>
+          )}
         </div>
       </div>
 
       <KpiGrid columnsClassName="sm:grid-cols-2 xl:grid-cols-5" items={kpis} />
 
-      <Card className="rounded-xl border-zinc-200 bg-white p-5">
-        <Stepper
-          value={step}
-          onValueChange={(value) => setStep(value as WizardStep)}
-        >
-          <StepperNav>
-            {STEPS.map((item, index) => (
-              <StepperItem key={item.step} step={item.step}>
-                <StepperTrigger className="w-full min-w-0 justify-start">
-                  <StepperIndicator>
-                    {item.step < step ? (
-                      <Check className="size-4" />
-                    ) : (
-                      item.step
-                    )}
-                  </StepperIndicator>
-                  <div className="min-w-0 text-left">
-                    <StepperTitle className="truncate text-sm font-bold text-zinc-950">
-                      {item.title}
-                    </StepperTitle>
-                    <StepperDescription className="truncate text-xs">
-                      {item.step === 2
-                        ? `${totals.includedEmployees} included`
-                        : item.description}
-                    </StepperDescription>
-                  </div>
-                </StepperTrigger>
-                {index < STEPS.length - 1 ? (
-                  <StepperSeparator className="mx-4 hidden sm:block" />
-                ) : null}
-              </StepperItem>
-            ))}
-          </StepperNav>
-        </Stepper>
-      </Card>
+      {isViewMode ? (
+        <Card className="rounded-xl border-zinc-200 bg-white p-5">
+          <h1 className="text-lg font-bold text-zinc-950">
+            View payroll
+          </h1>
+          <p className="mt-1 text-sm text-zinc-500">
+            Read-only payroll details. Use Edit payroll to make changes.
+          </p>
+        </Card>
+      ) : (
+        <Card className="rounded-xl border-zinc-200 bg-white p-5">
+          <Stepper
+            value={step}
+            onValueChange={(value) => setStep(value as WizardStep)}
+          >
+            <StepperNav>
+              {STEPS.map((item, index) => (
+                <StepperItem key={item.step} step={item.step}>
+                  <StepperTrigger className="w-full min-w-0 justify-start">
+                    <StepperIndicator>
+                      {item.step < step ? (
+                        <Check className="size-4" />
+                      ) : (
+                        item.step
+                      )}
+                    </StepperIndicator>
+                    <div className="min-w-0 text-left">
+                      <StepperTitle className="truncate text-sm font-bold text-zinc-950">
+                        {item.title}
+                      </StepperTitle>
+                      <StepperDescription className="truncate text-xs">
+                        {item.step === 2
+                          ? `${totals.includedEmployees} included`
+                          : item.description}
+                      </StepperDescription>
+                    </div>
+                  </StepperTrigger>
+                  {index < STEPS.length - 1 ? (
+                    <StepperSeparator className="mx-4 hidden sm:block" />
+                  ) : null}
+                </StepperItem>
+              ))}
+            </StepperNav>
+          </Stepper>
+        </Card>
+      )}
 
-      {step === 1 ? (
+      {!isViewMode && step === 1 ? (
         <SelectCriteriaStep
           backupPayrollData={backupPayrollData}
           createJournalEntry={createJournalEntry}
@@ -966,7 +1039,7 @@ export default function PayrollWizardPage() {
         />
       ) : null}
 
-      {step === 2 ? (
+      {(isViewMode || step === 2) ? (
         <ReviewEmployeesStep
           department={department}
           employees={filteredEmployees}
@@ -980,11 +1053,12 @@ export default function PayrollWizardPage() {
           setReviewFilter={setReviewFilter}
           onToggleEmployeeIncluded={handleToggleEmployeeIncluded}
           onUpdateEmployeeAmount={handleUpdateEmployeeAmount}
+          readOnly={isViewMode}
           totals={totals}
         />
       ) : null}
 
-      {step === 3 ? (
+      {!isViewMode && step === 3 ? (
         <GeneratePayrollStep
           department={department}
           backupPayrollData={backupPayrollData}
@@ -1016,7 +1090,7 @@ export default function PayrollWizardPage() {
         />
       ) : null}
 
-      {step === 4 ? (
+      {!isViewMode && step === 4 ? (
         <ConfirmStep
           confirmed={confirmed}
           isCreateMode={isCreateMode}
@@ -1172,6 +1246,7 @@ function ReviewEmployeesStep({
   location,
   onToggleEmployeeIncluded,
   onUpdateEmployeeAmount,
+  readOnly = false,
   reviewFilter,
   setDepartment,
   setEmploymentType,
@@ -1190,6 +1265,7 @@ function ReviewEmployeesStep({
     field: EditableEmployeeMoneyField,
     value: number,
   ) => void;
+  readOnly?: boolean;
   reviewFilter: "all" | "included" | "excluded";
   setDepartment: (value: string) => void;
   setEmploymentType: (value: string) => void;
@@ -1203,8 +1279,9 @@ function ReviewEmployeesStep({
         employees,
         onToggleEmployeeIncluded,
         onUpdateEmployeeAmount,
+        readOnly,
       }),
-    [employees, onToggleEmployeeIncluded, onUpdateEmployeeAmount],
+    [employees, onToggleEmployeeIncluded, onUpdateEmployeeAmount, readOnly],
   );
   const toolbarActions = (
     <div className="hidden items-center gap-2 xl:flex">

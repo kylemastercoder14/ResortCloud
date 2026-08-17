@@ -2,15 +2,18 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import type { jsPDF as JsPDF } from "jspdf";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import {
   CheckCircle2,
   Download,
   Eye,
   FileText,
   MoreVertical,
+  Pencil,
   Plus,
   RefreshCw,
+  Trash2,
   Users,
   WalletCards,
 } from "lucide-react";
@@ -19,6 +22,16 @@ import { toast } from "sonner";
 import { ReusableDataTable } from "@/components/reusable/data-table";
 import { KpiGrid, type KpiGridItem } from "@/components/reusable/kpi-grid";
 import { TenantBreadcrumb } from "@/components/tenant/tenant-breadcrumb";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -182,46 +195,113 @@ export default function GeneratePayrollPage() {
 
 function PayrollActions({ payroll }: { payroll: PayrollRun }) {
   const router = useRouter();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const deletePayroll = useMutation(
+    trpc.tenant.payroll.delete.mutationOptions({
+      onError: (error) => toast.error(error.message),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          trpc.tenant.payroll.list.queryFilter(),
+        );
+        setDeleteOpen(false);
+        toast.success("Payroll deleted.");
+      },
+    }),
+  );
+
+  function handleDeletePayroll() {
+    deletePayroll.mutate({ id: payroll.recordId });
+  }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          aria-label={`Open actions for ${payroll.name}`}
-          className="size-8 rounded-full"
-          size="icon"
-          variant="ghost"
-        >
-          <MoreVertical className="size-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-52 rounded-xl bg-white">
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onSelect={() =>
-            router.push(`/tenant/hr/generate-payroll/${payroll.recordId}`)
-          }
-        >
-          <Eye className="size-4" />
-          View payroll
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onSelect={() => void downloadPayslips(payroll)}
-        >
-          <Download className="size-4" />
-          Download payslips
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onSelect={() => toast.info(`Rerun queued for ${payroll.id}.`)}
-        >
-          <RefreshCw className="size-4" />
-          Re-run payroll
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            aria-label={`Open actions for ${payroll.name}`}
+            className="size-8 rounded-full"
+            size="icon"
+            variant="ghost"
+          >
+            <MoreVertical className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-52 rounded-xl bg-white">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() =>
+              router.push(
+                `/tenant/hr/generate-payroll/${payroll.recordId}?mode=view`,
+              )
+            }
+          >
+            <Eye className="size-4" />
+            View payroll
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() =>
+              router.push(`/tenant/hr/generate-payroll/${payroll.recordId}`)
+            }
+          >
+            <Pencil className="size-4" />
+            Edit payroll
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() => void downloadPayslips(payroll)}
+          >
+            <Download className="size-4" />
+            Download payslips
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            variant="destructive"
+            className="cursor-pointer"
+            disabled={deletePayroll.isPending}
+            onSelect={(event) => {
+              event.preventDefault();
+              setDeleteOpen(true);
+            }}
+          >
+            <Trash2 className="size-4" />
+            {deletePayroll.isPending ? "Deleting..." : "Delete payroll"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() => toast.info(`Rerun queued for ${payroll.id}.`)}
+          >
+            <RefreshCw className="size-4" />
+            Re-run payroll
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete payroll?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This removes {payroll.name} and all payslips in this payroll run.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deletePayroll.isPending}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              disabled={deletePayroll.isPending}
+              onClick={handleDeletePayroll}
+            >
+              {deletePayroll.isPending ? "Deleting..." : "Delete payroll"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
 

@@ -14,7 +14,8 @@ export const TENANT_NAVIGATION_DATA = [
     icon: "ShieldCheck",
     group: "Foundation & Access",
     children: [
-      { label: "Users & Roles", href: "/tenant/access/users-roles" },
+      { label: "Users", href: "/tenant/access/users" },
+      { label: "Roles", href: "/tenant/access/roles" },
       { label: "Departments", href: "/tenant/access/departments" },
     ],
   },
@@ -47,9 +48,21 @@ export const TENANT_NAVIGATION_DATA = [
     icon: "Users",
     group: "Booking & Sales",
     children: [
-      { label: "Inquiries", href: "/tenant/guest-experience/inquiries" },
-      { label: "Guest Profiles", href: "/tenant/guest-experience/profiles" },
-      { label: "Messages", href: "/tenant/guest-experience/messages" },
+      {
+        label: "Inquiries",
+        href: "/tenant/guest-experience/inquiries",
+        locked: true,
+      },
+      {
+        label: "Guest Profiles",
+        href: "/tenant/guest-experience/profiles",
+        locked: true,
+      },
+      {
+        label: "Messages",
+        href: "/tenant/guest-experience/messages",
+        locked: true,
+      },
     ],
   },
   {

@@ -11,6 +11,7 @@ type SearchParams = Promise<{
   plan?: string | string[];
   billing?: string | string[];
   checkout?: string | string[];
+  invitationToken?: string | string[];
 }>;
 
 function resolveUserType(userType: string | string[] | undefined) {
@@ -57,6 +58,11 @@ export default async function Page({
       selectedPlan={Array.isArray(params.plan) ? params.plan[0] : params.plan}
       selectedBilling={Array.isArray(params.billing) ? params.billing[0] : params.billing}
       checkoutIntent={Array.isArray(params.checkout) ? params.checkout[0] : params.checkout}
+      invitationToken={
+        Array.isArray(params.invitationToken)
+          ? params.invitationToken[0]
+          : params.invitationToken
+      }
     />
   );
 }

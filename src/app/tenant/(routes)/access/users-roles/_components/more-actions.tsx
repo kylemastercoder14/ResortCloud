@@ -19,9 +19,6 @@ export function MoreActions() {
     role: formatExportValue(user.roleName),
     status: formatExportValue(user.status),
     phone: formatExportValue(user.phoneNumber),
-    permissions: user.permissions.length
-      ? user.permissions.join(", ")
-      : "--",
   }));
 
   return (
@@ -33,11 +30,10 @@ export function MoreActions() {
         { header: "Role", key: "role" },
         { header: "Status", key: "status" },
         { header: "Phone", key: "phone" },
-        { header: "Permissions", key: "permissions" },
       ]}
       data={exportRows}
-      filename="users-roles"
-      title="Users & Roles"
+      filename="workspace-users"
+      title="Workspace Users"
     />
   );
 }

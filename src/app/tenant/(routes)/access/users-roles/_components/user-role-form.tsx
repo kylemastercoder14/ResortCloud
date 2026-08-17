@@ -4,10 +4,9 @@ import { type FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ChevronRight, Search, ShieldCheck } from "lucide-react";
+import { Search, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
-import { CreatableSelect } from "@/components/reusable/creatable-select";
 import {
   PhoneNumberInput,
   normalizePhilippinePhone,
@@ -45,11 +44,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useTRPC } from "@/trpc/client";
 import {
   PERMISSION_MODULES,
-  USER_ROLE_OPTIONS,
-  USER_ROLE_TABLE_DATA,
   type PermissionGroup,
   type PermissionModule,
-  type UserRoleRecord,
   type UserRoleStatus,
 } from "./data";
 
@@ -58,6 +54,7 @@ type UserRoleFormProps = {
 };
 
 type UserRoleFormValues = {
+  accessRoleId: string;
   allowance: string;
   basicSalary: string;
   bonus: string;
@@ -74,7 +71,6 @@ type UserRoleFormValues = {
   password: string;
   pagIbigContribution: string;
   philHealthContribution: string;
-  permissions: string[];
   phone: string;
   roleName: string;
   sssContribution: string;
@@ -84,14 +80,6 @@ type UserRoleFormValues = {
   withholdingTax: string;
   workLocation: string;
 };
-
-const DEFAULT_PERMISSION_IDS = [
-  "usersRoles.view",
-  "reservations.view",
-  "finance.revenueExpenses.view",
-  "operations.housekeeping.manage",
-  "analytics.reports.view",
-];
 
 const PASSWORD_LOWERCASE = "abcdefghijkmnopqrstuvwxyz";
 const PASSWORD_UPPERCASE = "ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -109,6 +97,10 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
     enabled: !isCreate,
     retry: false,
   });
+  const accessRoles = useQuery({
+    ...trpc.tenant.accessRoles.list.queryOptions(),
+    retry: false,
+  });
   const saveStaffUser = useMutation(
     trpc.tenant.usersRoles.save.mutationOptions({
       onSuccess: async (savedUser) => {
@@ -119,7 +111,7 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
           trpc.tenant.usersRoles.get.queryFilter({ id: savedUser.id }),
         );
         toast.success("Staff user saved.");
-        router.push("/tenant/access/users-roles/");
+        router.push("/tenant/access/users/");
       },
       onError: (error) => {
         toast.error(error.message);
@@ -140,7 +132,7 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
       <div className="mx-auto max-w-5xl rounded-xl border border-zinc-200 bg-white p-5">
         <p className="text-sm font-semibold text-zinc-900">Staff user not found.</p>
         <Button asChild className="mt-4" size="sm">
-          <Link href="/tenant/access/users-roles">Back to users</Link>
+          <Link href="/tenant/access/users">Back to users</Link>
         </Button>
       </div>
     );
@@ -149,6 +141,7 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
   const initialValues: UserRoleFormValues = staffUser.data
     ? {
         allowance: String(staffUser.data.allowance ?? 0),
+        accessRoleId: staffUser.data.accessRoleId,
         basicSalary: String(staffUser.data.basicSalary ?? 0),
         bonus: String(staffUser.data.bonus ?? 0),
         commission: String(staffUser.data.commission ?? 0),
@@ -164,7 +157,6 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
         password: "",
         pagIbigContribution: String(staffUser.data.pagIbigContribution ?? 0),
         philHealthContribution: String(staffUser.data.philHealthContribution ?? 0),
-        permissions: staffUser.data.permissions,
         phone: normalizePhilippinePhone(staffUser.data.phoneNumber),
         roleName: staffUser.data.roleName,
         sssContribution: String(staffUser.data.sssContribution ?? 0),
@@ -176,6 +168,7 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
       }
     : {
         allowance: "0",
+        accessRoleId: "",
         basicSalary: "0",
         bonus: "0",
         commission: "0",
@@ -191,7 +184,6 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
         password: "",
         pagIbigContribution: "0",
         philHealthContribution: "0",
-        permissions: DEFAULT_PERMISSION_IDS,
         phone: "",
         roleName: "",
         sssContribution: "0",
@@ -208,9 +200,11 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
       initialValues={initialValues}
       isSaving={saveStaffUser.isPending}
       mode={mode}
+      roleOptions={accessRoles.data ?? []}
       onSubmit={(values) =>
         saveStaffUser.mutate({
           id: isCreate ? undefined : userRoleId,
+          accessRoleId: values.accessRoleId,
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
@@ -220,7 +214,6 @@ export function UserRoleForm({ userRoleId }: UserRoleFormProps) {
           phoneNumber: values.phone,
           roleName: values.roleName,
           status: values.status,
-          permissions: values.permissions,
           employmentType: values.employmentType,
           workLocation: values.workLocation,
           basicSalary: moneyValue(values.basicSalary),
@@ -250,13 +243,18 @@ function UserRoleEditor({
   isSaving,
   mode,
   onSubmit,
+  roleOptions,
 }: {
   initialValues: UserRoleFormValues;
   isSaving: boolean;
   mode: "create" | "update";
   onSubmit: (values: UserRoleFormValues) => void;
+  roleOptions: Array<{
+    id: string;
+    name: string;
+    permissions: string[];
+  }>;
 }) {
-  const role = USER_ROLE_TABLE_DATA[0];
   const trpc = useTRPC();
   const departments = useQuery({
     ...trpc.tenant.departments.list.queryOptions(),
@@ -264,6 +262,7 @@ function UserRoleEditor({
   });
   const departmentOptions = departments.data ?? [];
   const [departmentId, setDepartmentId] = useState(initialValues.departmentId);
+  const [accessRoleId, setAccessRoleId] = useState(initialValues.accessRoleId);
   const [firstName, setFirstName] = useState(initialValues.firstName);
   const [lastName, setLastName] = useState(initialValues.lastName);
   const [email, setEmail] = useState(initialValues.email);
@@ -272,9 +271,6 @@ function UserRoleEditor({
   const [phone, setPhone] = useState(initialValues.phone);
   const [roleName, setRoleName] = useState(initialValues.roleName);
   const [status, setStatus] = useState<UserRoleStatus>(initialValues.status);
-  const [selectedIds, setSelectedIds] = useState<string[]>(
-    initialValues.permissions,
-  );
   const [notes, setNotes] = useState(initialValues.notes);
   const [tags, setTags] = useState(initialValues.tags);
   const [employmentType, setEmploymentType] = useState(
@@ -309,6 +305,7 @@ function UserRoleEditor({
     event.preventDefault();
 
     onSubmit({
+      accessRoleId,
       email,
       departmentId,
       allowance,
@@ -325,7 +322,6 @@ function UserRoleEditor({
       password,
       pagIbigContribution,
       philHealthContribution,
-      permissions: selectedIds,
       phone,
       roleName,
       sssContribution,
@@ -343,7 +339,7 @@ function UserRoleEditor({
         <TenantBreadcrumb />
         <div className="flex items-center gap-2">
           <Button asChild variant="outline" size="sm">
-            <Link href="/tenant/access/users-roles">Cancel</Link>
+            <Link href="/tenant/access/users">Cancel</Link>
           </Button>
           <Button size="sm" type="submit" disabled={isSaving}>
             {isSaving ? "Saving..." : "Save changes"}
@@ -355,6 +351,7 @@ function UserRoleEditor({
         <div className="space-y-5">
           <UserOverviewCard
             email={email}
+            accessRoleId={accessRoleId}
             departmentId={departmentId}
             departmentOptions={departmentOptions}
             firstName={firstName}
@@ -363,15 +360,21 @@ function UserRoleEditor({
             password={password}
             phone={phone}
             roleName={roleName}
+            roleOptions={roleOptions}
             status={status}
             username={username}
             onEmailChange={setEmail}
+            onAccessRoleChange={(roleId) => {
+              const selectedRole = roleOptions.find((role) => role.id === roleId);
+
+              setAccessRoleId(roleId);
+              setRoleName(selectedRole?.name ?? "");
+            }}
             onDepartmentChange={setDepartmentId}
             onFirstNameChange={setFirstName}
             onLastNameChange={setLastName}
             onPasswordChange={setPassword}
             onPhoneChange={setPhone}
-            onRoleNameChange={setRoleName}
             onStatusChange={setStatus}
             onUsernameChange={setUsername}
           />
@@ -403,11 +406,6 @@ function UserRoleEditor({
             onWithholdingTaxChange={setWithholdingTax}
             onWorkLocationChange={setWorkLocation}
           />
-          <AccessCard
-            role={role}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
         </div>
         <div className="space-y-5">
           <NotesCard value={notes} onChange={setNotes} />
@@ -419,6 +417,7 @@ function UserRoleEditor({
 }
 
 function UserOverviewCard({
+  accessRoleId,
   email,
   departmentId,
   departmentOptions,
@@ -426,20 +425,22 @@ function UserOverviewCard({
   lastName,
   mode,
   onEmailChange,
+  onAccessRoleChange,
   onDepartmentChange,
   onFirstNameChange,
   onLastNameChange,
   onPasswordChange,
   onPhoneChange,
-  onRoleNameChange,
   onStatusChange,
   onUsernameChange,
   password,
   phone,
   roleName,
+  roleOptions,
   status,
   username,
 }: {
+  accessRoleId: string;
   email: string;
   departmentId: string;
   departmentOptions: Array<{
@@ -450,17 +451,22 @@ function UserOverviewCard({
   lastName: string;
   mode: "create" | "update";
   onEmailChange: (value: string) => void;
+  onAccessRoleChange: (value: string) => void;
   onDepartmentChange: (value: string) => void;
   onFirstNameChange: (value: string) => void;
   onLastNameChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onPhoneChange: (value: string) => void;
-  onRoleNameChange: (value: string) => void;
   onStatusChange: (value: UserRoleStatus) => void;
   onUsernameChange: (value: string) => void;
   password: string;
   phone: string;
   roleName: string;
+  roleOptions: Array<{
+    id: string;
+    name: string;
+    permissions: string[];
+  }>;
   status: UserRoleStatus;
   username: string;
 }) {
@@ -544,13 +550,22 @@ function UserOverviewCard({
 
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Role">
-          <CreatableSelect
-            value={roleName}
-            onChange={onRoleNameChange}
-            options={USER_ROLE_OPTIONS}
-            placeholder="Select or create role"
-            searchPlaceholder="Search or create role..."
-          />
+          <Select
+            value={accessRoleId}
+            onValueChange={onAccessRoleChange}
+          >
+            <SelectTrigger className="h-10 w-full rounded-lg">
+              <SelectValue placeholder="Select workspace role" />
+            </SelectTrigger>
+            <SelectContent>
+              {roleOptions.map((role) => (
+                <SelectItem key={role.id} value={role.id}>
+                  {role.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <input type="hidden" value={roleName} readOnly />
         </Field>
         <Field label="Status">
           <Select
@@ -736,45 +751,7 @@ function MoneyField({
   );
 }
 
-function AccessCard({
-  role,
-  selectedIds,
-  setSelectedIds,
-}: {
-  role: UserRoleRecord;
-  selectedIds: string[];
-  setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
-}) {
-  return (
-    <Card className="gap-4 rounded-xl border-zinc-200 bg-white p-5">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h2 className="text-base font-bold text-[#303030]">Default access</h2>
-          <p className="mt-1 text-sm text-zinc-500">
-            Select role template and permission events.
-          </p>
-        </div>
-        <PermissionSheet selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
-      </div>
-      <button
-        type="button"
-        className="flex h-14 items-center justify-between rounded-lg border border-zinc-200 px-4 text-left hover:bg-zinc-50"
-      >
-        <span>
-          <span className="block text-sm font-bold text-zinc-900">
-            {role.permissionTemplate}
-          </span>
-          <span className="text-xs text-zinc-500">
-            {selectedIds.length} permissions selected
-          </span>
-        </span>
-        <ChevronRight className="size-4 text-zinc-500" />
-      </button>
-    </Card>
-  );
-}
-
-function PermissionSheet({
+export function PermissionSheet({
   selectedIds,
   setSelectedIds,
 }: {
@@ -808,10 +785,10 @@ function PermissionSheet({
       <SheetContent className="w-full gap-0 p-0 max-w-lg!">
         <SheetHeader className="border-b border-zinc-200 p-5">
           <SheetTitle className="text-xl font-bold">
-            Admin permissions
+            Role permissions
           </SheetTitle>
           <SheetDescription>
-            Select permission events this staff account can use inside admin.
+            Select permission events users with this role can use inside this workspace.
           </SheetDescription>
         </SheetHeader>
 

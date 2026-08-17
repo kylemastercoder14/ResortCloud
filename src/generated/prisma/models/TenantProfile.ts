@@ -564,6 +564,7 @@ export type TenantProfileWhereInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportListRelationFilter
   laundryJobs?: Prisma.TenantLaundryJobListRelationFilter
   staffProfiles?: Prisma.TenantStaffProfileListRelationFilter
+  accessRoles?: Prisma.TenantAccessRoleListRelationFilter
   staffInvitations?: Prisma.TenantStaffInvitationListRelationFilter
   timeLogs?: Prisma.TenantTimeLogListRelationFilter
   scheduleShifts?: Prisma.TenantScheduleShiftListRelationFilter
@@ -640,6 +641,7 @@ export type TenantProfileOrderByWithRelationInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportOrderByRelationAggregateInput
   laundryJobs?: Prisma.TenantLaundryJobOrderByRelationAggregateInput
   staffProfiles?: Prisma.TenantStaffProfileOrderByRelationAggregateInput
+  accessRoles?: Prisma.TenantAccessRoleOrderByRelationAggregateInput
   staffInvitations?: Prisma.TenantStaffInvitationOrderByRelationAggregateInput
   timeLogs?: Prisma.TenantTimeLogOrderByRelationAggregateInput
   scheduleShifts?: Prisma.TenantScheduleShiftOrderByRelationAggregateInput
@@ -719,6 +721,7 @@ export type TenantProfileWhereUniqueInput = Prisma.AtLeast<{
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportListRelationFilter
   laundryJobs?: Prisma.TenantLaundryJobListRelationFilter
   staffProfiles?: Prisma.TenantStaffProfileListRelationFilter
+  accessRoles?: Prisma.TenantAccessRoleListRelationFilter
   staffInvitations?: Prisma.TenantStaffInvitationListRelationFilter
   timeLogs?: Prisma.TenantTimeLogListRelationFilter
   scheduleShifts?: Prisma.TenantScheduleShiftListRelationFilter
@@ -900,6 +903,7 @@ export type TenantProfileCreateInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -975,6 +979,7 @@ export type TenantProfileUncheckedCreateInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -1050,6 +1055,7 @@ export type TenantProfileUpdateInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -1125,6 +1131,7 @@ export type TenantProfileUncheckedUpdateInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -1547,6 +1554,20 @@ export type TenantProfileUpdateOneRequiredWithoutStaffProfilesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutStaffProfilesInput, Prisma.TenantProfileUpdateWithoutStaffProfilesInput>, Prisma.TenantProfileUncheckedUpdateWithoutStaffProfilesInput>
 }
 
+export type TenantProfileCreateNestedOneWithoutAccessRolesInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutAccessRolesInput, Prisma.TenantProfileUncheckedCreateWithoutAccessRolesInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutAccessRolesInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+}
+
+export type TenantProfileUpdateOneRequiredWithoutAccessRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutAccessRolesInput, Prisma.TenantProfileUncheckedCreateWithoutAccessRolesInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutAccessRolesInput
+  upsert?: Prisma.TenantProfileUpsertWithoutAccessRolesInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutAccessRolesInput, Prisma.TenantProfileUpdateWithoutAccessRolesInput>, Prisma.TenantProfileUncheckedUpdateWithoutAccessRolesInput>
+}
+
 export type TenantProfileCreateNestedOneWithoutTimeLogsInput = {
   create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutTimeLogsInput, Prisma.TenantProfileUncheckedCreateWithoutTimeLogsInput>
   connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutTimeLogsInput
@@ -1934,6 +1955,7 @@ export type TenantProfileCreateWithoutAppUserInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -2008,6 +2030,7 @@ export type TenantProfileUncheckedCreateWithoutAppUserInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -2098,6 +2121,7 @@ export type TenantProfileUpdateWithoutAppUserInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -2172,6 +2196,7 @@ export type TenantProfileUncheckedUpdateWithoutAppUserInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -2246,6 +2271,7 @@ export type TenantProfileCreateWithoutMessengerIntegrationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -2320,6 +2346,7 @@ export type TenantProfileUncheckedCreateWithoutMessengerIntegrationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -2410,6 +2437,7 @@ export type TenantProfileUpdateWithoutMessengerIntegrationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -2484,6 +2512,7 @@ export type TenantProfileUncheckedUpdateWithoutMessengerIntegrationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -2558,6 +2587,7 @@ export type TenantProfileCreateWithoutLeadsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -2632,6 +2662,7 @@ export type TenantProfileUncheckedCreateWithoutLeadsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -2722,6 +2753,7 @@ export type TenantProfileUpdateWithoutLeadsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -2796,6 +2828,7 @@ export type TenantProfileUncheckedUpdateWithoutLeadsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -2870,6 +2903,7 @@ export type TenantProfileCreateWithoutStaffProfilesInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -2944,6 +2978,7 @@ export type TenantProfileUncheckedCreateWithoutStaffProfilesInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3034,6 +3069,7 @@ export type TenantProfileUpdateWithoutStaffProfilesInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -3108,6 +3144,323 @@ export type TenantProfileUncheckedUpdateWithoutStaffProfilesInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileCreateWithoutAccessRolesInput = {
+  id?: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appUser: Prisma.AppUserCreateNestedOneWithoutTenantProfileInput
+  departments?: Prisma.TenantDepartmentCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileUncheckedCreateWithoutAccessRolesInput = {
+  id?: string
+  appUserId: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.TenantDepartmentUncheckedCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileCreateOrConnectWithoutAccessRolesInput = {
+  where: Prisma.TenantProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutAccessRolesInput, Prisma.TenantProfileUncheckedCreateWithoutAccessRolesInput>
+}
+
+export type TenantProfileUpsertWithoutAccessRolesInput = {
+  update: Prisma.XOR<Prisma.TenantProfileUpdateWithoutAccessRolesInput, Prisma.TenantProfileUncheckedUpdateWithoutAccessRolesInput>
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutAccessRolesInput, Prisma.TenantProfileUncheckedCreateWithoutAccessRolesInput>
+  where?: Prisma.TenantProfileWhereInput
+}
+
+export type TenantProfileUpdateToOneWithWhereWithoutAccessRolesInput = {
+  where?: Prisma.TenantProfileWhereInput
+  data: Prisma.XOR<Prisma.TenantProfileUpdateWithoutAccessRolesInput, Prisma.TenantProfileUncheckedUpdateWithoutAccessRolesInput>
+}
+
+export type TenantProfileUpdateWithoutAccessRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appUser?: Prisma.AppUserUpdateOneRequiredWithoutTenantProfileNestedInput
+  departments?: Prisma.TenantDepartmentUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileUncheckedUpdateWithoutAccessRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.TenantDepartmentUncheckedUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -3183,6 +3536,7 @@ export type TenantProfileCreateWithoutTimeLogsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
@@ -3257,6 +3611,7 @@ export type TenantProfileUncheckedCreateWithoutTimeLogsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3347,6 +3702,7 @@ export type TenantProfileUpdateWithoutTimeLogsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
   leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
@@ -3421,6 +3777,7 @@ export type TenantProfileUncheckedUpdateWithoutTimeLogsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
   leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -3495,6 +3852,7 @@ export type TenantProfileCreateWithoutScheduleShiftsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
@@ -3569,6 +3927,7 @@ export type TenantProfileUncheckedCreateWithoutScheduleShiftsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3659,6 +4018,7 @@ export type TenantProfileUpdateWithoutScheduleShiftsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
@@ -3733,6 +4093,7 @@ export type TenantProfileUncheckedUpdateWithoutScheduleShiftsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -3807,6 +4168,7 @@ export type TenantProfileCreateWithoutLeaveRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -3881,6 +4243,7 @@ export type TenantProfileUncheckedCreateWithoutLeaveRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3971,6 +4334,7 @@ export type TenantProfileUpdateWithoutLeaveRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -4045,6 +4409,7 @@ export type TenantProfileUncheckedUpdateWithoutLeaveRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -4119,6 +4484,7 @@ export type TenantProfileCreateWithoutOtUndertimeEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -4193,6 +4559,7 @@ export type TenantProfileUncheckedCreateWithoutOtUndertimeEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4283,6 +4650,7 @@ export type TenantProfileUpdateWithoutOtUndertimeEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -4357,6 +4725,7 @@ export type TenantProfileUncheckedUpdateWithoutOtUndertimeEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -4431,6 +4800,7 @@ export type TenantProfileCreateWithoutPayrollRunsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -4505,6 +4875,7 @@ export type TenantProfileUncheckedCreateWithoutPayrollRunsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4595,6 +4966,7 @@ export type TenantProfileUpdateWithoutPayrollRunsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -4669,6 +5041,7 @@ export type TenantProfileUncheckedUpdateWithoutPayrollRunsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -4743,6 +5116,7 @@ export type TenantProfileCreateWithoutPayrollItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -4817,6 +5191,7 @@ export type TenantProfileUncheckedCreateWithoutPayrollItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4907,6 +5282,7 @@ export type TenantProfileUpdateWithoutPayrollItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -4981,6 +5357,7 @@ export type TenantProfileUncheckedUpdateWithoutPayrollItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5054,6 +5431,7 @@ export type TenantProfileCreateWithoutDepartmentsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -5128,6 +5506,7 @@ export type TenantProfileUncheckedCreateWithoutDepartmentsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -5218,6 +5597,7 @@ export type TenantProfileUpdateWithoutDepartmentsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -5292,6 +5672,7 @@ export type TenantProfileUncheckedUpdateWithoutDepartmentsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5367,6 +5748,7 @@ export type TenantProfileCreateWithoutStaffInvitationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
@@ -5441,6 +5823,7 @@ export type TenantProfileUncheckedCreateWithoutStaffInvitationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
   leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -5531,6 +5914,7 @@ export type TenantProfileUpdateWithoutStaffInvitationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
   leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
@@ -5605,6 +5989,7 @@ export type TenantProfileUncheckedUpdateWithoutStaffInvitationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
   leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5678,6 +6063,7 @@ export type TenantProfileCreateWithoutAmenitiesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -5752,6 +6138,7 @@ export type TenantProfileUncheckedCreateWithoutAmenitiesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -5842,6 +6229,7 @@ export type TenantProfileUpdateWithoutAmenitiesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -5916,6 +6304,7 @@ export type TenantProfileUncheckedUpdateWithoutAmenitiesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5990,6 +6379,7 @@ export type TenantProfileCreateWithoutRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -6064,6 +6454,7 @@ export type TenantProfileUncheckedCreateWithoutRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -6154,6 +6545,7 @@ export type TenantProfileUpdateWithoutRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -6228,6 +6620,7 @@ export type TenantProfileUncheckedUpdateWithoutRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6302,6 +6695,7 @@ export type TenantProfileCreateWithoutHousekeepingRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -6376,6 +6770,7 @@ export type TenantProfileUncheckedCreateWithoutHousekeepingRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -6466,6 +6861,7 @@ export type TenantProfileUpdateWithoutHousekeepingRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -6540,6 +6936,7 @@ export type TenantProfileUncheckedUpdateWithoutHousekeepingRoomsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6614,6 +7011,7 @@ export type TenantProfileCreateWithoutHousekeepingDamageReportsInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -6688,6 +7086,7 @@ export type TenantProfileUncheckedCreateWithoutHousekeepingDamageReportsInput = 
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -6778,6 +7177,7 @@ export type TenantProfileUpdateWithoutHousekeepingDamageReportsInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -6852,6 +7252,7 @@ export type TenantProfileUncheckedUpdateWithoutHousekeepingDamageReportsInput = 
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6926,6 +7327,7 @@ export type TenantProfileCreateWithoutLaundryJobsInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -7000,6 +7402,7 @@ export type TenantProfileUncheckedCreateWithoutLaundryJobsInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -7090,6 +7493,7 @@ export type TenantProfileUpdateWithoutLaundryJobsInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -7164,6 +7568,7 @@ export type TenantProfileUncheckedUpdateWithoutLaundryJobsInput = {
   housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -7238,6 +7643,7 @@ export type TenantProfileCreateWithoutReservationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -7312,6 +7718,7 @@ export type TenantProfileUncheckedCreateWithoutReservationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -7402,6 +7809,7 @@ export type TenantProfileUpdateWithoutReservationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -7476,6 +7884,7 @@ export type TenantProfileUncheckedUpdateWithoutReservationsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -7550,6 +7959,7 @@ export type TenantProfileCreateWithoutReceptionRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -7624,6 +8034,7 @@ export type TenantProfileUncheckedCreateWithoutReceptionRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -7714,6 +8125,7 @@ export type TenantProfileUpdateWithoutReceptionRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -7788,6 +8200,7 @@ export type TenantProfileUncheckedUpdateWithoutReceptionRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -7862,6 +8275,7 @@ export type TenantProfileCreateWithoutReceptionShiftNotesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -7936,6 +8350,7 @@ export type TenantProfileUncheckedCreateWithoutReceptionShiftNotesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8026,6 +8441,7 @@ export type TenantProfileUpdateWithoutReceptionShiftNotesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -8100,6 +8516,7 @@ export type TenantProfileUncheckedUpdateWithoutReceptionShiftNotesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -8174,6 +8591,7 @@ export type TenantProfileCreateWithoutMaintenanceRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -8248,6 +8666,7 @@ export type TenantProfileUncheckedCreateWithoutMaintenanceRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8338,6 +8757,7 @@ export type TenantProfileUpdateWithoutMaintenanceRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -8412,6 +8832,7 @@ export type TenantProfileUncheckedUpdateWithoutMaintenanceRequestsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -8486,6 +8907,7 @@ export type TenantProfileCreateWithoutInventoryItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -8560,6 +8982,7 @@ export type TenantProfileUncheckedCreateWithoutInventoryItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8650,6 +9073,7 @@ export type TenantProfileUpdateWithoutInventoryItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -8724,6 +9148,7 @@ export type TenantProfileUncheckedUpdateWithoutInventoryItemsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -8798,6 +9223,7 @@ export type TenantProfileCreateWithoutInventoryMovementsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -8872,6 +9298,7 @@ export type TenantProfileUncheckedCreateWithoutInventoryMovementsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8962,6 +9389,7 @@ export type TenantProfileUpdateWithoutInventoryMovementsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -9036,6 +9464,7 @@ export type TenantProfileUncheckedUpdateWithoutInventoryMovementsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -9110,6 +9539,7 @@ export type TenantProfileCreateWithoutServicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -9184,6 +9614,7 @@ export type TenantProfileUncheckedCreateWithoutServicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -9274,6 +9705,7 @@ export type TenantProfileUpdateWithoutServicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -9348,6 +9780,7 @@ export type TenantProfileUncheckedUpdateWithoutServicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -9422,6 +9855,7 @@ export type TenantProfileCreateWithoutInvoicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -9496,6 +9930,7 @@ export type TenantProfileUncheckedCreateWithoutInvoicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -9586,6 +10021,7 @@ export type TenantProfileUpdateWithoutInvoicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -9660,6 +10096,7 @@ export type TenantProfileUncheckedUpdateWithoutInvoicesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -9734,6 +10171,7 @@ export type TenantProfileCreateWithoutFinanceEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -9808,6 +10246,7 @@ export type TenantProfileUncheckedCreateWithoutFinanceEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -9898,6 +10337,7 @@ export type TenantProfileUpdateWithoutFinanceEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -9972,6 +10412,7 @@ export type TenantProfileUncheckedUpdateWithoutFinanceEntriesInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -10046,6 +10487,7 @@ export type TenantProfileCreateWithoutTransactionExportsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
@@ -10120,6 +10562,7 @@ export type TenantProfileUncheckedCreateWithoutTransactionExportsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
   timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -10210,6 +10653,7 @@ export type TenantProfileUpdateWithoutTransactionExportsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
@@ -10284,6 +10728,7 @@ export type TenantProfileUncheckedUpdateWithoutTransactionExportsInput = {
   housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
   laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
   staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
   timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -10318,6 +10763,7 @@ export type TenantProfileCountOutputType = {
   housekeepingDamageReports: number
   laundryJobs: number
   staffProfiles: number
+  accessRoles: number
   staffInvitations: number
   timeLogs: number
   scheduleShifts: number
@@ -10347,6 +10793,7 @@ export type TenantProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   housekeepingDamageReports?: boolean | TenantProfileCountOutputTypeCountHousekeepingDamageReportsArgs
   laundryJobs?: boolean | TenantProfileCountOutputTypeCountLaundryJobsArgs
   staffProfiles?: boolean | TenantProfileCountOutputTypeCountStaffProfilesArgs
+  accessRoles?: boolean | TenantProfileCountOutputTypeCountAccessRolesArgs
   staffInvitations?: boolean | TenantProfileCountOutputTypeCountStaffInvitationsArgs
   timeLogs?: boolean | TenantProfileCountOutputTypeCountTimeLogsArgs
   scheduleShifts?: boolean | TenantProfileCountOutputTypeCountScheduleShiftsArgs
@@ -10502,6 +10949,13 @@ export type TenantProfileCountOutputTypeCountStaffProfilesArgs<ExtArgs extends r
 /**
  * TenantProfileCountOutputType without action
  */
+export type TenantProfileCountOutputTypeCountAccessRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantAccessRoleWhereInput
+}
+
+/**
+ * TenantProfileCountOutputType without action
+ */
 export type TenantProfileCountOutputTypeCountStaffInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantStaffInvitationWhereInput
 }
@@ -10616,6 +11070,7 @@ export type TenantProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   housekeepingDamageReports?: boolean | Prisma.TenantProfile$housekeepingDamageReportsArgs<ExtArgs>
   laundryJobs?: boolean | Prisma.TenantProfile$laundryJobsArgs<ExtArgs>
   staffProfiles?: boolean | Prisma.TenantProfile$staffProfilesArgs<ExtArgs>
+  accessRoles?: boolean | Prisma.TenantProfile$accessRolesArgs<ExtArgs>
   staffInvitations?: boolean | Prisma.TenantProfile$staffInvitationsArgs<ExtArgs>
   timeLogs?: boolean | Prisma.TenantProfile$timeLogsArgs<ExtArgs>
   scheduleShifts?: boolean | Prisma.TenantProfile$scheduleShiftsArgs<ExtArgs>
@@ -10797,6 +11252,7 @@ export type TenantProfileInclude<ExtArgs extends runtime.Types.Extensions.Intern
   housekeepingDamageReports?: boolean | Prisma.TenantProfile$housekeepingDamageReportsArgs<ExtArgs>
   laundryJobs?: boolean | Prisma.TenantProfile$laundryJobsArgs<ExtArgs>
   staffProfiles?: boolean | Prisma.TenantProfile$staffProfilesArgs<ExtArgs>
+  accessRoles?: boolean | Prisma.TenantProfile$accessRolesArgs<ExtArgs>
   staffInvitations?: boolean | Prisma.TenantProfile$staffInvitationsArgs<ExtArgs>
   timeLogs?: boolean | Prisma.TenantProfile$timeLogsArgs<ExtArgs>
   scheduleShifts?: boolean | Prisma.TenantProfile$scheduleShiftsArgs<ExtArgs>
@@ -10836,6 +11292,7 @@ export type $TenantProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
     housekeepingDamageReports: Prisma.$TenantHousekeepingDamageReportPayload<ExtArgs>[]
     laundryJobs: Prisma.$TenantLaundryJobPayload<ExtArgs>[]
     staffProfiles: Prisma.$TenantStaffProfilePayload<ExtArgs>[]
+    accessRoles: Prisma.$TenantAccessRolePayload<ExtArgs>[]
     staffInvitations: Prisma.$TenantStaffInvitationPayload<ExtArgs>[]
     timeLogs: Prisma.$TenantTimeLogPayload<ExtArgs>[]
     scheduleShifts: Prisma.$TenantScheduleShiftPayload<ExtArgs>[]
@@ -11305,6 +11762,7 @@ export interface Prisma__TenantProfileClient<T, Null = never, ExtArgs extends ru
   housekeepingDamageReports<T extends Prisma.TenantProfile$housekeepingDamageReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$housekeepingDamageReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantHousekeepingDamageReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   laundryJobs<T extends Prisma.TenantProfile$laundryJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$laundryJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantLaundryJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffProfiles<T extends Prisma.TenantProfile$staffProfilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$staffProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantStaffProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  accessRoles<T extends Prisma.TenantProfile$accessRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$accessRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantAccessRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffInvitations<T extends Prisma.TenantProfile$staffInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$staffInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantStaffInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timeLogs<T extends Prisma.TenantProfile$timeLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$timeLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantTimeLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scheduleShifts<T extends Prisma.TenantProfile$scheduleShiftsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$scheduleShiftsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantScheduleShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12241,6 +12699,30 @@ export type TenantProfile$staffProfilesArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.TenantStaffProfileScalarFieldEnum | Prisma.TenantStaffProfileScalarFieldEnum[]
+}
+
+/**
+ * TenantProfile.accessRoles
+ */
+export type TenantProfile$accessRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantAccessRole
+   */
+  select?: Prisma.TenantAccessRoleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantAccessRole
+   */
+  omit?: Prisma.TenantAccessRoleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantAccessRoleInclude<ExtArgs> | null
+  where?: Prisma.TenantAccessRoleWhereInput
+  orderBy?: Prisma.TenantAccessRoleOrderByWithRelationInput | Prisma.TenantAccessRoleOrderByWithRelationInput[]
+  cursor?: Prisma.TenantAccessRoleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantAccessRoleScalarFieldEnum | Prisma.TenantAccessRoleScalarFieldEnum[]
 }
 
 /**

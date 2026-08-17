@@ -1,5 +1,6 @@
 import { forbidden, redirect } from "next/navigation";
 import { TenantHeader } from "@/components/tenant/tenant-header";
+import { TenantPermissionGuard } from "@/components/tenant/tenant-permission-guard";
 import { TenantSidebar } from "@/components/tenant/tenant-sidebar";
 import {
   getAppRedirectPath,
@@ -51,7 +52,7 @@ export default async function TenantRoutesLayout({
       <div className="flex h-[calc(100dvh-4.25rem)] min-h-0 overflow-hidden rounded-tl-2xl bg-[#F1F1F1]">
         <TenantSidebar />
         <main className="h-full min-h-0 min-w-0 flex-1 overflow-y-auto overflow-x-hidden bg-[#F1F1F1] p-5">
-          {children}
+          <TenantPermissionGuard>{children}</TenantPermissionGuard>
         </main>
       </div>
     </div>

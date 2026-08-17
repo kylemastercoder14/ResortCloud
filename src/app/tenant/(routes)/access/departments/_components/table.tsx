@@ -134,7 +134,7 @@ export function DepartmentTable() {
       cell: ({ row }) => (
         <Link
           href={`/tenant/access/departments/${row.original.id}`}
-          className="block min-w-65"
+          className="block min-w-0"
         >
           <p className="truncate font-semibold text-zinc-950">
             {formatCellValue(row.original.name)}
@@ -212,6 +212,7 @@ export function DepartmentTable() {
         { label: "Paused", value: "Paused" },
         { label: "Archived", value: "Archived" },
       ]}
+      preventHorizontalScroll
       rowLabel="departments"
     />
   );

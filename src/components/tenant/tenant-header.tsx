@@ -18,6 +18,7 @@ import {
   LogOut,
   MessageCircle,
   Package,
+  ReceiptText,
   Search,
   Settings,
   ShieldCheck,
@@ -45,6 +46,9 @@ import {
 import { Kbd } from "@/components/ui/kbd";
 import { TENANT_NAVIGATION_DATA } from "@/constants/tenant-navigation";
 import { authClient } from "@/lib/auth-client";
+import {
+  canAccessTenantPath,
+} from "@/lib/tenant-permissions";
 import { useTRPC } from "@/trpc/client";
 
 type SearchItem = {
@@ -136,8 +140,16 @@ export function TenantHeader() {
         href="/admin/dashboard"
         className="flex shrink-0 items-center gap-2"
       >
-        <Image src="/main/logo-dark.png" alt="ResortCloud" width={25} height={25} priority />
-        <span className="text-lg font-semibold tracking-tight">ResortCloud</span>
+        <Image
+          src="/main/logo-dark.png"
+          alt="ResortCloud"
+          width={25}
+          height={25}
+          priority
+        />
+        <span className="text-lg font-semibold tracking-tight">
+          ResortCloud
+        </span>
         <span className="rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/90">
           BETA
         </span>
@@ -155,14 +167,19 @@ export function TenantHeader() {
 
 function AccountDropdown() {
   const router = useRouter();
+  const trpc = useTRPC();
   const { data: session } = authClient.useSession();
+  const profile = useQuery({
+    ...trpc.auth.profile.queryOptions(),
+    enabled: Boolean(session?.user?.id),
+    retry: false,
+  });
   const [isSigningOut, setIsSigningOut] = useState(false);
   const user = session?.user;
   const name = user?.name?.trim() || "Admin";
   const email = user?.email || "admin@itps.com";
-  const role = "Administrator";
-  const avatarUrl =
-    user?.image || "https://testingbot.com/free-online-tools/random-avatar/300";
+  const role = profile.data?.role ?? "Administrator";
+  const avatarUrl = user?.image?.trim();
   const initials = getInitials(name);
 
   async function handleLogout() {
@@ -189,7 +206,7 @@ function AccountDropdown() {
           className="h-11 gap-2 px-2 text-white hover:bg-white/10 hover:text-white focus-visible:border-white/20 focus-visible:ring-white/20 aria-expanded:bg-white/10 aria-expanded:text-white data-[state=open]:bg-white/10 data-[state=open]:text-white"
         >
           <Avatar className="size-9">
-            <AvatarImage src={avatarUrl} alt={name} />
+            {avatarUrl ? <AvatarImage src={avatarUrl} alt={name} /> : null}
             <AvatarFallback className="bg-blue-700 text-xs font-bold text-white">
               {initials}
             </AvatarFallback>
@@ -211,7 +228,7 @@ function AccountDropdown() {
         <DropdownMenuLabel className="p-2">
           <div className="flex items-center gap-3">
             <Avatar className="size-10">
-              <AvatarImage src={avatarUrl} alt={name} />
+              {avatarUrl ? <AvatarImage src={avatarUrl} alt={name} /> : null}
               <AvatarFallback className="bg-blue-700 text-xs font-bold text-white">
                 {initials}
               </AvatarFallback>
@@ -237,6 +254,12 @@ function AccountDropdown() {
         >
           <Settings className="size-4" />
           Account settings
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="cursor-pointer rounded-lg">
+          <Link href="/tenant/payroll-history">
+            <ReceiptText className="size-4" />
+            Payroll history
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -330,8 +353,8 @@ function NotificationDropdown() {
             </div>
           ) : alerts.length === 0 ? (
             <div className="rounded-lg bg-zinc-100 px-4 py-5 text-xs font-medium text-center text-zinc-600">
-              New bookings, unpaid invoices, room
-              operations, guest messages, and approvals will appear here.
+              New bookings, unpaid invoices, room operations, guest messages,
+              and approvals will appear here.
             </div>
           ) : (
             alerts.map((item) => {
@@ -384,7 +407,10 @@ function NotificationLoadingState() {
   return (
     <div className="space-y-2">
       {Array.from({ length: 3 }).map((_, index) => (
-        <div className="flex items-center gap-3 rounded-lg px-2.5 py-2.5" key={index}>
+        <div
+          className="flex items-center gap-3 rounded-lg px-2.5 py-2.5"
+          key={index}
+        >
           <div className="size-8 rounded-full bg-zinc-100" />
           <div className="min-w-0 flex-1 space-y-2">
             <div className="h-3 w-2/3 rounded-full bg-zinc-100" />
@@ -425,20 +451,27 @@ function formatAlertTime(value: Date | string) {
 
 function SearchDialog() {
   const router = useRouter();
+  const trpc = useTRPC();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [groupFilter, setGroupFilter] = useState("All");
+  const profile = useQuery({
+    ...trpc.auth.profile.queryOptions(),
+    retry: false,
+  });
   const normalizedQuery = query.trim().toLowerCase();
   const results = useMemo(() => {
     return SEARCH_ITEMS.filter((item) => {
       const matchesGroup = groupFilter === "All" || item.group === groupFilter;
       const matchesQuery =
-        normalizedQuery.length === 0 ||
-        item.keywords.includes(normalizedQuery);
+        normalizedQuery.length === 0 || item.keywords.includes(normalizedQuery);
+      const hasAccess =
+        item.locked ||
+        canAccessTenantPath(profile.data?.permissions, item.href);
 
-      return matchesGroup && matchesQuery;
+      return matchesGroup && matchesQuery && hasAccess;
     }).slice(0, 12);
-  }, [groupFilter, normalizedQuery]);
+  }, [groupFilter, normalizedQuery, profile.data?.permissions]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {

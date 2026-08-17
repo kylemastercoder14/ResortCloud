@@ -9,10 +9,12 @@ import {
   ExternalLink,
   Flame,
   Info,
+  Loader2,
   MessageCircle,
   MoreVertical,
   Pencil,
   Plus,
+  RefreshCw,
   Search,
   Send,
   Snowflake,
@@ -118,6 +120,7 @@ const STAGES: Array<{ label: string; value: LeadStage }> = [
   { label: "Payment Done", value: "PAYMENT_DONE" },
   { label: "Converted", value: "CONVERTED" },
 ];
+
 const STAGE_TOOLTIPS: Record<LeadStage, string> = {
   INTAKE:
     "Leads that might be new or recently interacted with your Page. Evaluate first before moving them forward.",
@@ -158,11 +161,18 @@ export default function LeadsPage() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const [connectOpen, setConnectOpen] = useState(false);
+  const [diagnosticsOpen, setDiagnosticsOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [conversationOpen, setConversationOpen] = useState(false);
   const [deleteLead, setDeleteLead] = useState<LeadRow | null>(null);
   const [selectedLead, setSelectedLead] = useState<LeadRow | null>(null);
   const [form, setForm] = useState<LeadFormState>(DEFAULT_FORM);
+  const [lastSyncError, setLastSyncError] = useState<string | null>(null);
+  const [lastSyncResult, setLastSyncResult] = useState<{
+    conversations: number;
+    messages: number;
+    syncedAt: string;
+  } | null>(null);
   const [replyText, setReplyText] = useState("");
   const [search, setSearch] = useState("");
   const [stageFilter, setStageFilter] = useState<LeadStage | "ALL">("ALL");
@@ -170,6 +180,11 @@ export default function LeadsPage() {
 
   const integration = useQuery({
     ...trpc.tenant.leads.integration.queryOptions(),
+  });
+  const diagnostics = useQuery({
+    ...trpc.tenant.leads.diagnostics.queryOptions(undefined, {
+      enabled: diagnosticsOpen,
+    }),
   });
   const leads = useQuery({
     ...trpc.tenant.leads.list.queryOptions(),
@@ -196,10 +211,22 @@ export default function LeadsPage() {
 
   const syncInbox = useMutation(
     trpc.tenant.leads.syncMessengerInbox.mutationOptions({
-      onSuccess: async () => {
+      onSuccess: async (result) => {
+        setLastSyncError(null);
+        setLastSyncResult({
+          ...result,
+          syncedAt: new Date().toISOString(),
+        });
         await invalidateLeads();
+        if (diagnosticsOpen) {
+          await queryClient.invalidateQueries(
+            trpc.tenant.leads.diagnostics.queryFilter(),
+          );
+        }
       },
-      onError: () => undefined,
+      onError: (error) => {
+        setLastSyncError(error.message);
+      },
     }),
   );
 
@@ -360,6 +387,14 @@ export default function LeadsPage() {
           <Button
             size="xs"
             variant="outline"
+            onClick={() => setDiagnosticsOpen(true)}
+          >
+            <RefreshCw className="size-4" />
+            Diagnostics
+          </Button>
+          <Button
+            size="xs"
+            variant="outline"
             onClick={() => setConnectOpen(true)}
           >
             <Send className="size-4" />
@@ -470,6 +505,19 @@ export default function LeadsPage() {
         onOpenChange={setConnectOpen}
         open={connectOpen}
         pageCandidate={integration.data?.pageCandidate ?? null}
+      />
+
+      <LeadDiagnosticsSheet
+        diagnostics={diagnostics.data}
+        error={diagnostics.error?.message ?? lastSyncError}
+        isLoading={diagnostics.isLoading}
+        isSyncing={syncInbox.isPending}
+        lastSyncResult={lastSyncResult}
+        leadCount={rows.length}
+        onOpenChange={setDiagnosticsOpen}
+        onRefresh={() => diagnostics.refetch()}
+        onSync={() => syncInbox.mutate()}
+        open={diagnosticsOpen}
       />
 
       <LeadFormSheet
@@ -616,6 +664,254 @@ function ConnectMessengerDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function LeadDiagnosticsSheet({
+  diagnostics,
+  error,
+  isLoading,
+  isSyncing,
+  lastSyncResult,
+  leadCount,
+  onOpenChange,
+  onRefresh,
+  onSync,
+  open,
+}: {
+  diagnostics:
+    | {
+        checks: string[];
+        healthy: boolean;
+        issues: string[];
+        leadCount: number;
+        recentMessages: Array<{
+          direction: "INBOUND" | "OUTBOUND";
+          guestName: string;
+          id: string;
+          sentAt: string;
+          stage: LeadStage;
+          text: string;
+        }>;
+        stageCounts: Array<{ count: number; stage: LeadStage }>;
+        warnings: string[];
+      }
+    | undefined;
+  error: string | null;
+  isLoading: boolean;
+  isSyncing: boolean;
+  lastSyncResult: {
+    conversations: number;
+    messages: number;
+    syncedAt: string;
+  } | null;
+  leadCount: number;
+  onOpenChange: (open: boolean) => void;
+  onRefresh: () => void;
+  onSync: () => void;
+  open: boolean;
+}) {
+  const status = diagnostics?.healthy ? "Healthy" : "Needs attention";
+  const stageCounts = new Map(
+    diagnostics?.stageCounts.map((item) => [item.stage, item.count]) ?? [],
+  );
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent className="gap-0 overflow-hidden bg-white p-0 text-zinc-950 max-w-2xl!">
+        <SheetHeader className="border-b border-zinc-200 bg-white px-4 py-4">
+          <SheetTitle className="text-left text-base">
+            Messenger diagnostics
+          </SheetTitle>
+          <SheetDescription className="text-left">
+            Sync health, local counts, and latest saved messages.
+          </SheetDescription>
+        </SheetHeader>
+
+        <div className="flex-1 space-y-4 overflow-y-auto bg-zinc-50 p-4">
+          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase text-zinc-500">
+                  Status
+                </p>
+                <p className="mt-1 text-xl font-bold text-zinc-950">
+                  {isLoading ? "Checking..." : status}
+                </p>
+              </div>
+              <Badge
+                className={cn(
+                  "rounded-md",
+                  diagnostics?.healthy
+                    ? "border-zinc-200 bg-zinc-100 text-zinc-900"
+                    : "border-red-200 bg-red-50 text-red-700",
+                )}
+              >
+                {diagnostics?.healthy ? "OK" : "Check"}
+              </Badge>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <DiagnosticStat label="Rows on screen" value={leadCount} />
+              <DiagnosticStat
+                label="Rows in database"
+                value={diagnostics?.leadCount ?? leadCount}
+              />
+            </div>
+            {lastSyncResult ? (
+              <p className="mt-3 text-xs text-zinc-500">
+                Last sync: {lastSyncResult.conversations} conversations,{" "}
+                {lastSyncResult.messages} messages at{" "}
+                {formatMessengerDate(lastSyncResult.syncedAt)}
+              </p>
+            ) : (
+              <p className="mt-3 text-xs text-zinc-500">
+                No sync result captured in this browser session yet.
+              </p>
+            )}
+          </div>
+
+          {error ? (
+            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
+              {error}
+            </div>
+          ) : null}
+
+          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+            <p className="text-sm font-bold text-zinc-950">Pipeline counts</p>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              {STAGES.map((stage) => (
+                <DiagnosticStat
+                  key={stage.value}
+                  label={stage.label}
+                  value={stageCounts.get(stage.value) ?? 0}
+                />
+              ))}
+            </div>
+          </div>
+
+          <DiagnosticList title="Checks" items={diagnostics?.checks ?? []} />
+          <DiagnosticList
+            title="Warnings"
+            items={diagnostics?.warnings ?? []}
+            tone="warning"
+          />
+          <DiagnosticList
+            title="Issues"
+            items={diagnostics?.issues ?? []}
+            tone="danger"
+          />
+
+          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+            <p className="text-sm font-bold text-zinc-950">
+              Latest saved messages
+            </p>
+            <div className="mt-3 space-y-3">
+              {diagnostics?.recentMessages.length ? (
+                diagnostics.recentMessages.map((message) => (
+                  <div
+                    key={message.id}
+                    className="rounded-lg border border-zinc-100 bg-zinc-50 p-3"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="min-w-0 truncate text-sm font-bold text-zinc-950">
+                        {message.guestName}
+                      </p>
+                      <Badge className="rounded-md border-zinc-200 bg-white text-zinc-700">
+                        {message.direction}
+                      </Badge>
+                    </div>
+                    <p className="mt-2 line-clamp-2 text-xs text-zinc-600">
+                      {message.text}
+                    </p>
+                    <p className="mt-2 text-[11px] font-medium text-zinc-500">
+                      {STAGES.find((stage) => stage.value === message.stage)?.label ??
+                        message.stage}{" "}
+                      - {formatMessengerDate(message.sentAt)}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-zinc-500">No saved messages yet.</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <SheetFooter className="border-t border-zinc-200 bg-white p-3">
+          <div className="flex w-full gap-2">
+            <Button
+              className="flex-1"
+              variant="outline"
+              type="button"
+              onClick={onRefresh}
+            >
+              <RefreshCw className="size-4" />
+              Refresh
+            </Button>
+            <Button
+              className="flex-1"
+              disabled={isSyncing}
+              type="button"
+              onClick={onSync}
+            >
+              {isSyncing ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <Send className="size-4" />
+              )}
+              {isSyncing ? "Syncing..." : "Run sync"}
+            </Button>
+          </div>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+function DiagnosticStat({
+  label,
+  value,
+}: {
+  label: string;
+  value: number | string;
+}) {
+  return (
+    <div className="rounded-lg border border-zinc-100 bg-zinc-50 p-3">
+      <p className="text-xs font-medium text-zinc-500">{label}</p>
+      <p className="mt-1 text-lg font-bold text-zinc-950">{value}</p>
+    </div>
+  );
+}
+
+function DiagnosticList({
+  items,
+  title,
+  tone = "default",
+}: {
+  items: string[];
+  title: string;
+  tone?: "danger" | "default" | "warning";
+}) {
+  const toneClass =
+    tone === "danger"
+      ? "border-red-200 bg-red-50 text-red-700"
+      : tone === "warning"
+        ? "border-amber-200 bg-amber-50 text-amber-800"
+        : "border-zinc-200 bg-white text-zinc-700";
+
+  return (
+    <div className={cn("rounded-xl border p-4", toneClass)}>
+      <p className="text-sm font-bold">{title}</p>
+      {items.length ? (
+        <ul className="mt-3 space-y-2 text-sm">
+          {items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-3 text-sm">None.</p>
+      )}
+    </div>
   );
 }
 
