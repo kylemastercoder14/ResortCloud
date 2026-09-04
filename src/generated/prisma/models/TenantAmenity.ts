@@ -322,6 +322,7 @@ export type TenantAmenityWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"TenantAmenity"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   rooms?: Prisma.TenantRoomListRelationFilter
+  packages?: Prisma.TenantPackageListRelationFilter
 }
 
 export type TenantAmenityOrderByWithRelationInput = {
@@ -345,6 +346,7 @@ export type TenantAmenityOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   tenantProfile?: Prisma.TenantProfileOrderByWithRelationInput
   rooms?: Prisma.TenantRoomOrderByRelationAggregateInput
+  packages?: Prisma.TenantPackageOrderByRelationAggregateInput
 }
 
 export type TenantAmenityWhereUniqueInput = Prisma.AtLeast<{
@@ -372,6 +374,7 @@ export type TenantAmenityWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"TenantAmenity"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   rooms?: Prisma.TenantRoomListRelationFilter
+  packages?: Prisma.TenantPackageListRelationFilter
 }, "id" | "tenantProfileId_code">
 
 export type TenantAmenityOrderByWithAggregationInput = {
@@ -444,6 +447,7 @@ export type TenantAmenityCreateInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutAmenitiesInput
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutAmenitiesInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutAmenitiesInput
 }
 
 export type TenantAmenityUncheckedCreateInput = {
@@ -466,6 +470,7 @@ export type TenantAmenityUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutAmenitiesInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutAmenitiesInput
 }
 
 export type TenantAmenityUpdateInput = {
@@ -488,6 +493,7 @@ export type TenantAmenityUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutAmenitiesNestedInput
   rooms?: Prisma.TenantRoomUpdateManyWithoutAmenitiesNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutAmenitiesNestedInput
 }
 
 export type TenantAmenityUncheckedUpdateInput = {
@@ -510,6 +516,7 @@ export type TenantAmenityUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutAmenitiesNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutAmenitiesNestedInput
 }
 
 export type TenantAmenityCreateManyInput = {
@@ -752,6 +759,44 @@ export type TenantAmenityUncheckedUpdateManyWithoutRoomsNestedInput = {
   deleteMany?: Prisma.TenantAmenityScalarWhereInput | Prisma.TenantAmenityScalarWhereInput[]
 }
 
+export type TenantAmenityCreateNestedManyWithoutPackagesInput = {
+  create?: Prisma.XOR<Prisma.TenantAmenityCreateWithoutPackagesInput, Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput> | Prisma.TenantAmenityCreateWithoutPackagesInput[] | Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput | Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput[]
+  connect?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+}
+
+export type TenantAmenityUncheckedCreateNestedManyWithoutPackagesInput = {
+  create?: Prisma.XOR<Prisma.TenantAmenityCreateWithoutPackagesInput, Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput> | Prisma.TenantAmenityCreateWithoutPackagesInput[] | Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput | Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput[]
+  connect?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+}
+
+export type TenantAmenityUpdateManyWithoutPackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantAmenityCreateWithoutPackagesInput, Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput> | Prisma.TenantAmenityCreateWithoutPackagesInput[] | Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput | Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput[]
+  upsert?: Prisma.TenantAmenityUpsertWithWhereUniqueWithoutPackagesInput | Prisma.TenantAmenityUpsertWithWhereUniqueWithoutPackagesInput[]
+  set?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  disconnect?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  delete?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  connect?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  update?: Prisma.TenantAmenityUpdateWithWhereUniqueWithoutPackagesInput | Prisma.TenantAmenityUpdateWithWhereUniqueWithoutPackagesInput[]
+  updateMany?: Prisma.TenantAmenityUpdateManyWithWhereWithoutPackagesInput | Prisma.TenantAmenityUpdateManyWithWhereWithoutPackagesInput[]
+  deleteMany?: Prisma.TenantAmenityScalarWhereInput | Prisma.TenantAmenityScalarWhereInput[]
+}
+
+export type TenantAmenityUncheckedUpdateManyWithoutPackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantAmenityCreateWithoutPackagesInput, Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput> | Prisma.TenantAmenityCreateWithoutPackagesInput[] | Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput | Prisma.TenantAmenityCreateOrConnectWithoutPackagesInput[]
+  upsert?: Prisma.TenantAmenityUpsertWithWhereUniqueWithoutPackagesInput | Prisma.TenantAmenityUpsertWithWhereUniqueWithoutPackagesInput[]
+  set?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  disconnect?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  delete?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  connect?: Prisma.TenantAmenityWhereUniqueInput | Prisma.TenantAmenityWhereUniqueInput[]
+  update?: Prisma.TenantAmenityUpdateWithWhereUniqueWithoutPackagesInput | Prisma.TenantAmenityUpdateWithWhereUniqueWithoutPackagesInput[]
+  updateMany?: Prisma.TenantAmenityUpdateManyWithWhereWithoutPackagesInput | Prisma.TenantAmenityUpdateManyWithWhereWithoutPackagesInput[]
+  deleteMany?: Prisma.TenantAmenityScalarWhereInput | Prisma.TenantAmenityScalarWhereInput[]
+}
+
 export type TenantAmenityCreateWithoutTenantProfileInput = {
   id?: string
   code: string
@@ -771,6 +816,7 @@ export type TenantAmenityCreateWithoutTenantProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutAmenitiesInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutAmenitiesInput
 }
 
 export type TenantAmenityUncheckedCreateWithoutTenantProfileInput = {
@@ -792,6 +838,7 @@ export type TenantAmenityUncheckedCreateWithoutTenantProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutAmenitiesInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutAmenitiesInput
 }
 
 export type TenantAmenityCreateOrConnectWithoutTenantProfileInput = {
@@ -863,6 +910,7 @@ export type TenantAmenityCreateWithoutRoomsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutAmenitiesInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutAmenitiesInput
 }
 
 export type TenantAmenityUncheckedCreateWithoutRoomsInput = {
@@ -884,6 +932,7 @@ export type TenantAmenityUncheckedCreateWithoutRoomsInput = {
   internalNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutAmenitiesInput
 }
 
 export type TenantAmenityCreateOrConnectWithoutRoomsInput = {
@@ -905,6 +954,71 @@ export type TenantAmenityUpdateWithWhereUniqueWithoutRoomsInput = {
 export type TenantAmenityUpdateManyWithWhereWithoutRoomsInput = {
   where: Prisma.TenantAmenityScalarWhereInput
   data: Prisma.XOR<Prisma.TenantAmenityUpdateManyMutationInput, Prisma.TenantAmenityUncheckedUpdateManyWithoutRoomsInput>
+}
+
+export type TenantAmenityCreateWithoutPackagesInput = {
+  id?: string
+  code: string
+  name: string
+  category: string
+  icon?: string
+  description?: string | null
+  appliesTo?: $Enums.TenantAmenityScope
+  chargeable?: boolean
+  feeAmount?: string | null
+  feeUnit?: $Enums.TenantAmenityFeeUnit
+  status?: $Enums.TenantAmenityStatus
+  showOnBookingPage?: boolean
+  featured?: boolean
+  sortOrder?: number
+  internalNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutAmenitiesInput
+  rooms?: Prisma.TenantRoomCreateNestedManyWithoutAmenitiesInput
+}
+
+export type TenantAmenityUncheckedCreateWithoutPackagesInput = {
+  id?: string
+  tenantProfileId: string
+  code: string
+  name: string
+  category: string
+  icon?: string
+  description?: string | null
+  appliesTo?: $Enums.TenantAmenityScope
+  chargeable?: boolean
+  feeAmount?: string | null
+  feeUnit?: $Enums.TenantAmenityFeeUnit
+  status?: $Enums.TenantAmenityStatus
+  showOnBookingPage?: boolean
+  featured?: boolean
+  sortOrder?: number
+  internalNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutAmenitiesInput
+}
+
+export type TenantAmenityCreateOrConnectWithoutPackagesInput = {
+  where: Prisma.TenantAmenityWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantAmenityCreateWithoutPackagesInput, Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput>
+}
+
+export type TenantAmenityUpsertWithWhereUniqueWithoutPackagesInput = {
+  where: Prisma.TenantAmenityWhereUniqueInput
+  update: Prisma.XOR<Prisma.TenantAmenityUpdateWithoutPackagesInput, Prisma.TenantAmenityUncheckedUpdateWithoutPackagesInput>
+  create: Prisma.XOR<Prisma.TenantAmenityCreateWithoutPackagesInput, Prisma.TenantAmenityUncheckedCreateWithoutPackagesInput>
+}
+
+export type TenantAmenityUpdateWithWhereUniqueWithoutPackagesInput = {
+  where: Prisma.TenantAmenityWhereUniqueInput
+  data: Prisma.XOR<Prisma.TenantAmenityUpdateWithoutPackagesInput, Prisma.TenantAmenityUncheckedUpdateWithoutPackagesInput>
+}
+
+export type TenantAmenityUpdateManyWithWhereWithoutPackagesInput = {
+  where: Prisma.TenantAmenityScalarWhereInput
+  data: Prisma.XOR<Prisma.TenantAmenityUpdateManyMutationInput, Prisma.TenantAmenityUncheckedUpdateManyWithoutPackagesInput>
 }
 
 export type TenantAmenityCreateManyTenantProfileInput = {
@@ -946,6 +1060,7 @@ export type TenantAmenityUpdateWithoutTenantProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rooms?: Prisma.TenantRoomUpdateManyWithoutAmenitiesNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutAmenitiesNestedInput
 }
 
 export type TenantAmenityUncheckedUpdateWithoutTenantProfileInput = {
@@ -967,6 +1082,7 @@ export type TenantAmenityUncheckedUpdateWithoutTenantProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutAmenitiesNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutAmenitiesNestedInput
 }
 
 export type TenantAmenityUncheckedUpdateManyWithoutTenantProfileInput = {
@@ -1008,6 +1124,7 @@ export type TenantAmenityUpdateWithoutRoomsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutAmenitiesNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutAmenitiesNestedInput
 }
 
 export type TenantAmenityUncheckedUpdateWithoutRoomsInput = {
@@ -1029,9 +1146,75 @@ export type TenantAmenityUncheckedUpdateWithoutRoomsInput = {
   internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutAmenitiesNestedInput
 }
 
 export type TenantAmenityUncheckedUpdateManyWithoutRoomsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appliesTo?: Prisma.EnumTenantAmenityScopeFieldUpdateOperationsInput | $Enums.TenantAmenityScope
+  chargeable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feeAmount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feeUnit?: Prisma.EnumTenantAmenityFeeUnitFieldUpdateOperationsInput | $Enums.TenantAmenityFeeUnit
+  status?: Prisma.EnumTenantAmenityStatusFieldUpdateOperationsInput | $Enums.TenantAmenityStatus
+  showOnBookingPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TenantAmenityUpdateWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appliesTo?: Prisma.EnumTenantAmenityScopeFieldUpdateOperationsInput | $Enums.TenantAmenityScope
+  chargeable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feeAmount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feeUnit?: Prisma.EnumTenantAmenityFeeUnitFieldUpdateOperationsInput | $Enums.TenantAmenityFeeUnit
+  status?: Prisma.EnumTenantAmenityStatusFieldUpdateOperationsInput | $Enums.TenantAmenityStatus
+  showOnBookingPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutAmenitiesNestedInput
+  rooms?: Prisma.TenantRoomUpdateManyWithoutAmenitiesNestedInput
+}
+
+export type TenantAmenityUncheckedUpdateWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appliesTo?: Prisma.EnumTenantAmenityScopeFieldUpdateOperationsInput | $Enums.TenantAmenityScope
+  chargeable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feeAmount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feeUnit?: Prisma.EnumTenantAmenityFeeUnitFieldUpdateOperationsInput | $Enums.TenantAmenityFeeUnit
+  status?: Prisma.EnumTenantAmenityStatusFieldUpdateOperationsInput | $Enums.TenantAmenityStatus
+  showOnBookingPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutAmenitiesNestedInput
+}
+
+export type TenantAmenityUncheckedUpdateManyWithoutPackagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1059,10 +1242,12 @@ export type TenantAmenityUncheckedUpdateManyWithoutRoomsInput = {
 
 export type TenantAmenityCountOutputType = {
   rooms: number
+  packages: number
 }
 
 export type TenantAmenityCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rooms?: boolean | TenantAmenityCountOutputTypeCountRoomsArgs
+  packages?: boolean | TenantAmenityCountOutputTypeCountPackagesArgs
 }
 
 /**
@@ -1080,6 +1265,13 @@ export type TenantAmenityCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
  */
 export type TenantAmenityCountOutputTypeCountRoomsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantRoomWhereInput
+}
+
+/**
+ * TenantAmenityCountOutputType without action
+ */
+export type TenantAmenityCountOutputTypeCountPackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantPackageWhereInput
 }
 
 
@@ -1104,6 +1296,7 @@ export type TenantAmenitySelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   rooms?: boolean | Prisma.TenantAmenity$roomsArgs<ExtArgs>
+  packages?: boolean | Prisma.TenantAmenity$packagesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantAmenityCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantAmenity"]>
 
@@ -1176,6 +1369,7 @@ export type TenantAmenityOmit<ExtArgs extends runtime.Types.Extensions.InternalA
 export type TenantAmenityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   rooms?: boolean | Prisma.TenantAmenity$roomsArgs<ExtArgs>
+  packages?: boolean | Prisma.TenantAmenity$packagesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantAmenityCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantAmenityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1190,6 +1384,7 @@ export type $TenantAmenityPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     tenantProfile: Prisma.$TenantProfilePayload<ExtArgs>
     rooms: Prisma.$TenantRoomPayload<ExtArgs>[]
+    packages: Prisma.$TenantPackagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1606,6 +1801,7 @@ export interface Prisma__TenantAmenityClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenantProfile<T extends Prisma.TenantProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantProfileClient<runtime.Types.Result.GetResult<Prisma.$TenantProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   rooms<T extends Prisma.TenantAmenity$roomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantAmenity$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  packages<T extends Prisma.TenantAmenity$packagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantAmenity$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2075,6 +2271,30 @@ export type TenantAmenity$roomsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.TenantRoomScalarFieldEnum | Prisma.TenantRoomScalarFieldEnum[]
+}
+
+/**
+ * TenantAmenity.packages
+ */
+export type TenantAmenity$packagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantPackage
+   */
+  select?: Prisma.TenantPackageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantPackage
+   */
+  omit?: Prisma.TenantPackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantPackageInclude<ExtArgs> | null
+  where?: Prisma.TenantPackageWhereInput
+  orderBy?: Prisma.TenantPackageOrderByWithRelationInput | Prisma.TenantPackageOrderByWithRelationInput[]
+  cursor?: Prisma.TenantPackageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantPackageScalarFieldEnum | Prisma.TenantPackageScalarFieldEnum[]
 }
 
 /**

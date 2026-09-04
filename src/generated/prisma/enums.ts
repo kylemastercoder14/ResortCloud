@@ -326,6 +326,15 @@ export const TenantServiceStatus = {
 export type TenantServiceStatus = (typeof TenantServiceStatus)[keyof typeof TenantServiceStatus]
 
 
+export const TenantPackageStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type TenantPackageStatus = (typeof TenantPackageStatus)[keyof typeof TenantPackageStatus]
+
+
 export const TenantServiceBillingType = {
   FIXED_PRICE: 'FIXED_PRICE',
   PER_HOUR: 'PER_HOUR',
@@ -345,6 +354,34 @@ export const TenantInvoiceStatus = {
 } as const
 
 export type TenantInvoiceStatus = (typeof TenantInvoiceStatus)[keyof typeof TenantInvoiceStatus]
+
+
+export const TenantFolioChargeStatus = {
+  UNBILLED: 'UNBILLED',
+  INVOICED: 'INVOICED',
+  VOIDED: 'VOIDED',
+  ADJUSTED: 'ADJUSTED'
+} as const
+
+export type TenantFolioChargeStatus = (typeof TenantFolioChargeStatus)[keyof typeof TenantFolioChargeStatus]
+
+
+export const TenantFolioChargeType = {
+  STAY: 'STAY',
+  ADDITIONAL: 'ADDITIONAL',
+  FEE: 'FEE',
+  ADJUSTMENT: 'ADJUSTMENT'
+} as const
+
+export type TenantFolioChargeType = (typeof TenantFolioChargeType)[keyof typeof TenantFolioChargeType]
+
+
+export const TenantPaymentLogStatus = {
+  RECORDED: 'RECORDED',
+  VOIDED: 'VOIDED'
+} as const
+
+export type TenantPaymentLogStatus = (typeof TenantPaymentLogStatus)[keyof typeof TenantPaymentLogStatus]
 
 
 export const TenantInvoiceReminderCadence = {

@@ -33,6 +33,7 @@ import { useTRPC } from "@/trpc/client";
 
 const STATUS_OPTIONS = ["Confirmed", "Pending", "Checked in"] as const;
 const PAYMENT_METHODS = ["Cash", "Bank transfer", "E-wallet", "Credit card"] as const;
+const ROOM_ONLY_PACKAGE = { label: "Room only", price: "", roomsIncluded: 1 };
 
 function getDefaultDates() {
   const today = new Date();
@@ -57,6 +58,10 @@ export function CreateBookingView() {
   const trpc = useTRPC();
   const rooms = useQuery({
     ...trpc.tenant.rooms.list.queryOptions(),
+    retry: false,
+  });
+  const packages = useQuery({
+    ...trpc.tenant.packages.list.queryOptions(),
     retry: false,
   });
   const createBooking = useMutation(
@@ -91,9 +96,12 @@ export function CreateBookingView() {
     firstName: "",
     lastName: "",
     notes: "",
+    packageName: "Room only",
+    packagePrice: "",
     paymentMethod: "Cash",
     phone: "",
     rate: "",
+    roomsIncluded: 1,
     roomId: "",
     status: "Confirmed",
   });
@@ -101,9 +109,21 @@ export function CreateBookingView() {
     () => (rooms.data ?? []).filter((room) => room.status !== "Out of Service"),
     [rooms.data],
   );
+  const packageOptions = useMemo<PackageOption[]>(() => {
+    const savedPackages = (packages.data ?? [])
+      .filter((pack) => pack.status === "Active" && pack.showOnBookingPage)
+      .map((pack) => ({
+        label: pack.name,
+        price: pack.price,
+        roomsIncluded: pack.rooms.length || 1,
+      }));
+
+    return [ROOM_ONLY_PACKAGE, ...savedPackages];
+  }, [packages.data]);
   const selectedRoom = availableRooms.find((room) => room.id === values.roomId);
   const nights = getNights(values.checkIn, values.checkOut);
-  const rateAmount = parseMoney(values.rate || selectedRoom?.baseRate || "0");
+  const packageAmount = parseMoney(values.packagePrice);
+  const rateAmount = packageAmount || parseMoney(values.rate || selectedRoom?.baseRate || "0");
   const roomTotal = rateAmount * nights;
   const depositAmount = parseMoney(values.deposit);
   const balance = Math.max(roomTotal - depositAmount, 0);
@@ -166,8 +186,11 @@ export function CreateBookingView() {
       guestPhone: values.phone,
       notes: values.notes,
       paymentMethod: values.paymentMethod,
+      packageName: values.packageName,
+      packagePrice: values.packagePrice,
       rate: String(rateAmount || values.rate),
       roomId: values.roomId,
+      roomsIncluded: values.roomsIncluded,
       status: values.status as (typeof STATUS_OPTIONS)[number],
       totalAmount: String(roomTotal),
     });
@@ -209,6 +232,8 @@ export function CreateBookingView() {
           <PaymentCard
             balance={balance}
             roomTotal={roomTotal}
+            loadingPackages={packages.isPending}
+            packageOptions={packageOptions}
             values={values}
             onChange={updateValue}
           />
@@ -418,23 +443,73 @@ function StayCard({
 
 function PaymentCard({
   balance,
+  loadingPackages,
   onChange,
   roomTotal,
+  packageOptions,
   values,
 }: {
   balance: number;
+  loadingPackages: boolean;
   onChange: <Key extends keyof BookingValues>(
     key: Key,
     value: BookingValues[Key],
   ) => void;
+  packageOptions: PackageOption[];
   roomTotal: number;
   values: BookingValues;
 }) {
+  function selectPackage(packageName: string) {
+    const option = packageOptions.find((item) => item.label === packageName);
+    onChange("packageName", packageName);
+    onChange("packagePrice", option?.price ?? "");
+    onChange("roomsIncluded", option?.roomsIncluded ?? 1);
+  }
+
   return (
     <Card className="gap-5 rounded-xl border-zinc-200 bg-white p-5">
       <CardTitle icon={<CreditCard className="size-4" />} title="Payment">
         Track deposit, balance, and collection method.
       </CardTitle>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <Field label="Package option">
+          <Select value={values.packageName} onValueChange={selectPackage}>
+            <SelectTrigger className="h-10 w-full rounded-lg">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {loadingPackages ? (
+                <SelectItem value="loading" disabled>
+                  Loading packages...
+                </SelectItem>
+              ) : null}
+              {packageOptions.map((option) => (
+                <SelectItem key={option.label} value={option.label}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
+        <Field label="Package price">
+          <Input
+            value={values.packagePrice}
+            placeholder="Optional"
+            className="rounded-lg"
+            onChange={(event) => onChange("packagePrice", event.target.value)}
+          />
+        </Field>
+        <Field label="Rooms included">
+          <Input
+            type="number"
+            min="1"
+            value={values.roomsIncluded}
+            className="rounded-lg"
+            onChange={(event) => onChange("roomsIncluded", Number(event.target.value))}
+          />
+        </Field>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Rate per night">
@@ -510,6 +585,10 @@ function BookingSummary({
         value={`${values.adults} adult${values.adults === 1 ? "" : "s"}, ${values.children} child${values.children === 1 ? "" : "ren"}`}
       />
       <SummaryRow label="Room total" value={formatPeso(roomTotal)} />
+      <SummaryRow
+        label="Package"
+        value={`${values.packageName} - ${values.roomsIncluded} room${values.roomsIncluded === 1 ? "" : "s"}`}
+      />
       <SummaryRow label="Deposit" value={formatPeso(depositAmount)} />
       <div className="border-t border-zinc-200 pt-4">
         <SummaryRow label="Balance due" value={formatPeso(balance)} strong />
@@ -663,11 +742,20 @@ type BookingValues = {
   firstName: string;
   lastName: string;
   notes: string;
+  packageName: string;
+  packagePrice: string;
   paymentMethod: string;
   phone: string;
   rate: string;
+  roomsIncluded: number;
   roomId: string;
   status: string;
+};
+
+type PackageOption = {
+  label: string;
+  price: string;
+  roomsIncluded: number;
 };
 
 type RoomOption = NonNullable<

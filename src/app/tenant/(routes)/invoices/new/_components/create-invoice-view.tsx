@@ -334,9 +334,12 @@ export function CreateInvoiceView({ invoiceId }: CreateInvoiceViewProps) {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {["Draft", "Sent", "Paid", "Overdue", "Void"].map((status) => (
+                    {["Draft", "Sent", "Overdue", "Void"].map((status) => (
                       <SelectItem key={status} value={status}>{status}</SelectItem>
                     ))}
+                    <SelectItem value="Paid" disabled>
+                      Paid
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </Field>

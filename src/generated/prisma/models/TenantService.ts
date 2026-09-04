@@ -279,6 +279,7 @@ export type TenantServiceWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"TenantService"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantService"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
+  packages?: Prisma.TenantPackageListRelationFilter
 }
 
 export type TenantServiceOrderByWithRelationInput = {
@@ -300,6 +301,7 @@ export type TenantServiceOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenantProfile?: Prisma.TenantProfileOrderByWithRelationInput
+  packages?: Prisma.TenantPackageOrderByRelationAggregateInput
 }
 
 export type TenantServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -325,6 +327,7 @@ export type TenantServiceWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"TenantService"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantService"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
+  packages?: Prisma.TenantPackageListRelationFilter
 }, "id" | "tenantProfileId_code">
 
 export type TenantServiceOrderByWithAggregationInput = {
@@ -391,6 +394,7 @@ export type TenantServiceCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutServicesInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutServicesInput
 }
 
 export type TenantServiceUncheckedCreateInput = {
@@ -411,6 +415,7 @@ export type TenantServiceUncheckedCreateInput = {
   status?: $Enums.TenantServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutServicesInput
 }
 
 export type TenantServiceUpdateInput = {
@@ -431,6 +436,7 @@ export type TenantServiceUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutServicesNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutServicesNestedInput
 }
 
 export type TenantServiceUncheckedUpdateInput = {
@@ -451,6 +457,7 @@ export type TenantServiceUncheckedUpdateInput = {
   status?: Prisma.EnumTenantServiceStatusFieldUpdateOperationsInput | $Enums.TenantServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutServicesNestedInput
 }
 
 export type TenantServiceCreateManyInput = {
@@ -637,6 +644,44 @@ export type EnumTenantServiceStatusFieldUpdateOperationsInput = {
   set?: $Enums.TenantServiceStatus
 }
 
+export type TenantServiceCreateNestedManyWithoutPackagesInput = {
+  create?: Prisma.XOR<Prisma.TenantServiceCreateWithoutPackagesInput, Prisma.TenantServiceUncheckedCreateWithoutPackagesInput> | Prisma.TenantServiceCreateWithoutPackagesInput[] | Prisma.TenantServiceUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantServiceCreateOrConnectWithoutPackagesInput | Prisma.TenantServiceCreateOrConnectWithoutPackagesInput[]
+  connect?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+}
+
+export type TenantServiceUncheckedCreateNestedManyWithoutPackagesInput = {
+  create?: Prisma.XOR<Prisma.TenantServiceCreateWithoutPackagesInput, Prisma.TenantServiceUncheckedCreateWithoutPackagesInput> | Prisma.TenantServiceCreateWithoutPackagesInput[] | Prisma.TenantServiceUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantServiceCreateOrConnectWithoutPackagesInput | Prisma.TenantServiceCreateOrConnectWithoutPackagesInput[]
+  connect?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+}
+
+export type TenantServiceUpdateManyWithoutPackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantServiceCreateWithoutPackagesInput, Prisma.TenantServiceUncheckedCreateWithoutPackagesInput> | Prisma.TenantServiceCreateWithoutPackagesInput[] | Prisma.TenantServiceUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantServiceCreateOrConnectWithoutPackagesInput | Prisma.TenantServiceCreateOrConnectWithoutPackagesInput[]
+  upsert?: Prisma.TenantServiceUpsertWithWhereUniqueWithoutPackagesInput | Prisma.TenantServiceUpsertWithWhereUniqueWithoutPackagesInput[]
+  set?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  disconnect?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  delete?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  connect?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  update?: Prisma.TenantServiceUpdateWithWhereUniqueWithoutPackagesInput | Prisma.TenantServiceUpdateWithWhereUniqueWithoutPackagesInput[]
+  updateMany?: Prisma.TenantServiceUpdateManyWithWhereWithoutPackagesInput | Prisma.TenantServiceUpdateManyWithWhereWithoutPackagesInput[]
+  deleteMany?: Prisma.TenantServiceScalarWhereInput | Prisma.TenantServiceScalarWhereInput[]
+}
+
+export type TenantServiceUncheckedUpdateManyWithoutPackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantServiceCreateWithoutPackagesInput, Prisma.TenantServiceUncheckedCreateWithoutPackagesInput> | Prisma.TenantServiceCreateWithoutPackagesInput[] | Prisma.TenantServiceUncheckedCreateWithoutPackagesInput[]
+  connectOrCreate?: Prisma.TenantServiceCreateOrConnectWithoutPackagesInput | Prisma.TenantServiceCreateOrConnectWithoutPackagesInput[]
+  upsert?: Prisma.TenantServiceUpsertWithWhereUniqueWithoutPackagesInput | Prisma.TenantServiceUpsertWithWhereUniqueWithoutPackagesInput[]
+  set?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  disconnect?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  delete?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  connect?: Prisma.TenantServiceWhereUniqueInput | Prisma.TenantServiceWhereUniqueInput[]
+  update?: Prisma.TenantServiceUpdateWithWhereUniqueWithoutPackagesInput | Prisma.TenantServiceUpdateWithWhereUniqueWithoutPackagesInput[]
+  updateMany?: Prisma.TenantServiceUpdateManyWithWhereWithoutPackagesInput | Prisma.TenantServiceUpdateManyWithWhereWithoutPackagesInput[]
+  deleteMany?: Prisma.TenantServiceScalarWhereInput | Prisma.TenantServiceScalarWhereInput[]
+}
+
 export type TenantServiceCreateWithoutTenantProfileInput = {
   id?: string
   code: string
@@ -654,6 +699,7 @@ export type TenantServiceCreateWithoutTenantProfileInput = {
   status?: $Enums.TenantServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutServicesInput
 }
 
 export type TenantServiceUncheckedCreateWithoutTenantProfileInput = {
@@ -673,6 +719,7 @@ export type TenantServiceUncheckedCreateWithoutTenantProfileInput = {
   status?: $Enums.TenantServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutServicesInput
 }
 
 export type TenantServiceCreateOrConnectWithoutTenantProfileInput = {
@@ -724,6 +771,67 @@ export type TenantServiceScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"TenantService"> | Date | string
 }
 
+export type TenantServiceCreateWithoutPackagesInput = {
+  id?: string
+  code: string
+  title: string
+  category: string
+  provider?: string | null
+  baseCharge: string
+  billingType?: $Enums.TenantServiceBillingType
+  duration?: string | null
+  bookingLeadTime?: string | null
+  feeNote?: string | null
+  description?: string | null
+  internalNotes?: string | null
+  showOnBookingPage?: boolean
+  status?: $Enums.TenantServiceStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutServicesInput
+}
+
+export type TenantServiceUncheckedCreateWithoutPackagesInput = {
+  id?: string
+  tenantProfileId: string
+  code: string
+  title: string
+  category: string
+  provider?: string | null
+  baseCharge: string
+  billingType?: $Enums.TenantServiceBillingType
+  duration?: string | null
+  bookingLeadTime?: string | null
+  feeNote?: string | null
+  description?: string | null
+  internalNotes?: string | null
+  showOnBookingPage?: boolean
+  status?: $Enums.TenantServiceStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TenantServiceCreateOrConnectWithoutPackagesInput = {
+  where: Prisma.TenantServiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantServiceCreateWithoutPackagesInput, Prisma.TenantServiceUncheckedCreateWithoutPackagesInput>
+}
+
+export type TenantServiceUpsertWithWhereUniqueWithoutPackagesInput = {
+  where: Prisma.TenantServiceWhereUniqueInput
+  update: Prisma.XOR<Prisma.TenantServiceUpdateWithoutPackagesInput, Prisma.TenantServiceUncheckedUpdateWithoutPackagesInput>
+  create: Prisma.XOR<Prisma.TenantServiceCreateWithoutPackagesInput, Prisma.TenantServiceUncheckedCreateWithoutPackagesInput>
+}
+
+export type TenantServiceUpdateWithWhereUniqueWithoutPackagesInput = {
+  where: Prisma.TenantServiceWhereUniqueInput
+  data: Prisma.XOR<Prisma.TenantServiceUpdateWithoutPackagesInput, Prisma.TenantServiceUncheckedUpdateWithoutPackagesInput>
+}
+
+export type TenantServiceUpdateManyWithWhereWithoutPackagesInput = {
+  where: Prisma.TenantServiceScalarWhereInput
+  data: Prisma.XOR<Prisma.TenantServiceUpdateManyMutationInput, Prisma.TenantServiceUncheckedUpdateManyWithoutPackagesInput>
+}
+
 export type TenantServiceCreateManyTenantProfileInput = {
   id?: string
   code: string
@@ -760,6 +868,7 @@ export type TenantServiceUpdateWithoutTenantProfileInput = {
   status?: Prisma.EnumTenantServiceStatusFieldUpdateOperationsInput | $Enums.TenantServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  packages?: Prisma.TenantPackageUpdateManyWithoutServicesNestedInput
 }
 
 export type TenantServiceUncheckedUpdateWithoutTenantProfileInput = {
@@ -779,6 +888,7 @@ export type TenantServiceUncheckedUpdateWithoutTenantProfileInput = {
   status?: Prisma.EnumTenantServiceStatusFieldUpdateOperationsInput | $Enums.TenantServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutServicesNestedInput
 }
 
 export type TenantServiceUncheckedUpdateManyWithoutTenantProfileInput = {
@@ -800,6 +910,95 @@ export type TenantServiceUncheckedUpdateManyWithoutTenantProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type TenantServiceUpdateWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCharge?: Prisma.StringFieldUpdateOperationsInput | string
+  billingType?: Prisma.EnumTenantServiceBillingTypeFieldUpdateOperationsInput | $Enums.TenantServiceBillingType
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookingLeadTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feeNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showOnBookingPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTenantServiceStatusFieldUpdateOperationsInput | $Enums.TenantServiceStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutServicesNestedInput
+}
+
+export type TenantServiceUncheckedUpdateWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCharge?: Prisma.StringFieldUpdateOperationsInput | string
+  billingType?: Prisma.EnumTenantServiceBillingTypeFieldUpdateOperationsInput | $Enums.TenantServiceBillingType
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookingLeadTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feeNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showOnBookingPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTenantServiceStatusFieldUpdateOperationsInput | $Enums.TenantServiceStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TenantServiceUncheckedUpdateManyWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCharge?: Prisma.StringFieldUpdateOperationsInput | string
+  billingType?: Prisma.EnumTenantServiceBillingTypeFieldUpdateOperationsInput | $Enums.TenantServiceBillingType
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookingLeadTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feeNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showOnBookingPage?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTenantServiceStatusFieldUpdateOperationsInput | $Enums.TenantServiceStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type TenantServiceCountOutputType
+ */
+
+export type TenantServiceCountOutputType = {
+  packages: number
+}
+
+export type TenantServiceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  packages?: boolean | TenantServiceCountOutputTypeCountPackagesArgs
+}
+
+/**
+ * TenantServiceCountOutputType without action
+ */
+export type TenantServiceCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantServiceCountOutputType
+   */
+  select?: Prisma.TenantServiceCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TenantServiceCountOutputType without action
+ */
+export type TenantServiceCountOutputTypeCountPackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantPackageWhereInput
+}
 
 
 export type TenantServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -821,6 +1020,8 @@ export type TenantServiceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  packages?: boolean | Prisma.TenantService$packagesArgs<ExtArgs>
+  _count?: boolean | Prisma.TenantServiceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantService"]>
 
 export type TenantServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -888,6 +1089,8 @@ export type TenantServiceSelectScalar = {
 export type TenantServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "code" | "title" | "category" | "provider" | "baseCharge" | "billingType" | "duration" | "bookingLeadTime" | "feeNote" | "description" | "internalNotes" | "showOnBookingPage" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantService"]>
 export type TenantServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
+  packages?: boolean | Prisma.TenantService$packagesArgs<ExtArgs>
+  _count?: boolean | Prisma.TenantServiceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantServiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
@@ -900,6 +1103,7 @@ export type $TenantServicePayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "TenantService"
   objects: {
     tenantProfile: Prisma.$TenantProfilePayload<ExtArgs>
+    packages: Prisma.$TenantPackagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1314,6 +1518,7 @@ readonly fields: TenantServiceFieldRefs;
 export interface Prisma__TenantServiceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenantProfile<T extends Prisma.TenantProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantProfileClient<runtime.Types.Result.GetResult<Prisma.$TenantProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  packages<T extends Prisma.TenantService$packagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantService$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1758,6 +1963,30 @@ export type TenantServiceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many TenantServices to delete.
    */
   limit?: number
+}
+
+/**
+ * TenantService.packages
+ */
+export type TenantService$packagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantPackage
+   */
+  select?: Prisma.TenantPackageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantPackage
+   */
+  omit?: Prisma.TenantPackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantPackageInclude<ExtArgs> | null
+  where?: Prisma.TenantPackageWhereInput
+  orderBy?: Prisma.TenantPackageOrderByWithRelationInput | Prisma.TenantPackageOrderByWithRelationInput[]
+  cursor?: Prisma.TenantPackageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantPackageScalarFieldEnum | Prisma.TenantPackageScalarFieldEnum[]
 }
 
 /**

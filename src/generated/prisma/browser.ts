@@ -178,6 +178,11 @@ export type TenantInventoryMovement = Prisma.TenantInventoryMovementModel
  */
 export type TenantService = Prisma.TenantServiceModel
 /**
+ * Model TenantPackage
+ * 
+ */
+export type TenantPackage = Prisma.TenantPackageModel
+/**
  * Model TenantInvoice
  * 
  */
@@ -187,6 +192,16 @@ export type TenantInvoice = Prisma.TenantInvoiceModel
  * 
  */
 export type TenantInvoiceLineItem = Prisma.TenantInvoiceLineItemModel
+/**
+ * Model TenantFolioCharge
+ * 
+ */
+export type TenantFolioCharge = Prisma.TenantFolioChargeModel
+/**
+ * Model TenantPaymentLog
+ * 
+ */
+export type TenantPaymentLog = Prisma.TenantPaymentLogModel
 /**
  * Model TenantFinanceEntry
  * 

@@ -550,11 +550,14 @@ export type TenantProfileWhereInput = {
   rooms?: Prisma.TenantRoomListRelationFilter
   reservations?: Prisma.TenantReservationListRelationFilter
   services?: Prisma.TenantServiceListRelationFilter
+  packages?: Prisma.TenantPackageListRelationFilter
   invoices?: Prisma.TenantInvoiceListRelationFilter
   financeEntries?: Prisma.TenantFinanceEntryListRelationFilter
   transactionExports?: Prisma.TenantTransactionExportListRelationFilter
   messengerIntegrations?: Prisma.TenantMessengerIntegrationListRelationFilter
   leads?: Prisma.TenantLeadListRelationFilter
+  folioCharges?: Prisma.TenantFolioChargeListRelationFilter
+  paymentLogs?: Prisma.TenantPaymentLogListRelationFilter
   receptionRequests?: Prisma.TenantReceptionRequestListRelationFilter
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteListRelationFilter
   maintenanceRequests?: Prisma.TenantMaintenanceRequestListRelationFilter
@@ -627,11 +630,14 @@ export type TenantProfileOrderByWithRelationInput = {
   rooms?: Prisma.TenantRoomOrderByRelationAggregateInput
   reservations?: Prisma.TenantReservationOrderByRelationAggregateInput
   services?: Prisma.TenantServiceOrderByRelationAggregateInput
+  packages?: Prisma.TenantPackageOrderByRelationAggregateInput
   invoices?: Prisma.TenantInvoiceOrderByRelationAggregateInput
   financeEntries?: Prisma.TenantFinanceEntryOrderByRelationAggregateInput
   transactionExports?: Prisma.TenantTransactionExportOrderByRelationAggregateInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationOrderByRelationAggregateInput
   leads?: Prisma.TenantLeadOrderByRelationAggregateInput
+  folioCharges?: Prisma.TenantFolioChargeOrderByRelationAggregateInput
+  paymentLogs?: Prisma.TenantPaymentLogOrderByRelationAggregateInput
   receptionRequests?: Prisma.TenantReceptionRequestOrderByRelationAggregateInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteOrderByRelationAggregateInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestOrderByRelationAggregateInput
@@ -707,11 +713,14 @@ export type TenantProfileWhereUniqueInput = Prisma.AtLeast<{
   rooms?: Prisma.TenantRoomListRelationFilter
   reservations?: Prisma.TenantReservationListRelationFilter
   services?: Prisma.TenantServiceListRelationFilter
+  packages?: Prisma.TenantPackageListRelationFilter
   invoices?: Prisma.TenantInvoiceListRelationFilter
   financeEntries?: Prisma.TenantFinanceEntryListRelationFilter
   transactionExports?: Prisma.TenantTransactionExportListRelationFilter
   messengerIntegrations?: Prisma.TenantMessengerIntegrationListRelationFilter
   leads?: Prisma.TenantLeadListRelationFilter
+  folioCharges?: Prisma.TenantFolioChargeListRelationFilter
+  paymentLogs?: Prisma.TenantPaymentLogListRelationFilter
   receptionRequests?: Prisma.TenantReceptionRequestListRelationFilter
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteListRelationFilter
   maintenanceRequests?: Prisma.TenantMaintenanceRequestListRelationFilter
@@ -889,11 +898,14 @@ export type TenantProfileCreateInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -965,11 +977,14 @@ export type TenantProfileUncheckedCreateInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -1041,11 +1056,14 @@ export type TenantProfileUpdateInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -1117,11 +1135,14 @@ export type TenantProfileUncheckedUpdateInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -1848,6 +1869,20 @@ export type TenantProfileUpdateOneRequiredWithoutServicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutServicesInput, Prisma.TenantProfileUpdateWithoutServicesInput>, Prisma.TenantProfileUncheckedUpdateWithoutServicesInput>
 }
 
+export type TenantProfileCreateNestedOneWithoutPackagesInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutPackagesInput, Prisma.TenantProfileUncheckedCreateWithoutPackagesInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutPackagesInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+}
+
+export type TenantProfileUpdateOneRequiredWithoutPackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutPackagesInput, Prisma.TenantProfileUncheckedCreateWithoutPackagesInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutPackagesInput
+  upsert?: Prisma.TenantProfileUpsertWithoutPackagesInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutPackagesInput, Prisma.TenantProfileUpdateWithoutPackagesInput>, Prisma.TenantProfileUncheckedUpdateWithoutPackagesInput>
+}
+
 export type TenantProfileCreateNestedOneWithoutInvoicesInput = {
   create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutInvoicesInput, Prisma.TenantProfileUncheckedCreateWithoutInvoicesInput>
   connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutInvoicesInput
@@ -1860,6 +1895,34 @@ export type TenantProfileUpdateOneRequiredWithoutInvoicesNestedInput = {
   upsert?: Prisma.TenantProfileUpsertWithoutInvoicesInput
   connect?: Prisma.TenantProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutInvoicesInput, Prisma.TenantProfileUpdateWithoutInvoicesInput>, Prisma.TenantProfileUncheckedUpdateWithoutInvoicesInput>
+}
+
+export type TenantProfileCreateNestedOneWithoutFolioChargesInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutFolioChargesInput, Prisma.TenantProfileUncheckedCreateWithoutFolioChargesInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutFolioChargesInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+}
+
+export type TenantProfileUpdateOneRequiredWithoutFolioChargesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutFolioChargesInput, Prisma.TenantProfileUncheckedCreateWithoutFolioChargesInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutFolioChargesInput
+  upsert?: Prisma.TenantProfileUpsertWithoutFolioChargesInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutFolioChargesInput, Prisma.TenantProfileUpdateWithoutFolioChargesInput>, Prisma.TenantProfileUncheckedUpdateWithoutFolioChargesInput>
+}
+
+export type TenantProfileCreateNestedOneWithoutPaymentLogsInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutPaymentLogsInput, Prisma.TenantProfileUncheckedCreateWithoutPaymentLogsInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutPaymentLogsInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+}
+
+export type TenantProfileUpdateOneRequiredWithoutPaymentLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantProfileCreateWithoutPaymentLogsInput, Prisma.TenantProfileUncheckedCreateWithoutPaymentLogsInput>
+  connectOrCreate?: Prisma.TenantProfileCreateOrConnectWithoutPaymentLogsInput
+  upsert?: Prisma.TenantProfileUpsertWithoutPaymentLogsInput
+  connect?: Prisma.TenantProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantProfileUpdateToOneWithWhereWithoutPaymentLogsInput, Prisma.TenantProfileUpdateWithoutPaymentLogsInput>, Prisma.TenantProfileUncheckedUpdateWithoutPaymentLogsInput>
 }
 
 export type TenantProfileCreateNestedOneWithoutFinanceEntriesInput = {
@@ -1941,11 +2004,14 @@ export type TenantProfileCreateWithoutAppUserInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -2016,11 +2082,14 @@ export type TenantProfileUncheckedCreateWithoutAppUserInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -2107,11 +2176,14 @@ export type TenantProfileUpdateWithoutAppUserInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -2182,11 +2254,14 @@ export type TenantProfileUncheckedUpdateWithoutAppUserInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -2258,10 +2333,13 @@ export type TenantProfileCreateWithoutMessengerIntegrationsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -2333,10 +2411,13 @@ export type TenantProfileUncheckedCreateWithoutMessengerIntegrationsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -2424,10 +2505,13 @@ export type TenantProfileUpdateWithoutMessengerIntegrationsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -2499,10 +2583,13 @@ export type TenantProfileUncheckedUpdateWithoutMessengerIntegrationsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -2574,10 +2661,13 @@ export type TenantProfileCreateWithoutLeadsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -2649,10 +2739,13 @@ export type TenantProfileUncheckedCreateWithoutLeadsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -2740,10 +2833,13 @@ export type TenantProfileUpdateWithoutLeadsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -2815,10 +2911,13 @@ export type TenantProfileUncheckedUpdateWithoutLeadsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -2890,11 +2989,14 @@ export type TenantProfileCreateWithoutStaffProfilesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -2965,11 +3067,14 @@ export type TenantProfileUncheckedCreateWithoutStaffProfilesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3056,11 +3161,14 @@ export type TenantProfileUpdateWithoutStaffProfilesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -3131,11 +3239,14 @@ export type TenantProfileUncheckedUpdateWithoutStaffProfilesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -3206,11 +3317,14 @@ export type TenantProfileCreateWithoutAccessRolesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -3281,11 +3395,14 @@ export type TenantProfileUncheckedCreateWithoutAccessRolesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3372,11 +3489,14 @@ export type TenantProfileUpdateWithoutAccessRolesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -3447,11 +3567,14 @@ export type TenantProfileUncheckedUpdateWithoutAccessRolesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -3522,11 +3645,14 @@ export type TenantProfileCreateWithoutTimeLogsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -3597,11 +3723,14 @@ export type TenantProfileUncheckedCreateWithoutTimeLogsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -3688,11 +3817,14 @@ export type TenantProfileUpdateWithoutTimeLogsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -3763,11 +3895,14 @@ export type TenantProfileUncheckedUpdateWithoutTimeLogsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -3838,11 +3973,14 @@ export type TenantProfileCreateWithoutScheduleShiftsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -3913,11 +4051,14 @@ export type TenantProfileUncheckedCreateWithoutScheduleShiftsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4004,11 +4145,14 @@ export type TenantProfileUpdateWithoutScheduleShiftsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -4079,11 +4223,14 @@ export type TenantProfileUncheckedUpdateWithoutScheduleShiftsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -4154,11 +4301,14 @@ export type TenantProfileCreateWithoutLeaveRequestsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -4229,11 +4379,14 @@ export type TenantProfileUncheckedCreateWithoutLeaveRequestsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4320,11 +4473,14 @@ export type TenantProfileUpdateWithoutLeaveRequestsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -4395,11 +4551,14 @@ export type TenantProfileUncheckedUpdateWithoutLeaveRequestsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -4470,11 +4629,14 @@ export type TenantProfileCreateWithoutOtUndertimeEntriesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -4545,11 +4707,14 @@ export type TenantProfileUncheckedCreateWithoutOtUndertimeEntriesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4636,11 +4801,14 @@ export type TenantProfileUpdateWithoutOtUndertimeEntriesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -4711,11 +4879,14 @@ export type TenantProfileUncheckedUpdateWithoutOtUndertimeEntriesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -4786,11 +4957,14 @@ export type TenantProfileCreateWithoutPayrollRunsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -4861,11 +5035,14 @@ export type TenantProfileUncheckedCreateWithoutPayrollRunsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -4952,11 +5129,14 @@ export type TenantProfileUpdateWithoutPayrollRunsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -5027,11 +5207,14 @@ export type TenantProfileUncheckedUpdateWithoutPayrollRunsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5102,11 +5285,14 @@ export type TenantProfileCreateWithoutPayrollItemsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -5177,11 +5363,14 @@ export type TenantProfileUncheckedCreateWithoutPayrollItemsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -5268,11 +5457,14 @@ export type TenantProfileUpdateWithoutPayrollItemsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -5343,11 +5535,14 @@ export type TenantProfileUncheckedUpdateWithoutPayrollItemsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5417,11 +5612,14 @@ export type TenantProfileCreateWithoutDepartmentsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -5492,11 +5690,14 @@ export type TenantProfileUncheckedCreateWithoutDepartmentsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -5583,11 +5784,14 @@ export type TenantProfileUpdateWithoutDepartmentsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -5658,11 +5862,14 @@ export type TenantProfileUncheckedUpdateWithoutDepartmentsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -5734,11 +5941,14 @@ export type TenantProfileCreateWithoutStaffInvitationsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -5809,11 +6019,14 @@ export type TenantProfileUncheckedCreateWithoutStaffInvitationsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -5900,11 +6113,14 @@ export type TenantProfileUpdateWithoutStaffInvitationsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -5975,11 +6191,14 @@ export type TenantProfileUncheckedUpdateWithoutStaffInvitationsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6049,11 +6268,14 @@ export type TenantProfileCreateWithoutAmenitiesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -6124,11 +6346,14 @@ export type TenantProfileUncheckedCreateWithoutAmenitiesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -6215,11 +6440,14 @@ export type TenantProfileUpdateWithoutAmenitiesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -6290,11 +6518,14 @@ export type TenantProfileUncheckedUpdateWithoutAmenitiesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6365,11 +6596,14 @@ export type TenantProfileCreateWithoutRoomsInput = {
   amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -6440,11 +6674,14 @@ export type TenantProfileUncheckedCreateWithoutRoomsInput = {
   amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -6531,11 +6768,14 @@ export type TenantProfileUpdateWithoutRoomsInput = {
   amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -6606,11 +6846,14 @@ export type TenantProfileUncheckedUpdateWithoutRoomsInput = {
   amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6682,11 +6925,14 @@ export type TenantProfileCreateWithoutHousekeepingRoomsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -6757,11 +7003,14 @@ export type TenantProfileUncheckedCreateWithoutHousekeepingRoomsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -6848,11 +7097,14 @@ export type TenantProfileUpdateWithoutHousekeepingRoomsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -6923,11 +7175,14 @@ export type TenantProfileUncheckedUpdateWithoutHousekeepingRoomsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -6998,11 +7253,14 @@ export type TenantProfileCreateWithoutHousekeepingDamageReportsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -7073,11 +7331,14 @@ export type TenantProfileUncheckedCreateWithoutHousekeepingDamageReportsInput = 
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -7164,11 +7425,14 @@ export type TenantProfileUpdateWithoutHousekeepingDamageReportsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -7239,11 +7503,14 @@ export type TenantProfileUncheckedUpdateWithoutHousekeepingDamageReportsInput = 
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -7314,11 +7581,14 @@ export type TenantProfileCreateWithoutLaundryJobsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -7389,11 +7659,14 @@ export type TenantProfileUncheckedCreateWithoutLaundryJobsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -7480,11 +7753,14 @@ export type TenantProfileUpdateWithoutLaundryJobsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -7555,11 +7831,14 @@ export type TenantProfileUncheckedUpdateWithoutLaundryJobsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -7629,11 +7908,14 @@ export type TenantProfileCreateWithoutReservationsInput = {
   amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -7704,11 +7986,14 @@ export type TenantProfileUncheckedCreateWithoutReservationsInput = {
   amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -7795,11 +8080,14 @@ export type TenantProfileUpdateWithoutReservationsInput = {
   amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -7870,11 +8158,14 @@ export type TenantProfileUncheckedUpdateWithoutReservationsInput = {
   amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -7946,11 +8237,14 @@ export type TenantProfileCreateWithoutReceptionRequestsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
   inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
@@ -8021,11 +8315,14 @@ export type TenantProfileUncheckedCreateWithoutReceptionRequestsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8112,11 +8409,14 @@ export type TenantProfileUpdateWithoutReceptionRequestsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
   inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
@@ -8187,11 +8487,14 @@ export type TenantProfileUncheckedUpdateWithoutReceptionRequestsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -8262,11 +8565,14 @@ export type TenantProfileCreateWithoutReceptionShiftNotesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
   inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
@@ -8337,11 +8643,14 @@ export type TenantProfileUncheckedCreateWithoutReceptionShiftNotesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8428,11 +8737,14 @@ export type TenantProfileUpdateWithoutReceptionShiftNotesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
   inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
@@ -8503,11 +8815,14 @@ export type TenantProfileUncheckedUpdateWithoutReceptionShiftNotesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -8578,11 +8893,14 @@ export type TenantProfileCreateWithoutMaintenanceRequestsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
@@ -8653,11 +8971,14 @@ export type TenantProfileUncheckedCreateWithoutMaintenanceRequestsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -8744,11 +9065,14 @@ export type TenantProfileUpdateWithoutMaintenanceRequestsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
@@ -8819,11 +9143,14 @@ export type TenantProfileUncheckedUpdateWithoutMaintenanceRequestsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -8894,11 +9221,14 @@ export type TenantProfileCreateWithoutInventoryItemsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -8969,11 +9299,14 @@ export type TenantProfileUncheckedCreateWithoutInventoryItemsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -9060,11 +9393,14 @@ export type TenantProfileUpdateWithoutInventoryItemsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -9135,11 +9471,14 @@ export type TenantProfileUncheckedUpdateWithoutInventoryItemsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -9210,11 +9549,14 @@ export type TenantProfileCreateWithoutInventoryMovementsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -9285,11 +9627,14 @@ export type TenantProfileUncheckedCreateWithoutInventoryMovementsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -9376,11 +9721,14 @@ export type TenantProfileUpdateWithoutInventoryMovementsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -9451,11 +9799,14 @@ export type TenantProfileUncheckedUpdateWithoutInventoryMovementsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -9525,11 +9876,14 @@ export type TenantProfileCreateWithoutServicesInput = {
   amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -9600,11 +9954,14 @@ export type TenantProfileUncheckedCreateWithoutServicesInput = {
   amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -9691,11 +10048,14 @@ export type TenantProfileUpdateWithoutServicesInput = {
   amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -9766,11 +10126,342 @@ export type TenantProfileUncheckedUpdateWithoutServicesInput = {
   amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileCreateWithoutPackagesInput = {
+  id?: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appUser: Prisma.AppUserCreateNestedOneWithoutTenantProfileInput
+  departments?: Prisma.TenantDepartmentCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileUncheckedCreateWithoutPackagesInput = {
+  id?: string
+  appUserId: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.TenantDepartmentUncheckedCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileCreateOrConnectWithoutPackagesInput = {
+  where: Prisma.TenantProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutPackagesInput, Prisma.TenantProfileUncheckedCreateWithoutPackagesInput>
+}
+
+export type TenantProfileUpsertWithoutPackagesInput = {
+  update: Prisma.XOR<Prisma.TenantProfileUpdateWithoutPackagesInput, Prisma.TenantProfileUncheckedUpdateWithoutPackagesInput>
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutPackagesInput, Prisma.TenantProfileUncheckedCreateWithoutPackagesInput>
+  where?: Prisma.TenantProfileWhereInput
+}
+
+export type TenantProfileUpdateToOneWithWhereWithoutPackagesInput = {
+  where?: Prisma.TenantProfileWhereInput
+  data: Prisma.XOR<Prisma.TenantProfileUpdateWithoutPackagesInput, Prisma.TenantProfileUncheckedUpdateWithoutPackagesInput>
+}
+
+export type TenantProfileUpdateWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appUser?: Prisma.AppUserUpdateOneRequiredWithoutTenantProfileNestedInput
+  departments?: Prisma.TenantDepartmentUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileUncheckedUpdateWithoutPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.TenantDepartmentUncheckedUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -9842,10 +10533,13 @@ export type TenantProfileCreateWithoutInvoicesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -9917,10 +10611,13 @@ export type TenantProfileUncheckedCreateWithoutInvoicesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -10008,10 +10705,13 @@ export type TenantProfileUpdateWithoutInvoicesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -10083,10 +10783,669 @@ export type TenantProfileUncheckedUpdateWithoutInvoicesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileCreateWithoutFolioChargesInput = {
+  id?: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appUser: Prisma.AppUserCreateNestedOneWithoutTenantProfileInput
+  departments?: Prisma.TenantDepartmentCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileUncheckedCreateWithoutFolioChargesInput = {
+  id?: string
+  appUserId: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.TenantDepartmentUncheckedCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileCreateOrConnectWithoutFolioChargesInput = {
+  where: Prisma.TenantProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutFolioChargesInput, Prisma.TenantProfileUncheckedCreateWithoutFolioChargesInput>
+}
+
+export type TenantProfileUpsertWithoutFolioChargesInput = {
+  update: Prisma.XOR<Prisma.TenantProfileUpdateWithoutFolioChargesInput, Prisma.TenantProfileUncheckedUpdateWithoutFolioChargesInput>
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutFolioChargesInput, Prisma.TenantProfileUncheckedCreateWithoutFolioChargesInput>
+  where?: Prisma.TenantProfileWhereInput
+}
+
+export type TenantProfileUpdateToOneWithWhereWithoutFolioChargesInput = {
+  where?: Prisma.TenantProfileWhereInput
+  data: Prisma.XOR<Prisma.TenantProfileUpdateWithoutFolioChargesInput, Prisma.TenantProfileUncheckedUpdateWithoutFolioChargesInput>
+}
+
+export type TenantProfileUpdateWithoutFolioChargesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appUser?: Prisma.AppUserUpdateOneRequiredWithoutTenantProfileNestedInput
+  departments?: Prisma.TenantDepartmentUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileUncheckedUpdateWithoutFolioChargesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.TenantDepartmentUncheckedUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileCreateWithoutPaymentLogsInput = {
+  id?: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appUser: Prisma.AppUserCreateNestedOneWithoutTenantProfileInput
+  departments?: Prisma.TenantDepartmentCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileUncheckedCreateWithoutPaymentLogsInput = {
+  id?: string
+  appUserId: string
+  resortName?: string | null
+  propertyType?: string | null
+  fullAddress?: string | null
+  region?: string | null
+  province?: string | null
+  municipality?: string | null
+  barangay?: string | null
+  phoneNumber?: string | null
+  website?: string | null
+  shortDescription?: string | null
+  subscriptionPlan?: $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: $Enums.TenantSubscriptionStatus
+  billingCycle?: $Enums.TenantBillingCycle
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  suspendedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  polarCustomerId?: string | null
+  polarSubscriptionId?: string | null
+  polarProductId?: string | null
+  businessName?: string | null
+  billingEmail?: string | null
+  billingPhoneCountryCode?: string | null
+  billingPhoneNumber?: string | null
+  billingAddress?: string | null
+  billingCity?: string | null
+  billingStateProvince?: string | null
+  billingPostalCode?: string | null
+  billingCountry?: string | null
+  paymentMethod?: $Enums.TenantPaymentMethod | null
+  paymentProvider?: string | null
+  paymentAccountName?: string | null
+  paymentAccountNumber?: string | null
+  cardholderName?: string | null
+  cardBrand?: string | null
+  cardLastFour?: string | null
+  cardExpiry?: string | null
+  onboardingStatus?: $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: number
+  onboardingCompletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.TenantDepartmentUncheckedCreateNestedManyWithoutTenantProfileInput
+  amenities?: Prisma.TenantAmenityUncheckedCreateNestedManyWithoutTenantProfileInput
+  rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
+  services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryItems?: Prisma.TenantInventoryItemUncheckedCreateNestedManyWithoutTenantProfileInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUncheckedCreateNestedManyWithoutTenantProfileInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUncheckedCreateNestedManyWithoutTenantProfileInput
+  laundryJobs?: Prisma.TenantLaundryJobUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffProfiles?: Prisma.TenantStaffProfileUncheckedCreateNestedManyWithoutTenantProfileInput
+  accessRoles?: Prisma.TenantAccessRoleUncheckedCreateNestedManyWithoutTenantProfileInput
+  staffInvitations?: Prisma.TenantStaffInvitationUncheckedCreateNestedManyWithoutTenantProfileInput
+  timeLogs?: Prisma.TenantTimeLogUncheckedCreateNestedManyWithoutTenantProfileInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUncheckedCreateNestedManyWithoutTenantProfileInput
+  leaveRequests?: Prisma.TenantLeaveRequestUncheckedCreateNestedManyWithoutTenantProfileInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollRuns?: Prisma.TenantPayrollRunUncheckedCreateNestedManyWithoutTenantProfileInput
+  payrollItems?: Prisma.TenantPayrollItemUncheckedCreateNestedManyWithoutTenantProfileInput
+}
+
+export type TenantProfileCreateOrConnectWithoutPaymentLogsInput = {
+  where: Prisma.TenantProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutPaymentLogsInput, Prisma.TenantProfileUncheckedCreateWithoutPaymentLogsInput>
+}
+
+export type TenantProfileUpsertWithoutPaymentLogsInput = {
+  update: Prisma.XOR<Prisma.TenantProfileUpdateWithoutPaymentLogsInput, Prisma.TenantProfileUncheckedUpdateWithoutPaymentLogsInput>
+  create: Prisma.XOR<Prisma.TenantProfileCreateWithoutPaymentLogsInput, Prisma.TenantProfileUncheckedCreateWithoutPaymentLogsInput>
+  where?: Prisma.TenantProfileWhereInput
+}
+
+export type TenantProfileUpdateToOneWithWhereWithoutPaymentLogsInput = {
+  where?: Prisma.TenantProfileWhereInput
+  data: Prisma.XOR<Prisma.TenantProfileUpdateWithoutPaymentLogsInput, Prisma.TenantProfileUncheckedUpdateWithoutPaymentLogsInput>
+}
+
+export type TenantProfileUpdateWithoutPaymentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appUser?: Prisma.AppUserUpdateOneRequiredWithoutTenantProfileNestedInput
+  departments?: Prisma.TenantDepartmentUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
+  receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
+  maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
+  inventoryItems?: Prisma.TenantInventoryItemUpdateManyWithoutTenantProfileNestedInput
+  inventoryMovements?: Prisma.TenantInventoryMovementUpdateManyWithoutTenantProfileNestedInput
+  housekeepingRooms?: Prisma.TenantHousekeepingRoomUpdateManyWithoutTenantProfileNestedInput
+  housekeepingDamageReports?: Prisma.TenantHousekeepingDamageReportUpdateManyWithoutTenantProfileNestedInput
+  laundryJobs?: Prisma.TenantLaundryJobUpdateManyWithoutTenantProfileNestedInput
+  staffProfiles?: Prisma.TenantStaffProfileUpdateManyWithoutTenantProfileNestedInput
+  accessRoles?: Prisma.TenantAccessRoleUpdateManyWithoutTenantProfileNestedInput
+  staffInvitations?: Prisma.TenantStaffInvitationUpdateManyWithoutTenantProfileNestedInput
+  timeLogs?: Prisma.TenantTimeLogUpdateManyWithoutTenantProfileNestedInput
+  scheduleShifts?: Prisma.TenantScheduleShiftUpdateManyWithoutTenantProfileNestedInput
+  leaveRequests?: Prisma.TenantLeaveRequestUpdateManyWithoutTenantProfileNestedInput
+  otUndertimeEntries?: Prisma.TenantOtUndertimeEntryUpdateManyWithoutTenantProfileNestedInput
+  payrollRuns?: Prisma.TenantPayrollRunUpdateManyWithoutTenantProfileNestedInput
+  payrollItems?: Prisma.TenantPayrollItemUpdateManyWithoutTenantProfileNestedInput
+}
+
+export type TenantProfileUncheckedUpdateWithoutPaymentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  appUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  resortName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  propertyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barangay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPlan?: Prisma.EnumTenantSubscriptionPlanFieldUpdateOperationsInput | $Enums.TenantSubscriptionPlan
+  subscriptionStatus?: Prisma.EnumTenantSubscriptionStatusFieldUpdateOperationsInput | $Enums.TenantSubscriptionStatus
+  billingCycle?: Prisma.EnumTenantBillingCycleFieldUpdateOperationsInput | $Enums.TenantBillingCycle
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polarProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPhoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingStateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableEnumTenantPaymentMethodFieldUpdateOperationsInput | $Enums.TenantPaymentMethod | null
+  paymentProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardholderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardLastFour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cardExpiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.EnumTenantOnboardingStatusFieldUpdateOperationsInput | $Enums.TenantOnboardingStatus
+  onboardingCurrentStep?: Prisma.IntFieldUpdateOperationsInput | number
+  onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.TenantDepartmentUncheckedUpdateManyWithoutTenantProfileNestedInput
+  amenities?: Prisma.TenantAmenityUncheckedUpdateManyWithoutTenantProfileNestedInput
+  rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
+  reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
+  transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
+  messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -10158,10 +11517,13 @@ export type TenantProfileCreateWithoutFinanceEntriesInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -10233,10 +11595,13 @@ export type TenantProfileUncheckedCreateWithoutFinanceEntriesInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -10324,10 +11689,13 @@ export type TenantProfileUpdateWithoutFinanceEntriesInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -10399,10 +11767,13 @@ export type TenantProfileUncheckedUpdateWithoutFinanceEntriesInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   transactionExports?: Prisma.TenantTransactionExportUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -10474,10 +11845,13 @@ export type TenantProfileCreateWithoutTransactionExportsInput = {
   rooms?: Prisma.TenantRoomCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestCreateNestedManyWithoutTenantProfileInput
@@ -10549,10 +11923,13 @@ export type TenantProfileUncheckedCreateWithoutTransactionExportsInput = {
   rooms?: Prisma.TenantRoomUncheckedCreateNestedManyWithoutTenantProfileInput
   reservations?: Prisma.TenantReservationUncheckedCreateNestedManyWithoutTenantProfileInput
   services?: Prisma.TenantServiceUncheckedCreateNestedManyWithoutTenantProfileInput
+  packages?: Prisma.TenantPackageUncheckedCreateNestedManyWithoutTenantProfileInput
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutTenantProfileInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedCreateNestedManyWithoutTenantProfileInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedCreateNestedManyWithoutTenantProfileInput
   leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutTenantProfileInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutTenantProfileInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutTenantProfileInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedCreateNestedManyWithoutTenantProfileInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedCreateNestedManyWithoutTenantProfileInput
@@ -10640,10 +12017,13 @@ export type TenantProfileUpdateWithoutTransactionExportsInput = {
   rooms?: Prisma.TenantRoomUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUpdateManyWithoutTenantProfileNestedInput
@@ -10715,10 +12095,13 @@ export type TenantProfileUncheckedUpdateWithoutTransactionExportsInput = {
   rooms?: Prisma.TenantRoomUncheckedUpdateManyWithoutTenantProfileNestedInput
   reservations?: Prisma.TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput
   services?: Prisma.TenantServiceUncheckedUpdateManyWithoutTenantProfileNestedInput
+  packages?: Prisma.TenantPackageUncheckedUpdateManyWithoutTenantProfileNestedInput
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutTenantProfileNestedInput
   financeEntries?: Prisma.TenantFinanceEntryUncheckedUpdateManyWithoutTenantProfileNestedInput
   messengerIntegrations?: Prisma.TenantMessengerIntegrationUncheckedUpdateManyWithoutTenantProfileNestedInput
   leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutTenantProfileNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutTenantProfileNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
   receptionShiftNotes?: Prisma.TenantReceptionShiftNoteUncheckedUpdateManyWithoutTenantProfileNestedInput
   maintenanceRequests?: Prisma.TenantMaintenanceRequestUncheckedUpdateManyWithoutTenantProfileNestedInput
@@ -10749,11 +12132,14 @@ export type TenantProfileCountOutputType = {
   rooms: number
   reservations: number
   services: number
+  packages: number
   invoices: number
   financeEntries: number
   transactionExports: number
   messengerIntegrations: number
   leads: number
+  folioCharges: number
+  paymentLogs: number
   receptionRequests: number
   receptionShiftNotes: number
   maintenanceRequests: number
@@ -10779,11 +12165,14 @@ export type TenantProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   rooms?: boolean | TenantProfileCountOutputTypeCountRoomsArgs
   reservations?: boolean | TenantProfileCountOutputTypeCountReservationsArgs
   services?: boolean | TenantProfileCountOutputTypeCountServicesArgs
+  packages?: boolean | TenantProfileCountOutputTypeCountPackagesArgs
   invoices?: boolean | TenantProfileCountOutputTypeCountInvoicesArgs
   financeEntries?: boolean | TenantProfileCountOutputTypeCountFinanceEntriesArgs
   transactionExports?: boolean | TenantProfileCountOutputTypeCountTransactionExportsArgs
   messengerIntegrations?: boolean | TenantProfileCountOutputTypeCountMessengerIntegrationsArgs
   leads?: boolean | TenantProfileCountOutputTypeCountLeadsArgs
+  folioCharges?: boolean | TenantProfileCountOutputTypeCountFolioChargesArgs
+  paymentLogs?: boolean | TenantProfileCountOutputTypeCountPaymentLogsArgs
   receptionRequests?: boolean | TenantProfileCountOutputTypeCountReceptionRequestsArgs
   receptionShiftNotes?: boolean | TenantProfileCountOutputTypeCountReceptionShiftNotesArgs
   maintenanceRequests?: boolean | TenantProfileCountOutputTypeCountMaintenanceRequestsArgs
@@ -10851,6 +12240,13 @@ export type TenantProfileCountOutputTypeCountServicesArgs<ExtArgs extends runtim
 /**
  * TenantProfileCountOutputType without action
  */
+export type TenantProfileCountOutputTypeCountPackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantPackageWhereInput
+}
+
+/**
+ * TenantProfileCountOutputType without action
+ */
 export type TenantProfileCountOutputTypeCountInvoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantInvoiceWhereInput
 }
@@ -10881,6 +12277,20 @@ export type TenantProfileCountOutputTypeCountMessengerIntegrationsArgs<ExtArgs e
  */
 export type TenantProfileCountOutputTypeCountLeadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantLeadWhereInput
+}
+
+/**
+ * TenantProfileCountOutputType without action
+ */
+export type TenantProfileCountOutputTypeCountFolioChargesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantFolioChargeWhereInput
+}
+
+/**
+ * TenantProfileCountOutputType without action
+ */
+export type TenantProfileCountOutputTypeCountPaymentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantPaymentLogWhereInput
 }
 
 /**
@@ -11056,11 +12466,14 @@ export type TenantProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   rooms?: boolean | Prisma.TenantProfile$roomsArgs<ExtArgs>
   reservations?: boolean | Prisma.TenantProfile$reservationsArgs<ExtArgs>
   services?: boolean | Prisma.TenantProfile$servicesArgs<ExtArgs>
+  packages?: boolean | Prisma.TenantProfile$packagesArgs<ExtArgs>
   invoices?: boolean | Prisma.TenantProfile$invoicesArgs<ExtArgs>
   financeEntries?: boolean | Prisma.TenantProfile$financeEntriesArgs<ExtArgs>
   transactionExports?: boolean | Prisma.TenantProfile$transactionExportsArgs<ExtArgs>
   messengerIntegrations?: boolean | Prisma.TenantProfile$messengerIntegrationsArgs<ExtArgs>
   leads?: boolean | Prisma.TenantProfile$leadsArgs<ExtArgs>
+  folioCharges?: boolean | Prisma.TenantProfile$folioChargesArgs<ExtArgs>
+  paymentLogs?: boolean | Prisma.TenantProfile$paymentLogsArgs<ExtArgs>
   receptionRequests?: boolean | Prisma.TenantProfile$receptionRequestsArgs<ExtArgs>
   receptionShiftNotes?: boolean | Prisma.TenantProfile$receptionShiftNotesArgs<ExtArgs>
   maintenanceRequests?: boolean | Prisma.TenantProfile$maintenanceRequestsArgs<ExtArgs>
@@ -11238,11 +12651,14 @@ export type TenantProfileInclude<ExtArgs extends runtime.Types.Extensions.Intern
   rooms?: boolean | Prisma.TenantProfile$roomsArgs<ExtArgs>
   reservations?: boolean | Prisma.TenantProfile$reservationsArgs<ExtArgs>
   services?: boolean | Prisma.TenantProfile$servicesArgs<ExtArgs>
+  packages?: boolean | Prisma.TenantProfile$packagesArgs<ExtArgs>
   invoices?: boolean | Prisma.TenantProfile$invoicesArgs<ExtArgs>
   financeEntries?: boolean | Prisma.TenantProfile$financeEntriesArgs<ExtArgs>
   transactionExports?: boolean | Prisma.TenantProfile$transactionExportsArgs<ExtArgs>
   messengerIntegrations?: boolean | Prisma.TenantProfile$messengerIntegrationsArgs<ExtArgs>
   leads?: boolean | Prisma.TenantProfile$leadsArgs<ExtArgs>
+  folioCharges?: boolean | Prisma.TenantProfile$folioChargesArgs<ExtArgs>
+  paymentLogs?: boolean | Prisma.TenantProfile$paymentLogsArgs<ExtArgs>
   receptionRequests?: boolean | Prisma.TenantProfile$receptionRequestsArgs<ExtArgs>
   receptionShiftNotes?: boolean | Prisma.TenantProfile$receptionShiftNotesArgs<ExtArgs>
   maintenanceRequests?: boolean | Prisma.TenantProfile$maintenanceRequestsArgs<ExtArgs>
@@ -11278,11 +12694,14 @@ export type $TenantProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
     rooms: Prisma.$TenantRoomPayload<ExtArgs>[]
     reservations: Prisma.$TenantReservationPayload<ExtArgs>[]
     services: Prisma.$TenantServicePayload<ExtArgs>[]
+    packages: Prisma.$TenantPackagePayload<ExtArgs>[]
     invoices: Prisma.$TenantInvoicePayload<ExtArgs>[]
     financeEntries: Prisma.$TenantFinanceEntryPayload<ExtArgs>[]
     transactionExports: Prisma.$TenantTransactionExportPayload<ExtArgs>[]
     messengerIntegrations: Prisma.$TenantMessengerIntegrationPayload<ExtArgs>[]
     leads: Prisma.$TenantLeadPayload<ExtArgs>[]
+    folioCharges: Prisma.$TenantFolioChargePayload<ExtArgs>[]
+    paymentLogs: Prisma.$TenantPaymentLogPayload<ExtArgs>[]
     receptionRequests: Prisma.$TenantReceptionRequestPayload<ExtArgs>[]
     receptionShiftNotes: Prisma.$TenantReceptionShiftNotePayload<ExtArgs>[]
     maintenanceRequests: Prisma.$TenantMaintenanceRequestPayload<ExtArgs>[]
@@ -11748,11 +13167,14 @@ export interface Prisma__TenantProfileClient<T, Null = never, ExtArgs extends ru
   rooms<T extends Prisma.TenantProfile$roomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reservations<T extends Prisma.TenantProfile$reservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$reservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   services<T extends Prisma.TenantProfile$servicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  packages<T extends Prisma.TenantProfile$packagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoices<T extends Prisma.TenantProfile$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantInvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   financeEntries<T extends Prisma.TenantProfile$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantFinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transactionExports<T extends Prisma.TenantProfile$transactionExportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$transactionExportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantTransactionExportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messengerIntegrations<T extends Prisma.TenantProfile$messengerIntegrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$messengerIntegrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantMessengerIntegrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leads<T extends Prisma.TenantProfile$leadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$leadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantLeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  folioCharges<T extends Prisma.TenantProfile$folioChargesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$folioChargesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantFolioChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentLogs<T extends Prisma.TenantProfile$paymentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$paymentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPaymentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receptionRequests<T extends Prisma.TenantProfile$receptionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$receptionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantReceptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receptionShiftNotes<T extends Prisma.TenantProfile$receptionShiftNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$receptionShiftNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantReceptionShiftNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   maintenanceRequests<T extends Prisma.TenantProfile$maintenanceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfile$maintenanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantMaintenanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12366,6 +13788,30 @@ export type TenantProfile$servicesArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * TenantProfile.packages
+ */
+export type TenantProfile$packagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantPackage
+   */
+  select?: Prisma.TenantPackageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantPackage
+   */
+  omit?: Prisma.TenantPackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantPackageInclude<ExtArgs> | null
+  where?: Prisma.TenantPackageWhereInput
+  orderBy?: Prisma.TenantPackageOrderByWithRelationInput | Prisma.TenantPackageOrderByWithRelationInput[]
+  cursor?: Prisma.TenantPackageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantPackageScalarFieldEnum | Prisma.TenantPackageScalarFieldEnum[]
+}
+
+/**
  * TenantProfile.invoices
  */
 export type TenantProfile$invoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -12483,6 +13929,54 @@ export type TenantProfile$leadsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.TenantLeadScalarFieldEnum | Prisma.TenantLeadScalarFieldEnum[]
+}
+
+/**
+ * TenantProfile.folioCharges
+ */
+export type TenantProfile$folioChargesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantFolioCharge
+   */
+  select?: Prisma.TenantFolioChargeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantFolioCharge
+   */
+  omit?: Prisma.TenantFolioChargeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantFolioChargeInclude<ExtArgs> | null
+  where?: Prisma.TenantFolioChargeWhereInput
+  orderBy?: Prisma.TenantFolioChargeOrderByWithRelationInput | Prisma.TenantFolioChargeOrderByWithRelationInput[]
+  cursor?: Prisma.TenantFolioChargeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantFolioChargeScalarFieldEnum | Prisma.TenantFolioChargeScalarFieldEnum[]
+}
+
+/**
+ * TenantProfile.paymentLogs
+ */
+export type TenantProfile$paymentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantPaymentLog
+   */
+  select?: Prisma.TenantPaymentLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantPaymentLog
+   */
+  omit?: Prisma.TenantPaymentLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantPaymentLogInclude<ExtArgs> | null
+  where?: Prisma.TenantPaymentLogWhereInput
+  orderBy?: Prisma.TenantPaymentLogOrderByWithRelationInput | Prisma.TenantPaymentLogOrderByWithRelationInput[]
+  cursor?: Prisma.TenantPaymentLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantPaymentLogScalarFieldEnum | Prisma.TenantPaymentLogScalarFieldEnum[]
 }
 
 /**

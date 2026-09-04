@@ -40,6 +40,7 @@ export const TENANT_NAVIGATION_DATA = [
       { label: "Services Offered", href: "/tenant/services/offered" },
       { label: "Rooms", href: "/tenant/services/rooms" },
       { label: "Amenities", href: "/tenant/services/amenities" },
+      { label: "Packages", href: "/tenant/services/packages" },
     ],
   },
   {

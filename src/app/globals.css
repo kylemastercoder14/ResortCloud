@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "leaflet/dist/leaflet.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -126,6 +127,7 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }
 
@@ -139,4 +141,59 @@
   animation: waiting-clock-tick 1.2s steps(12, end) infinite;
   transform-box: view-box;
   transform-origin: center;
+}
+
+.resort-price-marker {
+  background: transparent;
+  border: 0;
+  overflow: visible !important;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-container img.leaflet-tile {
+  max-width: none !important;
+}
+
+.resort-price-marker__label {
+  align-items: center;
+  background: #0c4a6e;
+  border: 1px solid #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 8px 18px rgb(15 23 42 / 24%);
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 9px;
+  font-weight: 500;
+  height: 24px;
+  justify-content: center;
+  min-width: 40px;
+  padding: 0 10px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.resort-price-marker__label::before {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid #ffffff;
+  bottom: -8px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.resort-price-marker__label::after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #0c4a6e;
+  bottom: -6px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
 }

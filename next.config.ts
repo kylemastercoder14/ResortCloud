@@ -16,6 +16,18 @@ const nextConfig: NextConfig = {
       {
         hostname: "r4wxy1hs65.ufs.sh",
         protocol: "https"
+      },
+      {
+        hostname: "images.unsplash.com",
+        protocol: "https"
+      },
+      {
+        hostname: "a0.muscache.com",
+        protocol: "https"
+      },
+      {
+        hostname: "onemarketphilippines.com",
+        protocol: "https"
       }
     ],
   },

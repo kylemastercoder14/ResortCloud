@@ -6,7 +6,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
   BellRing,
-  CheckCircle2,
   Clock3,
   Edit,
   MailCheck,
@@ -230,15 +229,6 @@ function ReminderRowActions({ reminder }: { reminder: ReminderRecord }) {
       onError: (error) => toast.error(error.message),
     }),
   );
-  const markPaid = useMutation(
-    trpc.tenant.invoices.updateStatus.mutationOptions({
-      onSuccess: async () => {
-        await invalidateInvoices();
-        toast.success("Invoice marked paid.");
-      },
-      onError: (error) => toast.error(error.message),
-    }),
-  );
   const updateCadence = useMutation(
     trpc.tenant.invoices.updateReminderCadence.mutationOptions({
       onSuccess: async (_data, variables) => {
@@ -275,13 +265,6 @@ function ReminderRowActions({ reminder }: { reminder: ReminderRecord }) {
             <Edit className="size-4" />
             Edit invoice
           </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          disabled={markPaid.isPending}
-          onClick={() => markPaid.mutate({ id: reminder.id, status: "Paid" })}
-        >
-          <CheckCircle2 className="size-4" />
-          Mark as paid
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         {isPaused ? (

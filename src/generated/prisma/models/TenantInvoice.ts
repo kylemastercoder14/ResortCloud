@@ -345,6 +345,8 @@ export type TenantInvoiceWhereInput = {
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   reservation?: Prisma.XOR<Prisma.TenantReservationNullableScalarRelationFilter, Prisma.TenantReservationWhereInput> | null
   lineItems?: Prisma.TenantInvoiceLineItemListRelationFilter
+  folioCharges?: Prisma.TenantFolioChargeListRelationFilter
+  paymentLogs?: Prisma.TenantPaymentLogListRelationFilter
 }
 
 export type TenantInvoiceOrderByWithRelationInput = {
@@ -376,6 +378,8 @@ export type TenantInvoiceOrderByWithRelationInput = {
   tenantProfile?: Prisma.TenantProfileOrderByWithRelationInput
   reservation?: Prisma.TenantReservationOrderByWithRelationInput
   lineItems?: Prisma.TenantInvoiceLineItemOrderByRelationAggregateInput
+  folioCharges?: Prisma.TenantFolioChargeOrderByRelationAggregateInput
+  paymentLogs?: Prisma.TenantPaymentLogOrderByRelationAggregateInput
 }
 
 export type TenantInvoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -411,6 +415,8 @@ export type TenantInvoiceWhereUniqueInput = Prisma.AtLeast<{
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   reservation?: Prisma.XOR<Prisma.TenantReservationNullableScalarRelationFilter, Prisma.TenantReservationWhereInput> | null
   lineItems?: Prisma.TenantInvoiceLineItemListRelationFilter
+  folioCharges?: Prisma.TenantFolioChargeListRelationFilter
+  paymentLogs?: Prisma.TenantPaymentLogListRelationFilter
 }, "id" | "tenantProfileId_code">
 
 export type TenantInvoiceOrderByWithAggregationInput = {
@@ -502,6 +508,8 @@ export type TenantInvoiceCreateInput = {
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutInvoicesInput
   reservation?: Prisma.TenantReservationCreateNestedOneWithoutInvoicesInput
   lineItems?: Prisma.TenantInvoiceLineItemCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceUncheckedCreateInput = {
@@ -531,6 +539,8 @@ export type TenantInvoiceUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lineItems?: Prisma.TenantInvoiceLineItemUncheckedCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceUpdateInput = {
@@ -560,6 +570,8 @@ export type TenantInvoiceUpdateInput = {
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutInvoicesNestedInput
   reservation?: Prisma.TenantReservationUpdateOneWithoutInvoicesNestedInput
   lineItems?: Prisma.TenantInvoiceLineItemUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceUncheckedUpdateInput = {
@@ -589,6 +601,8 @@ export type TenantInvoiceUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lineItems?: Prisma.TenantInvoiceLineItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceCreateManyInput = {
@@ -777,6 +791,11 @@ export type TenantInvoiceScalarRelationFilter = {
   isNot?: Prisma.TenantInvoiceWhereInput
 }
 
+export type TenantInvoiceNullableScalarRelationFilter = {
+  is?: Prisma.TenantInvoiceWhereInput | null
+  isNot?: Prisma.TenantInvoiceWhereInput | null
+}
+
 export type TenantInvoiceCreateNestedManyWithoutTenantProfileInput = {
   create?: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutTenantProfileInput, Prisma.TenantInvoiceUncheckedCreateWithoutTenantProfileInput> | Prisma.TenantInvoiceCreateWithoutTenantProfileInput[] | Prisma.TenantInvoiceUncheckedCreateWithoutTenantProfileInput[]
   connectOrCreate?: Prisma.TenantInvoiceCreateOrConnectWithoutTenantProfileInput | Prisma.TenantInvoiceCreateOrConnectWithoutTenantProfileInput[]
@@ -883,6 +902,38 @@ export type TenantInvoiceUpdateOneRequiredWithoutLineItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantInvoiceUpdateToOneWithWhereWithoutLineItemsInput, Prisma.TenantInvoiceUpdateWithoutLineItemsInput>, Prisma.TenantInvoiceUncheckedUpdateWithoutLineItemsInput>
 }
 
+export type TenantInvoiceCreateNestedOneWithoutFolioChargesInput = {
+  create?: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutFolioChargesInput, Prisma.TenantInvoiceUncheckedCreateWithoutFolioChargesInput>
+  connectOrCreate?: Prisma.TenantInvoiceCreateOrConnectWithoutFolioChargesInput
+  connect?: Prisma.TenantInvoiceWhereUniqueInput
+}
+
+export type TenantInvoiceUpdateOneWithoutFolioChargesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutFolioChargesInput, Prisma.TenantInvoiceUncheckedCreateWithoutFolioChargesInput>
+  connectOrCreate?: Prisma.TenantInvoiceCreateOrConnectWithoutFolioChargesInput
+  upsert?: Prisma.TenantInvoiceUpsertWithoutFolioChargesInput
+  disconnect?: Prisma.TenantInvoiceWhereInput | boolean
+  delete?: Prisma.TenantInvoiceWhereInput | boolean
+  connect?: Prisma.TenantInvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantInvoiceUpdateToOneWithWhereWithoutFolioChargesInput, Prisma.TenantInvoiceUpdateWithoutFolioChargesInput>, Prisma.TenantInvoiceUncheckedUpdateWithoutFolioChargesInput>
+}
+
+export type TenantInvoiceCreateNestedOneWithoutPaymentLogsInput = {
+  create?: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutPaymentLogsInput, Prisma.TenantInvoiceUncheckedCreateWithoutPaymentLogsInput>
+  connectOrCreate?: Prisma.TenantInvoiceCreateOrConnectWithoutPaymentLogsInput
+  connect?: Prisma.TenantInvoiceWhereUniqueInput
+}
+
+export type TenantInvoiceUpdateOneWithoutPaymentLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutPaymentLogsInput, Prisma.TenantInvoiceUncheckedCreateWithoutPaymentLogsInput>
+  connectOrCreate?: Prisma.TenantInvoiceCreateOrConnectWithoutPaymentLogsInput
+  upsert?: Prisma.TenantInvoiceUpsertWithoutPaymentLogsInput
+  disconnect?: Prisma.TenantInvoiceWhereInput | boolean
+  delete?: Prisma.TenantInvoiceWhereInput | boolean
+  connect?: Prisma.TenantInvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantInvoiceUpdateToOneWithWhereWithoutPaymentLogsInput, Prisma.TenantInvoiceUpdateWithoutPaymentLogsInput>, Prisma.TenantInvoiceUncheckedUpdateWithoutPaymentLogsInput>
+}
+
 export type TenantInvoiceCreateWithoutTenantProfileInput = {
   id?: string
   code: string
@@ -909,6 +960,8 @@ export type TenantInvoiceCreateWithoutTenantProfileInput = {
   updatedAt?: Date | string
   reservation?: Prisma.TenantReservationCreateNestedOneWithoutInvoicesInput
   lineItems?: Prisma.TenantInvoiceLineItemCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceUncheckedCreateWithoutTenantProfileInput = {
@@ -937,6 +990,8 @@ export type TenantInvoiceUncheckedCreateWithoutTenantProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lineItems?: Prisma.TenantInvoiceLineItemUncheckedCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceCreateOrConnectWithoutTenantProfileInput = {
@@ -1022,6 +1077,8 @@ export type TenantInvoiceCreateWithoutReservationInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutInvoicesInput
   lineItems?: Prisma.TenantInvoiceLineItemCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceUncheckedCreateWithoutReservationInput = {
@@ -1050,6 +1107,8 @@ export type TenantInvoiceUncheckedCreateWithoutReservationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lineItems?: Prisma.TenantInvoiceLineItemUncheckedCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceCreateOrConnectWithoutReservationInput = {
@@ -1104,6 +1163,8 @@ export type TenantInvoiceCreateWithoutLineItemsInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutInvoicesInput
   reservation?: Prisma.TenantReservationCreateNestedOneWithoutInvoicesInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceUncheckedCreateWithoutLineItemsInput = {
@@ -1132,6 +1193,8 @@ export type TenantInvoiceUncheckedCreateWithoutLineItemsInput = {
   nextReminderAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type TenantInvoiceCreateOrConnectWithoutLineItemsInput = {
@@ -1176,6 +1239,8 @@ export type TenantInvoiceUpdateWithoutLineItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutInvoicesNestedInput
   reservation?: Prisma.TenantReservationUpdateOneWithoutInvoicesNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceUncheckedUpdateWithoutLineItemsInput = {
@@ -1204,6 +1269,280 @@ export type TenantInvoiceUncheckedUpdateWithoutLineItemsInput = {
   nextReminderAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutInvoiceNestedInput
+}
+
+export type TenantInvoiceCreateWithoutFolioChargesInput = {
+  id?: string
+  code: string
+  guestName: string
+  guestEmail?: string | null
+  invoiceDate: Date | string
+  dueDate: Date | string
+  status?: $Enums.TenantInvoiceStatus
+  paymentMethod?: string | null
+  reminderCadence?: $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: string | null
+  notes?: string | null
+  subtotal: string
+  discount?: string
+  tax?: string
+  depositPaid?: string
+  totalAmount: string
+  balanceDue: string
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  lastReminderSentAt?: Date | string | null
+  nextReminderAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutInvoicesInput
+  reservation?: Prisma.TenantReservationCreateNestedOneWithoutInvoicesInput
+  lineItems?: Prisma.TenantInvoiceLineItemCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutInvoiceInput
+}
+
+export type TenantInvoiceUncheckedCreateWithoutFolioChargesInput = {
+  id?: string
+  tenantProfileId: string
+  reservationId?: string | null
+  code: string
+  guestName: string
+  guestEmail?: string | null
+  invoiceDate: Date | string
+  dueDate: Date | string
+  status?: $Enums.TenantInvoiceStatus
+  paymentMethod?: string | null
+  reminderCadence?: $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: string | null
+  notes?: string | null
+  subtotal: string
+  discount?: string
+  tax?: string
+  depositPaid?: string
+  totalAmount: string
+  balanceDue: string
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  lastReminderSentAt?: Date | string | null
+  nextReminderAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lineItems?: Prisma.TenantInvoiceLineItemUncheckedCreateNestedManyWithoutInvoiceInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutInvoiceInput
+}
+
+export type TenantInvoiceCreateOrConnectWithoutFolioChargesInput = {
+  where: Prisma.TenantInvoiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutFolioChargesInput, Prisma.TenantInvoiceUncheckedCreateWithoutFolioChargesInput>
+}
+
+export type TenantInvoiceUpsertWithoutFolioChargesInput = {
+  update: Prisma.XOR<Prisma.TenantInvoiceUpdateWithoutFolioChargesInput, Prisma.TenantInvoiceUncheckedUpdateWithoutFolioChargesInput>
+  create: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutFolioChargesInput, Prisma.TenantInvoiceUncheckedCreateWithoutFolioChargesInput>
+  where?: Prisma.TenantInvoiceWhereInput
+}
+
+export type TenantInvoiceUpdateToOneWithWhereWithoutFolioChargesInput = {
+  where?: Prisma.TenantInvoiceWhereInput
+  data: Prisma.XOR<Prisma.TenantInvoiceUpdateWithoutFolioChargesInput, Prisma.TenantInvoiceUncheckedUpdateWithoutFolioChargesInput>
+}
+
+export type TenantInvoiceUpdateWithoutFolioChargesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumTenantInvoiceStatusFieldUpdateOperationsInput | $Enums.TenantInvoiceStatus
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderCadence?: Prisma.EnumTenantInvoiceReminderCadenceFieldUpdateOperationsInput | $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.StringFieldUpdateOperationsInput | string
+  discount?: Prisma.StringFieldUpdateOperationsInput | string
+  tax?: Prisma.StringFieldUpdateOperationsInput | string
+  depositPaid?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  balanceDue?: Prisma.StringFieldUpdateOperationsInput | string
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nextReminderAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutInvoicesNestedInput
+  reservation?: Prisma.TenantReservationUpdateOneWithoutInvoicesNestedInput
+  lineItems?: Prisma.TenantInvoiceLineItemUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutInvoiceNestedInput
+}
+
+export type TenantInvoiceUncheckedUpdateWithoutFolioChargesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumTenantInvoiceStatusFieldUpdateOperationsInput | $Enums.TenantInvoiceStatus
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderCadence?: Prisma.EnumTenantInvoiceReminderCadenceFieldUpdateOperationsInput | $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.StringFieldUpdateOperationsInput | string
+  discount?: Prisma.StringFieldUpdateOperationsInput | string
+  tax?: Prisma.StringFieldUpdateOperationsInput | string
+  depositPaid?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  balanceDue?: Prisma.StringFieldUpdateOperationsInput | string
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nextReminderAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lineItems?: Prisma.TenantInvoiceLineItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutInvoiceNestedInput
+}
+
+export type TenantInvoiceCreateWithoutPaymentLogsInput = {
+  id?: string
+  code: string
+  guestName: string
+  guestEmail?: string | null
+  invoiceDate: Date | string
+  dueDate: Date | string
+  status?: $Enums.TenantInvoiceStatus
+  paymentMethod?: string | null
+  reminderCadence?: $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: string | null
+  notes?: string | null
+  subtotal: string
+  discount?: string
+  tax?: string
+  depositPaid?: string
+  totalAmount: string
+  balanceDue: string
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  lastReminderSentAt?: Date | string | null
+  nextReminderAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutInvoicesInput
+  reservation?: Prisma.TenantReservationCreateNestedOneWithoutInvoicesInput
+  lineItems?: Prisma.TenantInvoiceLineItemCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutInvoiceInput
+}
+
+export type TenantInvoiceUncheckedCreateWithoutPaymentLogsInput = {
+  id?: string
+  tenantProfileId: string
+  reservationId?: string | null
+  code: string
+  guestName: string
+  guestEmail?: string | null
+  invoiceDate: Date | string
+  dueDate: Date | string
+  status?: $Enums.TenantInvoiceStatus
+  paymentMethod?: string | null
+  reminderCadence?: $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: string | null
+  notes?: string | null
+  subtotal: string
+  discount?: string
+  tax?: string
+  depositPaid?: string
+  totalAmount: string
+  balanceDue: string
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  lastReminderSentAt?: Date | string | null
+  nextReminderAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lineItems?: Prisma.TenantInvoiceLineItemUncheckedCreateNestedManyWithoutInvoiceInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutInvoiceInput
+}
+
+export type TenantInvoiceCreateOrConnectWithoutPaymentLogsInput = {
+  where: Prisma.TenantInvoiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutPaymentLogsInput, Prisma.TenantInvoiceUncheckedCreateWithoutPaymentLogsInput>
+}
+
+export type TenantInvoiceUpsertWithoutPaymentLogsInput = {
+  update: Prisma.XOR<Prisma.TenantInvoiceUpdateWithoutPaymentLogsInput, Prisma.TenantInvoiceUncheckedUpdateWithoutPaymentLogsInput>
+  create: Prisma.XOR<Prisma.TenantInvoiceCreateWithoutPaymentLogsInput, Prisma.TenantInvoiceUncheckedCreateWithoutPaymentLogsInput>
+  where?: Prisma.TenantInvoiceWhereInput
+}
+
+export type TenantInvoiceUpdateToOneWithWhereWithoutPaymentLogsInput = {
+  where?: Prisma.TenantInvoiceWhereInput
+  data: Prisma.XOR<Prisma.TenantInvoiceUpdateWithoutPaymentLogsInput, Prisma.TenantInvoiceUncheckedUpdateWithoutPaymentLogsInput>
+}
+
+export type TenantInvoiceUpdateWithoutPaymentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumTenantInvoiceStatusFieldUpdateOperationsInput | $Enums.TenantInvoiceStatus
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderCadence?: Prisma.EnumTenantInvoiceReminderCadenceFieldUpdateOperationsInput | $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.StringFieldUpdateOperationsInput | string
+  discount?: Prisma.StringFieldUpdateOperationsInput | string
+  tax?: Prisma.StringFieldUpdateOperationsInput | string
+  depositPaid?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  balanceDue?: Prisma.StringFieldUpdateOperationsInput | string
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nextReminderAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutInvoicesNestedInput
+  reservation?: Prisma.TenantReservationUpdateOneWithoutInvoicesNestedInput
+  lineItems?: Prisma.TenantInvoiceLineItemUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutInvoiceNestedInput
+}
+
+export type TenantInvoiceUncheckedUpdateWithoutPaymentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumTenantInvoiceStatusFieldUpdateOperationsInput | $Enums.TenantInvoiceStatus
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderCadence?: Prisma.EnumTenantInvoiceReminderCadenceFieldUpdateOperationsInput | $Enums.TenantInvoiceReminderCadence
+  paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.StringFieldUpdateOperationsInput | string
+  discount?: Prisma.StringFieldUpdateOperationsInput | string
+  tax?: Prisma.StringFieldUpdateOperationsInput | string
+  depositPaid?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  balanceDue?: Prisma.StringFieldUpdateOperationsInput | string
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nextReminderAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lineItems?: Prisma.TenantInvoiceLineItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceCreateManyTenantProfileInput = {
@@ -1259,6 +1598,8 @@ export type TenantInvoiceUpdateWithoutTenantProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reservation?: Prisma.TenantReservationUpdateOneWithoutInvoicesNestedInput
   lineItems?: Prisma.TenantInvoiceLineItemUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceUncheckedUpdateWithoutTenantProfileInput = {
@@ -1287,6 +1628,8 @@ export type TenantInvoiceUncheckedUpdateWithoutTenantProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lineItems?: Prisma.TenantInvoiceLineItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceUncheckedUpdateManyWithoutTenantProfileInput = {
@@ -1369,6 +1712,8 @@ export type TenantInvoiceUpdateWithoutReservationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutInvoicesNestedInput
   lineItems?: Prisma.TenantInvoiceLineItemUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceUncheckedUpdateWithoutReservationInput = {
@@ -1397,6 +1742,8 @@ export type TenantInvoiceUncheckedUpdateWithoutReservationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lineItems?: Prisma.TenantInvoiceLineItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutInvoiceNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type TenantInvoiceUncheckedUpdateManyWithoutReservationInput = {
@@ -1433,10 +1780,14 @@ export type TenantInvoiceUncheckedUpdateManyWithoutReservationInput = {
 
 export type TenantInvoiceCountOutputType = {
   lineItems: number
+  folioCharges: number
+  paymentLogs: number
 }
 
 export type TenantInvoiceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lineItems?: boolean | TenantInvoiceCountOutputTypeCountLineItemsArgs
+  folioCharges?: boolean | TenantInvoiceCountOutputTypeCountFolioChargesArgs
+  paymentLogs?: boolean | TenantInvoiceCountOutputTypeCountPaymentLogsArgs
 }
 
 /**
@@ -1454,6 +1805,20 @@ export type TenantInvoiceCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
  */
 export type TenantInvoiceCountOutputTypeCountLineItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantInvoiceLineItemWhereInput
+}
+
+/**
+ * TenantInvoiceCountOutputType without action
+ */
+export type TenantInvoiceCountOutputTypeCountFolioChargesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantFolioChargeWhereInput
+}
+
+/**
+ * TenantInvoiceCountOutputType without action
+ */
+export type TenantInvoiceCountOutputTypeCountPaymentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantPaymentLogWhereInput
 }
 
 
@@ -1486,6 +1851,8 @@ export type TenantInvoiceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   reservation?: boolean | Prisma.TenantInvoice$reservationArgs<ExtArgs>
   lineItems?: boolean | Prisma.TenantInvoice$lineItemsArgs<ExtArgs>
+  folioCharges?: boolean | Prisma.TenantInvoice$folioChargesArgs<ExtArgs>
+  paymentLogs?: boolean | Prisma.TenantInvoice$paymentLogsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantInvoiceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantInvoice"]>
 
@@ -1582,6 +1949,8 @@ export type TenantInvoiceInclude<ExtArgs extends runtime.Types.Extensions.Intern
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   reservation?: boolean | Prisma.TenantInvoice$reservationArgs<ExtArgs>
   lineItems?: boolean | Prisma.TenantInvoice$lineItemsArgs<ExtArgs>
+  folioCharges?: boolean | Prisma.TenantInvoice$folioChargesArgs<ExtArgs>
+  paymentLogs?: boolean | Prisma.TenantInvoice$paymentLogsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantInvoiceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantInvoiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1599,6 +1968,8 @@ export type $TenantInvoicePayload<ExtArgs extends runtime.Types.Extensions.Inter
     tenantProfile: Prisma.$TenantProfilePayload<ExtArgs>
     reservation: Prisma.$TenantReservationPayload<ExtArgs> | null
     lineItems: Prisma.$TenantInvoiceLineItemPayload<ExtArgs>[]
+    folioCharges: Prisma.$TenantFolioChargePayload<ExtArgs>[]
+    paymentLogs: Prisma.$TenantPaymentLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2023,6 +2394,8 @@ export interface Prisma__TenantInvoiceClient<T, Null = never, ExtArgs extends ru
   tenantProfile<T extends Prisma.TenantProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantProfileClient<runtime.Types.Result.GetResult<Prisma.$TenantProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   reservation<T extends Prisma.TenantInvoice$reservationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantInvoice$reservationArgs<ExtArgs>>): Prisma.Prisma__TenantReservationClient<runtime.Types.Result.GetResult<Prisma.$TenantReservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   lineItems<T extends Prisma.TenantInvoice$lineItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantInvoice$lineItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantInvoiceLineItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  folioCharges<T extends Prisma.TenantInvoice$folioChargesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantInvoice$folioChargesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantFolioChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentLogs<T extends Prisma.TenantInvoice$paymentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantInvoice$paymentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPaymentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2518,6 +2891,54 @@ export type TenantInvoice$lineItemsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.TenantInvoiceLineItemScalarFieldEnum | Prisma.TenantInvoiceLineItemScalarFieldEnum[]
+}
+
+/**
+ * TenantInvoice.folioCharges
+ */
+export type TenantInvoice$folioChargesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantFolioCharge
+   */
+  select?: Prisma.TenantFolioChargeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantFolioCharge
+   */
+  omit?: Prisma.TenantFolioChargeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantFolioChargeInclude<ExtArgs> | null
+  where?: Prisma.TenantFolioChargeWhereInput
+  orderBy?: Prisma.TenantFolioChargeOrderByWithRelationInput | Prisma.TenantFolioChargeOrderByWithRelationInput[]
+  cursor?: Prisma.TenantFolioChargeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantFolioChargeScalarFieldEnum | Prisma.TenantFolioChargeScalarFieldEnum[]
+}
+
+/**
+ * TenantInvoice.paymentLogs
+ */
+export type TenantInvoice$paymentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantPaymentLog
+   */
+  select?: Prisma.TenantPaymentLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantPaymentLog
+   */
+  omit?: Prisma.TenantPaymentLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantPaymentLogInclude<ExtArgs> | null
+  where?: Prisma.TenantPaymentLogWhereInput
+  orderBy?: Prisma.TenantPaymentLogOrderByWithRelationInput | Prisma.TenantPaymentLogOrderByWithRelationInput[]
+  cursor?: Prisma.TenantPaymentLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantPaymentLogScalarFieldEnum | Prisma.TenantPaymentLogScalarFieldEnum[]
 }
 
 /**

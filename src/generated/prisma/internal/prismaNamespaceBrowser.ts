@@ -83,8 +83,11 @@ export const ModelName = {
   TenantInventoryItem: 'TenantInventoryItem',
   TenantInventoryMovement: 'TenantInventoryMovement',
   TenantService: 'TenantService',
+  TenantPackage: 'TenantPackage',
   TenantInvoice: 'TenantInvoice',
   TenantInvoiceLineItem: 'TenantInvoiceLineItem',
+  TenantFolioCharge: 'TenantFolioCharge',
+  TenantPaymentLog: 'TenantPaymentLog',
   TenantFinanceEntry: 'TenantFinanceEntry',
   TenantTransactionExport: 'TenantTransactionExport'
 } as const
@@ -249,6 +252,7 @@ export const TenantLeadScalarFieldEnum = {
   id: 'id',
   tenantProfileId: 'tenantProfileId',
   messengerIntegrationId: 'messengerIntegrationId',
+  reservationId: 'reservationId',
   psid: 'psid',
   channel: 'channel',
   guestName: 'guestName',
@@ -654,6 +658,9 @@ export const TenantReservationScalarFieldEnum = {
   children: 'children',
   nights: 'nights',
   rate: 'rate',
+  packageName: 'packageName',
+  packagePrice: 'packagePrice',
+  roomsIncluded: 'roomsIncluded',
   deposit: 'deposit',
   totalAmount: 'totalAmount',
   paymentMethod: 'paymentMethod',
@@ -771,6 +778,29 @@ export const TenantServiceScalarFieldEnum = {
 export type TenantServiceScalarFieldEnum = (typeof TenantServiceScalarFieldEnum)[keyof typeof TenantServiceScalarFieldEnum]
 
 
+export const TenantPackageScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  code: 'code',
+  name: 'name',
+  category: 'category',
+  price: 'price',
+  compareAtPrice: 'compareAtPrice',
+  description: 'description',
+  inclusionsNote: 'inclusionsNote',
+  minNights: 'minNights',
+  maxGuests: 'maxGuests',
+  showOnBookingPage: 'showOnBookingPage',
+  featured: 'featured',
+  status: 'status',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantPackageScalarFieldEnum = (typeof TenantPackageScalarFieldEnum)[keyof typeof TenantPackageScalarFieldEnum]
+
+
 export const TenantInvoiceScalarFieldEnum = {
   id: 'id',
   tenantProfileId: 'tenantProfileId',
@@ -813,6 +843,43 @@ export const TenantInvoiceLineItemScalarFieldEnum = {
 } as const
 
 export type TenantInvoiceLineItemScalarFieldEnum = (typeof TenantInvoiceLineItemScalarFieldEnum)[keyof typeof TenantInvoiceLineItemScalarFieldEnum]
+
+
+export const TenantFolioChargeScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  reservationId: 'reservationId',
+  invoiceId: 'invoiceId',
+  code: 'code',
+  type: 'type',
+  description: 'description',
+  quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantFolioChargeScalarFieldEnum = (typeof TenantFolioChargeScalarFieldEnum)[keyof typeof TenantFolioChargeScalarFieldEnum]
+
+
+export const TenantPaymentLogScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  reservationId: 'reservationId',
+  invoiceId: 'invoiceId',
+  code: 'code',
+  amount: 'amount',
+  paymentMethod: 'paymentMethod',
+  proofUrl: 'proofUrl',
+  proofNote: 'proofNote',
+  status: 'status',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TenantPaymentLogScalarFieldEnum = (typeof TenantPaymentLogScalarFieldEnum)[keyof typeof TenantPaymentLogScalarFieldEnum]
 
 
 export const TenantFinanceEntryScalarFieldEnum = {

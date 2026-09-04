@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CalendarDays,
@@ -102,6 +103,14 @@ type LeadRow = {
   source: string;
   stage: LeadStage;
   targetDate: string | null;
+  reservation: {
+    checkIn: string;
+    checkOut: string;
+    id: string;
+    roomLabel: string;
+    status: string;
+  } | null;
+  reservationId: string | null;
 };
 
 type LeadFormState = {
@@ -112,6 +121,30 @@ type LeadFormState = {
   source: string;
   stage: LeadStage;
   targetDate: string;
+};
+
+type RoomOption = {
+  baseRate: string;
+  childrenOccupancy: number;
+  code: string;
+  id: string;
+  maxAdults: number;
+  minNights: number;
+  name: string;
+  status: string;
+  type: string;
+};
+
+type PackageOption = {
+  label: string;
+  price: string;
+  roomsIncluded: number;
+};
+
+const ROOM_ONLY_PACKAGE: PackageOption = {
+  label: "Room only",
+  price: "",
+  roomsIncluded: 1,
 };
 
 const STAGES: Array<{ label: string; value: LeadStage }> = [
@@ -165,6 +198,7 @@ export default function LeadsPage() {
   const [formOpen, setFormOpen] = useState(false);
   const [conversationOpen, setConversationOpen] = useState(false);
   const [deleteLead, setDeleteLead] = useState<LeadRow | null>(null);
+  const [convertLead, setConvertLead] = useState<LeadRow | null>(null);
   const [selectedLead, setSelectedLead] = useState<LeadRow | null>(null);
   const [form, setForm] = useState<LeadFormState>(DEFAULT_FORM);
   const [lastSyncError, setLastSyncError] = useState<string | null>(null);
@@ -190,7 +224,26 @@ export default function LeadsPage() {
     ...trpc.tenant.leads.list.queryOptions(),
     refetchInterval: 10_000,
   });
+  const rooms = useQuery({
+    ...trpc.tenant.rooms.list.queryOptions(),
+    retry: false,
+  });
+  const packages = useQuery({
+    ...trpc.tenant.packages.list.queryOptions(),
+    retry: false,
+  });
   const rows = useMemo(() => (leads.data ?? []) as LeadRow[], [leads.data]);
+  const packageOptions = useMemo<PackageOption[]>(() => {
+    const savedPackages = (packages.data ?? [])
+      .filter((pack) => pack.status === "Active" && pack.showOnBookingPage)
+      .map((pack) => ({
+        label: pack.name,
+        price: pack.price,
+        roomsIncluded: pack.rooms.length || 1,
+      }));
+
+    return [ROOM_ONLY_PACKAGE, ...savedPackages];
+  }, [packages.data]);
 
   const invalidateLeads = async () => {
     await queryClient.invalidateQueries(trpc.tenant.leads.list.queryFilter());
@@ -293,6 +346,20 @@ export default function LeadsPage() {
         await invalidateLeads();
         setDeleteLead(null);
         toast.success("Lead deleted.");
+      },
+      onError: (error) => toast.error(error.message),
+    }),
+  );
+  const convertToReservation = useMutation(
+    trpc.tenant.leads.convertToReservation.mutationOptions({
+      onSuccess: async () => {
+        await Promise.all([
+          invalidateLeads(),
+          queryClient.invalidateQueries(trpc.tenant.reservations.list.queryFilter()),
+          queryClient.invalidateQueries(trpc.tenant.invoices.list.queryFilter()),
+        ]);
+        setConvertLead(null);
+        toast.success("Lead converted to reservation.");
       },
       onError: (error) => toast.error(error.message),
     }),
@@ -466,6 +533,7 @@ export default function LeadsPage() {
                 onStageChange={(lead, stage) =>
                   updateStage.mutate({ id: lead.id, stage })
                 }
+                onConvert={setConvertLead}
                 stage={group.stage}
               />
             ))}
@@ -527,6 +595,16 @@ export default function LeadsPage() {
         onOpenChange={setFormOpen}
         onSave={() => saveLead.mutate(form)}
         open={formOpen}
+      />
+      <ConvertLeadSheet
+        isSaving={convertToReservation.isPending}
+        lead={convertLead}
+        loadingPackages={packages.isPending}
+        packageOptions={packageOptions}
+        rooms={(rooms.data ?? []) as RoomOption[]}
+        roomsLoading={rooms.isPending}
+        onOpenChange={(open) => setConvertLead(open ? convertLead : null)}
+        onSave={(input) => convertToReservation.mutate(input)}
       />
 
       <ConversationSheet
@@ -917,6 +995,7 @@ function DiagnosticList({
 
 function LeadColumn({
   leads,
+  onConvert,
   onDelete,
   onEdit,
   onOpen,
@@ -924,6 +1003,7 @@ function LeadColumn({
   stage,
 }: {
   leads: LeadRow[];
+  onConvert: (lead: LeadRow) => void;
   onDelete: (lead: LeadRow) => void;
   onEdit: (lead: LeadRow) => void;
   onOpen: (lead: LeadRow) => void;
@@ -973,6 +1053,7 @@ function LeadColumn({
             <LeadCard
               key={lead.id}
               lead={lead}
+              onConvert={onConvert}
               onDelete={onDelete}
               onEdit={onEdit}
               onOpen={onOpen}
@@ -987,12 +1068,14 @@ function LeadColumn({
 
 function LeadCard({
   lead,
+  onConvert,
   onDelete,
   onEdit,
   onOpen,
   onStageChange,
 }: {
   lead: LeadRow;
+  onConvert: (lead: LeadRow) => void;
   onDelete: (lead: LeadRow) => void;
   onEdit: (lead: LeadRow) => void;
   onOpen: (lead: LeadRow) => void;
@@ -1019,6 +1102,7 @@ function LeadCard({
         </button>
         <LeadActions
           lead={lead}
+          onConvert={onConvert}
           onDelete={onDelete}
           onEdit={onEdit}
           onOpen={onOpen}
@@ -1037,6 +1121,14 @@ function LeadCard({
       </div>
 
       <p className="line-clamp-2 text-xs text-zinc-500">{lead.lastMessage}</p>
+      {lead.reservation ? (
+        <Button asChild size="xs" variant="outline">
+          <Link href="/tenant/reservations/calendar">
+            <CalendarDays className="size-4" />
+            {lead.reservation.roomLabel}
+          </Link>
+        </Button>
+      ) : null}
 
       <div className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-3 text-xs">
         <span className="inline-flex items-center gap-1 font-semibold text-zinc-600">
@@ -1053,12 +1145,14 @@ function LeadCard({
 
 function LeadActions({
   lead,
+  onConvert,
   onDelete,
   onEdit,
   onOpen,
   onStageChange,
 }: {
   lead: LeadRow;
+  onConvert: (lead: LeadRow) => void;
   onDelete: (lead: LeadRow) => void;
   onEdit: (lead: LeadRow) => void;
   onOpen: (lead: LeadRow) => void;
@@ -1089,9 +1183,12 @@ function LeadActions({
           <CircleDollarSign className="size-4" />
           Mark payment done
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onStageChange(lead, "CONVERTED")}>
+        <DropdownMenuItem
+          disabled={Boolean(lead.reservationId)}
+          onClick={() => onConvert(lead)}
+        >
           <CheckCircle2 className="size-4" />
-          Convert lead
+          Convert to booking
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -1103,6 +1200,311 @@ function LeadActions({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+function ConvertLeadSheet({
+  isSaving,
+  lead,
+  loadingPackages,
+  onOpenChange,
+  onSave,
+  packageOptions,
+  rooms,
+  roomsLoading,
+}: {
+  isSaving: boolean;
+  lead: LeadRow | null;
+  loadingPackages: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSave: (input: {
+    adults: number;
+    checkIn: string;
+    checkOut: string;
+    children: number;
+    deposit: string;
+    leadId: string;
+    notes: string;
+    packageName: string;
+    packagePrice: string;
+    paymentMethod: string;
+    rate: string;
+    roomId: string;
+    roomsIncluded: number;
+    status: "Confirmed";
+    totalAmount: string;
+  }) => void;
+  packageOptions: PackageOption[];
+  rooms: RoomOption[];
+  roomsLoading: boolean;
+}) {
+  const defaultCheckIn = lead?.targetDate?.slice(0, 10) ?? toDateInput(new Date());
+  const defaultCheckOutDate = new Date(`${defaultCheckIn}T00:00:00`);
+  defaultCheckOutDate.setDate(defaultCheckOutDate.getDate() + 1);
+  const [values, setValues] = useState({
+    adults: 1,
+    checkIn: defaultCheckIn,
+    checkOut: toDateInput(defaultCheckOutDate),
+    children: 0,
+    deposit: "",
+    notes: "",
+    packageName: "Lead conversion",
+    packagePrice: "",
+    paymentMethod: "Cash",
+    rate: "",
+    roomId: "",
+    roomsIncluded: 1,
+  });
+  const availableRooms = rooms.filter((room) => room.status !== "Out of Service");
+  const selectedRoom = availableRooms.find((room) => room.id === values.roomId);
+  const nights = getNights(values.checkIn, values.checkOut);
+  const rateAmount = parseMoney(values.packagePrice || values.rate || selectedRoom?.baseRate || "0");
+  const totalAmount = Math.max(rateAmount * nights, 0);
+  const canSave = Boolean(lead && values.roomId && values.checkIn && values.checkOut) && nights > 0 && !isSaving;
+
+  useEffect(() => {
+    if (!lead) return;
+
+    const checkIn = lead.targetDate?.slice(0, 10) ?? toDateInput(new Date());
+    const checkOutDate = new Date(`${checkIn}T00:00:00`);
+    checkOutDate.setDate(checkOutDate.getDate() + 1);
+    queueMicrotask(() =>
+      setValues((current) => ({
+        ...current,
+        checkIn,
+        checkOut: toDateInput(checkOutDate),
+        notes: lead.lastMessage === "--" ? "" : lead.lastMessage,
+        roomId: "",
+      })),
+    );
+  }, [lead]);
+
+  function selectRoom(roomId: string) {
+    const room = availableRooms.find((item) => item.id === roomId);
+    setValues((current) => ({
+      ...current,
+      rate: room?.baseRate ?? current.rate,
+      roomId,
+    }));
+  }
+
+  function selectPackage(packageName: string) {
+    const option = packageOptions.find((item) => item.label === packageName);
+    setValues((current) => ({
+      ...current,
+      packageName,
+      packagePrice: option?.price ?? "",
+      roomsIncluded: option?.roomsIncluded ?? 1,
+    }));
+  }
+
+  function submit() {
+    if (!lead) return;
+
+    if (!values.roomId) {
+      toast.error("Room is required.");
+      return;
+    }
+
+    if (nights < 1) {
+      toast.error("Check-out must be after check-in.");
+      return;
+    }
+
+    onSave({
+      adults: values.adults,
+      checkIn: values.checkIn,
+      checkOut: values.checkOut,
+      children: values.children,
+      deposit: values.deposit,
+      leadId: lead.id,
+      notes: values.notes,
+      packageName: values.packageName,
+      packagePrice: values.packagePrice,
+      paymentMethod: values.paymentMethod,
+      rate: String(rateAmount || values.rate),
+      roomId: values.roomId,
+      roomsIncluded: values.roomsIncluded,
+      status: "Confirmed",
+      totalAmount: String(totalAmount),
+    });
+  }
+
+  return (
+    <Sheet open={Boolean(lead)} onOpenChange={onOpenChange}>
+      <SheetContent className="max-w-2xl!">
+        <SheetHeader className="border-b border-zinc-200">
+          <SheetTitle>Convert lead to booking</SheetTitle>
+          <SheetDescription>
+            Create reservation from lead details and keep them linked.
+          </SheetDescription>
+        </SheetHeader>
+
+        <div className="flex-1 space-y-4 overflow-y-auto px-4">
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm">
+            <p className="font-bold text-zinc-950">{lead?.guestName ?? "Lead"}</p>
+            <p className="mt-1 text-xs font-medium text-zinc-500">
+              {lead?.inquiry ?? "No inquiry"}
+            </p>
+          </div>
+
+          <Field label="Room">
+            <Select value={values.roomId} onValueChange={selectRoom}>
+              <SelectTrigger className="h-10 w-full rounded-lg">
+                <SelectValue placeholder={roomsLoading ? "Loading rooms..." : "Select room"} />
+              </SelectTrigger>
+              <SelectContent>
+                {availableRooms.map((room) => (
+                  <SelectItem key={room.id} value={room.id}>
+                    {room.code} - {room.name} ({room.type})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Field>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Check-in">
+              <Input
+                className="rounded-lg"
+                type="date"
+                value={values.checkIn}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, checkIn: event.target.value }))
+                }
+              />
+            </Field>
+            <Field label="Check-out">
+              <Input
+                className="rounded-lg"
+                type="date"
+                value={values.checkOut}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, checkOut: event.target.value }))
+                }
+              />
+            </Field>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Adults">
+              <Input
+                className="rounded-lg"
+                min={1}
+                type="number"
+                value={values.adults}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, adults: Number(event.target.value) }))
+                }
+              />
+            </Field>
+            <Field label="Children">
+              <Input
+                className="rounded-lg"
+                min={0}
+                type="number"
+                value={values.children}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, children: Number(event.target.value) }))
+                }
+              />
+            </Field>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Package">
+              <Select value={values.packageName} onValueChange={selectPackage}>
+                <SelectTrigger className="h-10 w-full rounded-lg">
+                  <SelectValue placeholder={loadingPackages ? "Loading packages..." : "Select package"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {loadingPackages ? (
+                    <SelectItem value="loading" disabled>
+                      Loading packages...
+                    </SelectItem>
+                  ) : null}
+                  {packageOptions.map((option) => (
+                    <SelectItem key={option.label} value={option.label}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
+            <Field label="Rooms included">
+              <Input
+                className="rounded-lg"
+                min={1}
+                type="number"
+                value={values.roomsIncluded}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, roomsIncluded: Number(event.target.value) }))
+                }
+              />
+            </Field>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Rate">
+              <Input
+                className="rounded-lg"
+                value={values.rate}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, rate: event.target.value }))
+                }
+              />
+            </Field>
+            <Field label="Package price">
+              <Input
+                className="rounded-lg"
+                value={values.packagePrice}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, packagePrice: event.target.value }))
+                }
+              />
+            </Field>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Deposit">
+              <Input
+                className="rounded-lg"
+                value={values.deposit}
+                onChange={(event) =>
+                  setValues((current) => ({ ...current, deposit: event.target.value }))
+                }
+              />
+            </Field>
+          </div>
+
+          <Field label="Notes">
+            <Textarea
+              className="min-h-24 rounded-lg"
+              value={values.notes}
+              onChange={(event) =>
+                setValues((current) => ({ ...current, notes: event.target.value }))
+              }
+            />
+          </Field>
+
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+            <p className="text-xs font-bold uppercase text-zinc-500">Booking total</p>
+            <p className="mt-1 text-2xl font-bold text-zinc-950">
+              {formatPeso(totalAmount)}
+            </p>
+            <p className="mt-1 text-xs font-medium text-zinc-500">
+              {Math.max(nights, 0)} night{nights === 1 ? "" : "s"}
+            </p>
+          </div>
+        </div>
+
+        <SheetFooter className="border-t border-zinc-200">
+          <Button disabled={!canSave} onClick={submit}>
+            {isSaving ? "Converting..." : "Create booking"}
+          </Button>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }
 
@@ -1422,6 +1824,29 @@ function getLeadTemperature(lead: LeadRow): LeadTemperature {
   if (days <= 10) return "Hot";
   if (days <= 30) return "Warm";
   return "Cold";
+}
+
+function getNights(checkIn: string, checkOut: string) {
+  const start = new Date(`${checkIn}T00:00:00`);
+  const end = new Date(`${checkOut}T00:00:00`);
+  const nights = Math.ceil((end.getTime() - start.getTime()) / 86_400_000);
+
+  return Number.isFinite(nights) ? nights : 0;
+}
+
+function parseMoney(value: string) {
+  const amount = Number(String(value).replace(/[^\d.-]/g, ""));
+  return Number.isFinite(amount) ? amount : 0;
+}
+
+function formatPeso(value: number) {
+  return `\u20b1${value.toLocaleString("en-PH", {
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+function toDateInput(date: Date) {
+  return date.toISOString().slice(0, 10);
 }
 
 function getDaysUntil(date: string | null) {

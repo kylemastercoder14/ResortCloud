@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { jsPDF as JsPDF } from "jspdf";
 import type { ColumnDef } from "@tanstack/react-table";
-import { BellRing, CheckCircle, Clock3, Edit, FileText, MoreVertical, Plus, Printer, Trash2 } from "lucide-react";
+import { BellRing, Clock3, Edit, FileText, MoreVertical, Plus, Printer, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { ReusableDataTable } from "@/components/reusable/data-table";
@@ -220,15 +220,6 @@ function InvoiceRowActions({ invoice }: { invoice: InvoiceRow }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const markPaid = useMutation(
-    trpc.tenant.invoices.updateStatus.mutationOptions({
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(trpc.tenant.invoices.list.queryFilter());
-        toast.success("Invoice marked paid.");
-      },
-      onError: (error) => toast.error(error.message),
-    }),
-  );
   const deleteInvoice = useMutation(
     trpc.tenant.invoices.delete.mutationOptions({
       onSuccess: async () => {
@@ -254,13 +245,6 @@ function InvoiceRowActions({ invoice }: { invoice: InvoiceRow }) {
               <Edit className="size-4" />
               Edit details
             </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            disabled={invoice.status === "Paid"}
-            onClick={() => markPaid.mutate({ id: invoice.id, status: "Paid" })}
-          >
-            <CheckCircle className="size-4" />
-            Mark as paid
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => void printInvoice(invoice)}>
             <Printer className="size-4" />
@@ -337,7 +321,7 @@ function parseMoney(value: string) {
 
 function formatPeso(value: string) {
   const amount = parseMoney(value);
-  return `\u20b1${amount.toLocaleString("en-PH", { maximumFractionDigits: 2 })}`;
+  return `PHP ${amount.toLocaleString("en-PH", { maximumFractionDigits: 2 })}`;
 }
 
 async function printInvoice(invoice: InvoiceRow) {
@@ -348,7 +332,7 @@ async function printInvoice(invoice: InvoiceRow) {
   const rows = invoice.lineItems.length
     ? invoice.lineItems
     : [{ id: "empty", description: invoice.roomLabel || "Room charge", quantity: 1, rate: invoice.totalAmount, amount: invoice.totalAmount }];
-  const fillerRows = Math.max(0, 9 - rows.length);
+  const fillerRows = Math.max(0, 6 - rows.length);
   const cream: [number, number, number] = [243, 238, 226];
   const dark: [number, number, number] = [41, 38, 34];
   const gold: [number, number, number] = [180, 135, 44];
@@ -382,33 +366,49 @@ async function printInvoice(invoice: InvoiceRow) {
   drawWrapped(document, safe(invoice.roomLabel || "Booking location"), 332, 76, 170, 9);
 
   drawLabel(document, "BILL TO:", 44, 168, muted);
-  document.setFontSize(10);
+  document.setFontSize(12);
+  document.setTextColor(139, 131, 119);
+  const billToLines = document.splitTextToSize(
+    safe(invoice.guestName).toUpperCase(),
+    170,
+  );
+  document.text(billToLines, 44, 190);
+  const billToContactY = 190 + billToLines.length * 14 + 8;
+  document.setFontSize(8.5);
   document.setTextColor(...muted);
-  document.text("CONTACT:", 44, 220);
-  document.text(`EMAIL: ${safe(invoice.guestEmail)}`, 44, 234);
-  document.text(`LOCATION: ${safe(invoice.roomLabel)}`, 44, 248);
+  document.text("CONTACT:", 44, billToContactY);
+  document.text(`EMAIL: ${safe(invoice.guestEmail)}`, 44, billToContactY + 12);
+  drawWrapped(document, `LOCATION: ${safe(invoice.roomLabel)}`, 44, billToContactY + 24, 170, 9, 8.5);
 
   drawLabel(document, "BOOKED BY:", 252, 168, muted);
-  document.setFontSize(18);
+  document.setFontSize(14);
   document.setTextColor(139, 131, 119);
-  document.text(safe(invoice.guestName).toUpperCase(), 252, 190, { maxWidth: 200 });
-  document.setFontSize(10);
-  document.text("CONTACT: --", 252, 218);
-  document.text(`EMAIL: ${safe(invoice.guestEmail)}`, 252, 232);
-  drawWrapped(document, `BOOKING: ${safe(invoice.bookingReference || invoice.reservationId)}`, 252, 246, 180, 10);
+  const bookedByLines = document.splitTextToSize(
+    safe(invoice.guestName).toUpperCase(),
+    200,
+  );
+  document.text(bookedByLines, 252, 190);
+  const bookedByContactY = 190 + bookedByLines.length * 16 + 8;
+  document.setFontSize(8.5);
+  document.text("CONTACT: --", 252, bookedByContactY);
+  document.text(`EMAIL: ${safe(invoice.guestEmail)}`, 252, bookedByContactY + 12);
+  drawWrapped(
+    document,
+    `BOOKING: ${safe(invoice.bookingReference || invoice.reservationId)}`,
+    252,
+    bookedByContactY + 24,
+    180,
+    9,
+    8.5,
+  );
 
-  drawLabel(document, "INVOICE NO.", 462, 120, muted);
-  document.setFontSize(10);
+  drawLabel(document, "INVOICE NO.", 448, 150, muted);
+  document.setFontSize(9);
   document.setTextColor(...text);
-  document.text(invoice.code, 462, 136);
-  drawLabel(document, "DATE:", 462, 158, muted);
+  document.text(invoice.code, 448, 166);
+  drawLabel(document, "DATE:", 448, 190, muted);
   document.setTextColor(...text);
-  document.text(formatDate(invoice.invoiceDate), 462, 174);
-  document.setDrawColor(...muted);
-  document.rect(462, 192, 62, 62);
-  document.setTextColor(...muted);
-  document.setFontSize(11);
-  document.text("QR CODE", 477, 228);
+  document.text(formatDate(invoice.invoiceDate), 448, 206);
 
   let y = 310;
   const x = 56;
@@ -434,7 +434,7 @@ async function printInvoice(invoice: InvoiceRow) {
   drawTotalRow(document, totalsX, y + 90, widths[2], widths[3], "TOTAL", formatPeso(invoice.totalAmount));
 
   document.setTextColor(...muted);
-  document.setFontSize(18);
+  document.setFontSize(14);
   document.text("Terms & Condition", 44, 710);
   drawWrapped(
     document,
@@ -442,16 +442,18 @@ async function printInvoice(invoice: InvoiceRow) {
     60,
     732,
     230,
-    12,
+    10,
+    9,
   );
 
-  document.setFontSize(18);
+  document.setFontSize(14);
   document.text("Payment Info", 358, 682);
-  document.setFontSize(11);
+  document.setFontSize(9);
   document.text(`Payment Method: ${safe(invoice.paymentMethod)}`, 358, 704);
-  drawWrapped(document, `Instructions: ${safe(invoice.paymentInstructions)}`, 358, 722, 180, 12);
-  document.text("Signature:", 358, 776);
-  document.line(422, 776, 542, 776);
+  drawWrapped(document, `Instructions: ${safe(invoice.paymentInstructions)}`, 358, 722, 180, 10, 9);
+  document.setFontSize(9);
+  document.text("Signature:", 358, 784);
+  document.line(422, 784, 542, 784);
 
   document.save(`${sanitizeFileName(invoice.code)}.pdf`);
 }
@@ -506,9 +508,17 @@ function drawLabel(document: JsPDF, value: string, x: number, y: number, color: 
   document.text(value, x, y);
 }
 
-function drawWrapped(document: JsPDF, value: string, x: number, y: number, maxWidth: number, lineHeight: number) {
+function drawWrapped(
+  document: JsPDF,
+  value: string,
+  x: number,
+  y: number,
+  maxWidth: number,
+  lineHeight: number,
+  fontSize = 10,
+) {
   document.setTextColor(154, 148, 137);
-  document.setFontSize(10);
+  document.setFontSize(fontSize);
   document.splitTextToSize(value, maxWidth).forEach((line: string, index: number) => {
     document.text(line, x, y + index * lineHeight);
   });

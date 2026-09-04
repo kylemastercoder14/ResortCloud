@@ -28,6 +28,7 @@ export type TenantLeadMinAggregateOutputType = {
   id: string | null
   tenantProfileId: string | null
   messengerIntegrationId: string | null
+  reservationId: string | null
   psid: string | null
   channel: $Enums.TenantLeadChannel | null
   guestName: string | null
@@ -46,6 +47,7 @@ export type TenantLeadMaxAggregateOutputType = {
   id: string | null
   tenantProfileId: string | null
   messengerIntegrationId: string | null
+  reservationId: string | null
   psid: string | null
   channel: $Enums.TenantLeadChannel | null
   guestName: string | null
@@ -64,6 +66,7 @@ export type TenantLeadCountAggregateOutputType = {
   id: number
   tenantProfileId: number
   messengerIntegrationId: number
+  reservationId: number
   psid: number
   channel: number
   guestName: number
@@ -84,6 +87,7 @@ export type TenantLeadMinAggregateInputType = {
   id?: true
   tenantProfileId?: true
   messengerIntegrationId?: true
+  reservationId?: true
   psid?: true
   channel?: true
   guestName?: true
@@ -102,6 +106,7 @@ export type TenantLeadMaxAggregateInputType = {
   id?: true
   tenantProfileId?: true
   messengerIntegrationId?: true
+  reservationId?: true
   psid?: true
   channel?: true
   guestName?: true
@@ -120,6 +125,7 @@ export type TenantLeadCountAggregateInputType = {
   id?: true
   tenantProfileId?: true
   messengerIntegrationId?: true
+  reservationId?: true
   psid?: true
   channel?: true
   guestName?: true
@@ -211,6 +217,7 @@ export type TenantLeadGroupByOutputType = {
   id: string
   tenantProfileId: string
   messengerIntegrationId: string | null
+  reservationId: string | null
   psid: string
   channel: $Enums.TenantLeadChannel
   guestName: string
@@ -250,6 +257,7 @@ export type TenantLeadWhereInput = {
   id?: Prisma.StringFilter<"TenantLead"> | string
   tenantProfileId?: Prisma.StringFilter<"TenantLead"> | string
   messengerIntegrationId?: Prisma.StringNullableFilter<"TenantLead"> | string | null
+  reservationId?: Prisma.StringNullableFilter<"TenantLead"> | string | null
   psid?: Prisma.StringFilter<"TenantLead"> | string
   channel?: Prisma.EnumTenantLeadChannelFilter<"TenantLead"> | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFilter<"TenantLead"> | string
@@ -264,6 +272,7 @@ export type TenantLeadWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"TenantLead"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   messengerIntegration?: Prisma.XOR<Prisma.TenantMessengerIntegrationNullableScalarRelationFilter, Prisma.TenantMessengerIntegrationWhereInput> | null
+  reservation?: Prisma.XOR<Prisma.TenantReservationNullableScalarRelationFilter, Prisma.TenantReservationWhereInput> | null
   messages?: Prisma.TenantLeadMessageListRelationFilter
 }
 
@@ -271,6 +280,7 @@ export type TenantLeadOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   messengerIntegrationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  reservationId?: Prisma.SortOrderInput | Prisma.SortOrder
   psid?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   guestName?: Prisma.SortOrder
@@ -285,6 +295,7 @@ export type TenantLeadOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   tenantProfile?: Prisma.TenantProfileOrderByWithRelationInput
   messengerIntegration?: Prisma.TenantMessengerIntegrationOrderByWithRelationInput
+  reservation?: Prisma.TenantReservationOrderByWithRelationInput
   messages?: Prisma.TenantLeadMessageOrderByRelationAggregateInput
 }
 
@@ -296,6 +307,7 @@ export type TenantLeadWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TenantLeadWhereInput | Prisma.TenantLeadWhereInput[]
   tenantProfileId?: Prisma.StringFilter<"TenantLead"> | string
   messengerIntegrationId?: Prisma.StringNullableFilter<"TenantLead"> | string | null
+  reservationId?: Prisma.StringNullableFilter<"TenantLead"> | string | null
   psid?: Prisma.StringFilter<"TenantLead"> | string
   channel?: Prisma.EnumTenantLeadChannelFilter<"TenantLead"> | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFilter<"TenantLead"> | string
@@ -310,6 +322,7 @@ export type TenantLeadWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"TenantLead"> | Date | string
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   messengerIntegration?: Prisma.XOR<Prisma.TenantMessengerIntegrationNullableScalarRelationFilter, Prisma.TenantMessengerIntegrationWhereInput> | null
+  reservation?: Prisma.XOR<Prisma.TenantReservationNullableScalarRelationFilter, Prisma.TenantReservationWhereInput> | null
   messages?: Prisma.TenantLeadMessageListRelationFilter
 }, "id" | "tenantProfileId_psid">
 
@@ -317,6 +330,7 @@ export type TenantLeadOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   messengerIntegrationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  reservationId?: Prisma.SortOrderInput | Prisma.SortOrder
   psid?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   guestName?: Prisma.SortOrder
@@ -341,6 +355,7 @@ export type TenantLeadScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"TenantLead"> | string
   tenantProfileId?: Prisma.StringWithAggregatesFilter<"TenantLead"> | string
   messengerIntegrationId?: Prisma.StringNullableWithAggregatesFilter<"TenantLead"> | string | null
+  reservationId?: Prisma.StringNullableWithAggregatesFilter<"TenantLead"> | string | null
   psid?: Prisma.StringWithAggregatesFilter<"TenantLead"> | string
   channel?: Prisma.EnumTenantLeadChannelWithAggregatesFilter<"TenantLead"> | $Enums.TenantLeadChannel
   guestName?: Prisma.StringWithAggregatesFilter<"TenantLead"> | string
@@ -371,6 +386,7 @@ export type TenantLeadCreateInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutLeadsInput
   messengerIntegration?: Prisma.TenantMessengerIntegrationCreateNestedOneWithoutLeadsInput
+  reservation?: Prisma.TenantReservationCreateNestedOneWithoutLeadsInput
   messages?: Prisma.TenantLeadMessageCreateNestedManyWithoutLeadInput
 }
 
@@ -378,6 +394,7 @@ export type TenantLeadUncheckedCreateInput = {
   id?: string
   tenantProfileId: string
   messengerIntegrationId?: string | null
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -409,6 +426,7 @@ export type TenantLeadUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutLeadsNestedInput
   messengerIntegration?: Prisma.TenantMessengerIntegrationUpdateOneWithoutLeadsNestedInput
+  reservation?: Prisma.TenantReservationUpdateOneWithoutLeadsNestedInput
   messages?: Prisma.TenantLeadMessageUpdateManyWithoutLeadNestedInput
 }
 
@@ -416,6 +434,7 @@ export type TenantLeadUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -435,6 +454,7 @@ export type TenantLeadCreateManyInput = {
   id?: string
   tenantProfileId: string
   messengerIntegrationId?: string | null
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -469,6 +489,7 @@ export type TenantLeadUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -502,6 +523,7 @@ export type TenantLeadCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   messengerIntegrationId?: Prisma.SortOrder
+  reservationId?: Prisma.SortOrder
   psid?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   guestName?: Prisma.SortOrder
@@ -520,6 +542,7 @@ export type TenantLeadMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   messengerIntegrationId?: Prisma.SortOrder
+  reservationId?: Prisma.SortOrder
   psid?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   guestName?: Prisma.SortOrder
@@ -538,6 +561,7 @@ export type TenantLeadMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
   messengerIntegrationId?: Prisma.SortOrder
+  reservationId?: Prisma.SortOrder
   psid?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   guestName?: Prisma.SortOrder
@@ -663,6 +687,48 @@ export type TenantLeadUpdateOneRequiredWithoutMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantLeadUpdateToOneWithWhereWithoutMessagesInput, Prisma.TenantLeadUpdateWithoutMessagesInput>, Prisma.TenantLeadUncheckedUpdateWithoutMessagesInput>
 }
 
+export type TenantLeadCreateNestedManyWithoutReservationInput = {
+  create?: Prisma.XOR<Prisma.TenantLeadCreateWithoutReservationInput, Prisma.TenantLeadUncheckedCreateWithoutReservationInput> | Prisma.TenantLeadCreateWithoutReservationInput[] | Prisma.TenantLeadUncheckedCreateWithoutReservationInput[]
+  connectOrCreate?: Prisma.TenantLeadCreateOrConnectWithoutReservationInput | Prisma.TenantLeadCreateOrConnectWithoutReservationInput[]
+  createMany?: Prisma.TenantLeadCreateManyReservationInputEnvelope
+  connect?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+}
+
+export type TenantLeadUncheckedCreateNestedManyWithoutReservationInput = {
+  create?: Prisma.XOR<Prisma.TenantLeadCreateWithoutReservationInput, Prisma.TenantLeadUncheckedCreateWithoutReservationInput> | Prisma.TenantLeadCreateWithoutReservationInput[] | Prisma.TenantLeadUncheckedCreateWithoutReservationInput[]
+  connectOrCreate?: Prisma.TenantLeadCreateOrConnectWithoutReservationInput | Prisma.TenantLeadCreateOrConnectWithoutReservationInput[]
+  createMany?: Prisma.TenantLeadCreateManyReservationInputEnvelope
+  connect?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+}
+
+export type TenantLeadUpdateManyWithoutReservationNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantLeadCreateWithoutReservationInput, Prisma.TenantLeadUncheckedCreateWithoutReservationInput> | Prisma.TenantLeadCreateWithoutReservationInput[] | Prisma.TenantLeadUncheckedCreateWithoutReservationInput[]
+  connectOrCreate?: Prisma.TenantLeadCreateOrConnectWithoutReservationInput | Prisma.TenantLeadCreateOrConnectWithoutReservationInput[]
+  upsert?: Prisma.TenantLeadUpsertWithWhereUniqueWithoutReservationInput | Prisma.TenantLeadUpsertWithWhereUniqueWithoutReservationInput[]
+  createMany?: Prisma.TenantLeadCreateManyReservationInputEnvelope
+  set?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  disconnect?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  delete?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  connect?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  update?: Prisma.TenantLeadUpdateWithWhereUniqueWithoutReservationInput | Prisma.TenantLeadUpdateWithWhereUniqueWithoutReservationInput[]
+  updateMany?: Prisma.TenantLeadUpdateManyWithWhereWithoutReservationInput | Prisma.TenantLeadUpdateManyWithWhereWithoutReservationInput[]
+  deleteMany?: Prisma.TenantLeadScalarWhereInput | Prisma.TenantLeadScalarWhereInput[]
+}
+
+export type TenantLeadUncheckedUpdateManyWithoutReservationNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantLeadCreateWithoutReservationInput, Prisma.TenantLeadUncheckedCreateWithoutReservationInput> | Prisma.TenantLeadCreateWithoutReservationInput[] | Prisma.TenantLeadUncheckedCreateWithoutReservationInput[]
+  connectOrCreate?: Prisma.TenantLeadCreateOrConnectWithoutReservationInput | Prisma.TenantLeadCreateOrConnectWithoutReservationInput[]
+  upsert?: Prisma.TenantLeadUpsertWithWhereUniqueWithoutReservationInput | Prisma.TenantLeadUpsertWithWhereUniqueWithoutReservationInput[]
+  createMany?: Prisma.TenantLeadCreateManyReservationInputEnvelope
+  set?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  disconnect?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  delete?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  connect?: Prisma.TenantLeadWhereUniqueInput | Prisma.TenantLeadWhereUniqueInput[]
+  update?: Prisma.TenantLeadUpdateWithWhereUniqueWithoutReservationInput | Prisma.TenantLeadUpdateWithWhereUniqueWithoutReservationInput[]
+  updateMany?: Prisma.TenantLeadUpdateManyWithWhereWithoutReservationInput | Prisma.TenantLeadUpdateManyWithWhereWithoutReservationInput[]
+  deleteMany?: Prisma.TenantLeadScalarWhereInput | Prisma.TenantLeadScalarWhereInput[]
+}
+
 export type TenantLeadCreateWithoutTenantProfileInput = {
   id?: string
   psid: string
@@ -678,12 +744,14 @@ export type TenantLeadCreateWithoutTenantProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   messengerIntegration?: Prisma.TenantMessengerIntegrationCreateNestedOneWithoutLeadsInput
+  reservation?: Prisma.TenantReservationCreateNestedOneWithoutLeadsInput
   messages?: Prisma.TenantLeadMessageCreateNestedManyWithoutLeadInput
 }
 
 export type TenantLeadUncheckedCreateWithoutTenantProfileInput = {
   id?: string
   messengerIntegrationId?: string | null
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -732,6 +800,7 @@ export type TenantLeadScalarWhereInput = {
   id?: Prisma.StringFilter<"TenantLead"> | string
   tenantProfileId?: Prisma.StringFilter<"TenantLead"> | string
   messengerIntegrationId?: Prisma.StringNullableFilter<"TenantLead"> | string | null
+  reservationId?: Prisma.StringNullableFilter<"TenantLead"> | string | null
   psid?: Prisma.StringFilter<"TenantLead"> | string
   channel?: Prisma.EnumTenantLeadChannelFilter<"TenantLead"> | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFilter<"TenantLead"> | string
@@ -761,12 +830,14 @@ export type TenantLeadCreateWithoutMessengerIntegrationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutLeadsInput
+  reservation?: Prisma.TenantReservationCreateNestedOneWithoutLeadsInput
   messages?: Prisma.TenantLeadMessageCreateNestedManyWithoutLeadInput
 }
 
 export type TenantLeadUncheckedCreateWithoutMessengerIntegrationInput = {
   id?: string
   tenantProfileId: string
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -824,12 +895,14 @@ export type TenantLeadCreateWithoutMessagesInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutLeadsInput
   messengerIntegration?: Prisma.TenantMessengerIntegrationCreateNestedOneWithoutLeadsInput
+  reservation?: Prisma.TenantReservationCreateNestedOneWithoutLeadsInput
 }
 
 export type TenantLeadUncheckedCreateWithoutMessagesInput = {
   id?: string
   tenantProfileId: string
   messengerIntegrationId?: string | null
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -876,12 +949,14 @@ export type TenantLeadUpdateWithoutMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutLeadsNestedInput
   messengerIntegration?: Prisma.TenantMessengerIntegrationUpdateOneWithoutLeadsNestedInput
+  reservation?: Prisma.TenantReservationUpdateOneWithoutLeadsNestedInput
 }
 
 export type TenantLeadUncheckedUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -896,9 +971,74 @@ export type TenantLeadUncheckedUpdateWithoutMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type TenantLeadCreateWithoutReservationInput = {
+  id?: string
+  psid: string
+  channel?: $Enums.TenantLeadChannel
+  guestName?: string
+  profilePictureUrl?: string | null
+  inquiry?: string | null
+  lastMessage?: string | null
+  source?: string
+  stage?: $Enums.TenantLeadStage
+  targetDate?: Date | string | null
+  lastMessageAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutLeadsInput
+  messengerIntegration?: Prisma.TenantMessengerIntegrationCreateNestedOneWithoutLeadsInput
+  messages?: Prisma.TenantLeadMessageCreateNestedManyWithoutLeadInput
+}
+
+export type TenantLeadUncheckedCreateWithoutReservationInput = {
+  id?: string
+  tenantProfileId: string
+  messengerIntegrationId?: string | null
+  psid: string
+  channel?: $Enums.TenantLeadChannel
+  guestName?: string
+  profilePictureUrl?: string | null
+  inquiry?: string | null
+  lastMessage?: string | null
+  source?: string
+  stage?: $Enums.TenantLeadStage
+  targetDate?: Date | string | null
+  lastMessageAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  messages?: Prisma.TenantLeadMessageUncheckedCreateNestedManyWithoutLeadInput
+}
+
+export type TenantLeadCreateOrConnectWithoutReservationInput = {
+  where: Prisma.TenantLeadWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantLeadCreateWithoutReservationInput, Prisma.TenantLeadUncheckedCreateWithoutReservationInput>
+}
+
+export type TenantLeadCreateManyReservationInputEnvelope = {
+  data: Prisma.TenantLeadCreateManyReservationInput | Prisma.TenantLeadCreateManyReservationInput[]
+  skipDuplicates?: boolean
+}
+
+export type TenantLeadUpsertWithWhereUniqueWithoutReservationInput = {
+  where: Prisma.TenantLeadWhereUniqueInput
+  update: Prisma.XOR<Prisma.TenantLeadUpdateWithoutReservationInput, Prisma.TenantLeadUncheckedUpdateWithoutReservationInput>
+  create: Prisma.XOR<Prisma.TenantLeadCreateWithoutReservationInput, Prisma.TenantLeadUncheckedCreateWithoutReservationInput>
+}
+
+export type TenantLeadUpdateWithWhereUniqueWithoutReservationInput = {
+  where: Prisma.TenantLeadWhereUniqueInput
+  data: Prisma.XOR<Prisma.TenantLeadUpdateWithoutReservationInput, Prisma.TenantLeadUncheckedUpdateWithoutReservationInput>
+}
+
+export type TenantLeadUpdateManyWithWhereWithoutReservationInput = {
+  where: Prisma.TenantLeadScalarWhereInput
+  data: Prisma.XOR<Prisma.TenantLeadUpdateManyMutationInput, Prisma.TenantLeadUncheckedUpdateManyWithoutReservationInput>
+}
+
 export type TenantLeadCreateManyTenantProfileInput = {
   id?: string
   messengerIntegrationId?: string | null
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -928,12 +1068,14 @@ export type TenantLeadUpdateWithoutTenantProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messengerIntegration?: Prisma.TenantMessengerIntegrationUpdateOneWithoutLeadsNestedInput
+  reservation?: Prisma.TenantReservationUpdateOneWithoutLeadsNestedInput
   messages?: Prisma.TenantLeadMessageUpdateManyWithoutLeadNestedInput
 }
 
 export type TenantLeadUncheckedUpdateWithoutTenantProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -952,6 +1094,7 @@ export type TenantLeadUncheckedUpdateWithoutTenantProfileInput = {
 export type TenantLeadUncheckedUpdateManyWithoutTenantProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -969,6 +1112,7 @@ export type TenantLeadUncheckedUpdateManyWithoutTenantProfileInput = {
 export type TenantLeadCreateManyMessengerIntegrationInput = {
   id?: string
   tenantProfileId: string
+  reservationId?: string | null
   psid: string
   channel?: $Enums.TenantLeadChannel
   guestName?: string
@@ -998,12 +1142,14 @@ export type TenantLeadUpdateWithoutMessengerIntegrationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutLeadsNestedInput
+  reservation?: Prisma.TenantReservationUpdateOneWithoutLeadsNestedInput
   messages?: Prisma.TenantLeadMessageUpdateManyWithoutLeadNestedInput
 }
 
 export type TenantLeadUncheckedUpdateWithoutMessengerIntegrationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1022,6 +1168,81 @@ export type TenantLeadUncheckedUpdateWithoutMessengerIntegrationInput = {
 export type TenantLeadUncheckedUpdateManyWithoutMessengerIntegrationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  psid?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inquiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  stage?: Prisma.EnumTenantLeadStageFieldUpdateOperationsInput | $Enums.TenantLeadStage
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMessageAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TenantLeadCreateManyReservationInput = {
+  id?: string
+  tenantProfileId: string
+  messengerIntegrationId?: string | null
+  psid: string
+  channel?: $Enums.TenantLeadChannel
+  guestName?: string
+  profilePictureUrl?: string | null
+  inquiry?: string | null
+  lastMessage?: string | null
+  source?: string
+  stage?: $Enums.TenantLeadStage
+  targetDate?: Date | string | null
+  lastMessageAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TenantLeadUpdateWithoutReservationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  psid?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inquiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  stage?: Prisma.EnumTenantLeadStageFieldUpdateOperationsInput | $Enums.TenantLeadStage
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMessageAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutLeadsNestedInput
+  messengerIntegration?: Prisma.TenantMessengerIntegrationUpdateOneWithoutLeadsNestedInput
+  messages?: Prisma.TenantLeadMessageUpdateManyWithoutLeadNestedInput
+}
+
+export type TenantLeadUncheckedUpdateWithoutReservationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  psid?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inquiry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  stage?: Prisma.EnumTenantLeadStageFieldUpdateOperationsInput | $Enums.TenantLeadStage
+  targetDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMessageAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.TenantLeadMessageUncheckedUpdateManyWithoutLeadNestedInput
+}
+
+export type TenantLeadUncheckedUpdateManyWithoutReservationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  messengerIntegrationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   psid?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumTenantLeadChannelFieldUpdateOperationsInput | $Enums.TenantLeadChannel
   guestName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1071,6 +1292,7 @@ export type TenantLeadSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   tenantProfileId?: boolean
   messengerIntegrationId?: boolean
+  reservationId?: boolean
   psid?: boolean
   channel?: boolean
   guestName?: boolean
@@ -1085,6 +1307,7 @@ export type TenantLeadSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   messengerIntegration?: boolean | Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>
+  reservation?: boolean | Prisma.TenantLead$reservationArgs<ExtArgs>
   messages?: boolean | Prisma.TenantLead$messagesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantLeadCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantLead"]>
@@ -1093,6 +1316,7 @@ export type TenantLeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   tenantProfileId?: boolean
   messengerIntegrationId?: boolean
+  reservationId?: boolean
   psid?: boolean
   channel?: boolean
   guestName?: boolean
@@ -1107,12 +1331,14 @@ export type TenantLeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   messengerIntegration?: boolean | Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>
+  reservation?: boolean | Prisma.TenantLead$reservationArgs<ExtArgs>
 }, ExtArgs["result"]["tenantLead"]>
 
 export type TenantLeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantProfileId?: boolean
   messengerIntegrationId?: boolean
+  reservationId?: boolean
   psid?: boolean
   channel?: boolean
   guestName?: boolean
@@ -1127,12 +1353,14 @@ export type TenantLeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedAt?: boolean
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   messengerIntegration?: boolean | Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>
+  reservation?: boolean | Prisma.TenantLead$reservationArgs<ExtArgs>
 }, ExtArgs["result"]["tenantLead"]>
 
 export type TenantLeadSelectScalar = {
   id?: boolean
   tenantProfileId?: boolean
   messengerIntegrationId?: boolean
+  reservationId?: boolean
   psid?: boolean
   channel?: boolean
   guestName?: boolean
@@ -1147,20 +1375,23 @@ export type TenantLeadSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TenantLeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "messengerIntegrationId" | "psid" | "channel" | "guestName" | "profilePictureUrl" | "inquiry" | "lastMessage" | "source" | "stage" | "targetDate" | "lastMessageAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantLead"]>
+export type TenantLeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "messengerIntegrationId" | "reservationId" | "psid" | "channel" | "guestName" | "profilePictureUrl" | "inquiry" | "lastMessage" | "source" | "stage" | "targetDate" | "lastMessageAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantLead"]>
 export type TenantLeadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   messengerIntegration?: boolean | Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>
+  reservation?: boolean | Prisma.TenantLead$reservationArgs<ExtArgs>
   messages?: boolean | Prisma.TenantLead$messagesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantLeadCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantLeadIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   messengerIntegration?: boolean | Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>
+  reservation?: boolean | Prisma.TenantLead$reservationArgs<ExtArgs>
 }
 export type TenantLeadIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   messengerIntegration?: boolean | Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>
+  reservation?: boolean | Prisma.TenantLead$reservationArgs<ExtArgs>
 }
 
 export type $TenantLeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1168,12 +1399,14 @@ export type $TenantLeadPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     tenantProfile: Prisma.$TenantProfilePayload<ExtArgs>
     messengerIntegration: Prisma.$TenantMessengerIntegrationPayload<ExtArgs> | null
+    reservation: Prisma.$TenantReservationPayload<ExtArgs> | null
     messages: Prisma.$TenantLeadMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantProfileId: string
     messengerIntegrationId: string | null
+    reservationId: string | null
     psid: string
     channel: $Enums.TenantLeadChannel
     guestName: string
@@ -1582,6 +1815,7 @@ export interface Prisma__TenantLeadClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenantProfile<T extends Prisma.TenantProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantProfileClient<runtime.Types.Result.GetResult<Prisma.$TenantProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   messengerIntegration<T extends Prisma.TenantLead$messengerIntegrationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantLead$messengerIntegrationArgs<ExtArgs>>): Prisma.Prisma__TenantMessengerIntegrationClient<runtime.Types.Result.GetResult<Prisma.$TenantMessengerIntegrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  reservation<T extends Prisma.TenantLead$reservationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantLead$reservationArgs<ExtArgs>>): Prisma.Prisma__TenantReservationClient<runtime.Types.Result.GetResult<Prisma.$TenantReservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   messages<T extends Prisma.TenantLead$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantLead$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantLeadMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1615,6 +1849,7 @@ export interface TenantLeadFieldRefs {
   readonly id: Prisma.FieldRef<"TenantLead", 'String'>
   readonly tenantProfileId: Prisma.FieldRef<"TenantLead", 'String'>
   readonly messengerIntegrationId: Prisma.FieldRef<"TenantLead", 'String'>
+  readonly reservationId: Prisma.FieldRef<"TenantLead", 'String'>
   readonly psid: Prisma.FieldRef<"TenantLead", 'String'>
   readonly channel: Prisma.FieldRef<"TenantLead", 'TenantLeadChannel'>
   readonly guestName: Prisma.FieldRef<"TenantLead", 'String'>
@@ -2044,6 +2279,25 @@ export type TenantLead$messengerIntegrationArgs<ExtArgs extends runtime.Types.Ex
    */
   include?: Prisma.TenantMessengerIntegrationInclude<ExtArgs> | null
   where?: Prisma.TenantMessengerIntegrationWhereInput
+}
+
+/**
+ * TenantLead.reservation
+ */
+export type TenantLead$reservationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantReservation
+   */
+  select?: Prisma.TenantReservationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantReservation
+   */
+  omit?: Prisma.TenantReservationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantReservationInclude<ExtArgs> | null
+  where?: Prisma.TenantReservationWhereInput
 }
 
 /**

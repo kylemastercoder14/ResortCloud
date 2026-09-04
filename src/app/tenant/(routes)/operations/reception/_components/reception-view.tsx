@@ -8,11 +8,13 @@ import {
   Clock3,
   DoorClosed,
   DoorOpen,
+  FileText,
   Loader2,
   MessageSquareText,
   MoreVertical,
   Phone,
   Plus,
+  ReceiptText,
   Search,
   Send,
   UserRoundCheck,
@@ -49,6 +51,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useTRPC } from "@/trpc/client";
@@ -58,6 +61,9 @@ type ReceptionPriority = "Normal" | "Attention";
 
 type ReceptionGuest = {
   balance: number;
+  checkIn: Date | string;
+  checkOut: Date | string;
+  invoiceCodes: string[];
   guestPhone: string;
   guest: string;
   id: string;
@@ -67,7 +73,9 @@ type ReceptionGuest = {
   room: string;
   source: string;
   status: ReceptionStatus;
+  subFolioTotal: number;
   time: string;
+  unbilledTotal: number;
 };
 
 type ReceptionRequest = {
@@ -157,10 +165,22 @@ function parseMoney(value: string) {
   return Number.isFinite(amount) ? amount : 0;
 }
 
+function formatDate(value: Date | string) {
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime())
+    ? "--"
+    : date.toLocaleDateString("en-PH", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+}
+
 export function ReceptionView() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
+  const [billingReservationId, setBillingReservationId] = useState("");
   const [walkInOpen, setWalkInOpen] = useState(false);
   const reception = useQuery({
     ...trpc.tenant.reception.list.queryOptions(),
@@ -234,6 +254,64 @@ export function ReceptionView() {
       onSuccess: async () => {
         await queryClient.invalidateQueries(trpc.tenant.reception.list.queryFilter());
         toast.success("Request resolved.");
+      },
+      onError: (error) => toast.error(error.message),
+    }),
+  );
+  const billing = useQuery({
+    ...trpc.tenant.reception.getBilling.queryOptions({
+      reservationId: billingReservationId,
+    }),
+    enabled: Boolean(billingReservationId),
+    retry: false,
+  });
+  const createCharge = useMutation(
+    trpc.tenant.reception.createFolioCharge.mutationOptions({
+      onSuccess: async () => {
+        await Promise.all([
+          queryClient.invalidateQueries(trpc.tenant.reception.list.queryFilter()),
+          queryClient.invalidateQueries(
+            trpc.tenant.reception.getBilling.queryFilter({
+              reservationId: billingReservationId,
+            }),
+          ),
+        ]);
+        toast.success("Folio charge added.");
+      },
+      onError: (error) => toast.error(error.message),
+    }),
+  );
+  const generateInvoice = useMutation(
+    trpc.tenant.reception.generateInvoiceFromFolio.mutationOptions({
+      onSuccess: async () => {
+        await Promise.all([
+          queryClient.invalidateQueries(trpc.tenant.reception.list.queryFilter()),
+          queryClient.invalidateQueries(
+            trpc.tenant.reception.getBilling.queryFilter({
+              reservationId: billingReservationId,
+            }),
+          ),
+          queryClient.invalidateQueries(trpc.tenant.invoices.list.queryFilter()),
+        ]);
+        toast.success("Invoice generated from folio.");
+      },
+      onError: (error) => toast.error(error.message),
+    }),
+  );
+  const recordPayment = useMutation(
+    trpc.tenant.reception.recordPayment.mutationOptions({
+      onSuccess: async () => {
+        await Promise.all([
+          queryClient.invalidateQueries(trpc.tenant.reception.list.queryFilter()),
+          queryClient.invalidateQueries(
+            trpc.tenant.reception.getBilling.queryFilter({
+              reservationId: billingReservationId,
+            }),
+          ),
+          queryClient.invalidateQueries(trpc.tenant.invoices.list.queryFilter()),
+          queryClient.invalidateQueries(trpc.tenant.financeEntries.list.queryFilter()),
+        ]);
+        toast.success("Payment recorded. Invoices marked paid.");
       },
       onError: (error) => toast.error(error.message),
     }),
@@ -355,6 +433,7 @@ export function ReceptionView() {
                   updatingId={
                     updateStatus.isPending ? (updateStatus.variables?.id ?? "") : ""
                   }
+                  onOpenBilling={setBillingReservationId}
                   onUpdateStatus={handleUpdateStatus}
                 />
               ),
@@ -389,6 +468,21 @@ export function ReceptionView() {
         onOpenChange={setWalkInOpen}
         onSave={(input) => createWalkIn.mutate(input)}
       />
+      <BillingSheet
+        billing={billing.data}
+        isLoading={billing.isPending}
+        open={Boolean(billingReservationId)}
+        reservationId={billingReservationId}
+        addingCharge={createCharge.isPending}
+        generatingInvoice={generateInvoice.isPending}
+        recordingPayment={recordPayment.isPending}
+        onAddCharge={(input) => createCharge.mutate(input)}
+        onGenerateInvoice={() =>
+          generateInvoice.mutate({ reservationId: billingReservationId })
+        }
+        onOpenChange={(open) => setBillingReservationId(open ? billingReservationId : "")}
+        onRecordPayment={(input) => recordPayment.mutate(input)}
+      />
     </div>
   );
 }
@@ -396,10 +490,12 @@ export function ReceptionView() {
 function ReceptionColumn({
   guests,
   onUpdateStatus,
+  onOpenBilling,
   status,
   updatingId,
 }: {
   guests: ReceptionGuest[];
+  onOpenBilling: (id: string) => void;
   onUpdateStatus: (id: string, status: ReceptionStatus) => void;
   status: ReceptionStatus;
   updatingId: string;
@@ -421,6 +517,7 @@ function ReceptionColumn({
             guest={guest}
             key={guest.id}
             isUpdating={updatingId === guest.id}
+            onOpenBilling={onOpenBilling}
             onUpdateStatus={onUpdateStatus}
           />
         ))}
@@ -443,9 +540,11 @@ function GuestQueueCard({
   guest,
   isUpdating,
   onUpdateStatus,
+  onOpenBilling,
 }: {
   guest: ReceptionGuest;
   isUpdating: boolean;
+  onOpenBilling: (id: string) => void;
   onUpdateStatus: (id: string, status: ReceptionStatus) => void;
 }) {
   function contactGuest() {
@@ -496,6 +595,10 @@ function GuestQueueCard({
               Start check-out
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => onOpenBilling(guest.id)}>
+              <ReceiptText className="size-4" />
+              Payment / bills
+            </DropdownMenuItem>
             <DropdownMenuItem
               disabled={isUpdating}
               onClick={() => onUpdateStatus(guest.id, "Completed")}
@@ -514,6 +617,10 @@ function GuestQueueCard({
         <Detail
           label="Balance"
           value={guest.balance > 0 ? currency.format(guest.balance) : "--"}
+        />
+        <Detail
+          label="Check-in date"
+          value={formatDate(guest.checkIn)}
         />
       </div>
 
@@ -546,6 +653,16 @@ function GuestQueueCard({
             Complete
           </Button>
         ) : null}
+        <Button
+          className="flex-1"
+          onClick={() => onOpenBilling(guest.id)}
+          size="xs"
+          type="button"
+          variant={guest.balance > 0 ? "default" : "outline"}
+        >
+          <ReceiptText className="size-4" />
+          Bills
+        </Button>
         <Button
           className="flex-1"
           onClick={contactGuest}
@@ -964,6 +1081,397 @@ function NewWalkInDialog({
             </div>
           </SheetFooter>
         </form>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+type BillingData = {
+  balanceDue: string;
+  charges: Array<{
+    amount: string;
+    code: string;
+    description: string;
+    id: string;
+    invoiceCode: string;
+    quantity: number;
+    rate: string;
+    status: string;
+    type: string;
+  }>;
+  invoiceTotal: string;
+  invoices: Array<{
+    balanceDue: string;
+    code: string;
+    id: string;
+    status: string;
+    totalAmount: string;
+  }>;
+  paymentLogs: Array<{
+    amount: string;
+    code: string;
+    invoiceCode: string;
+    paidAt: Date | string;
+    paymentMethod: string;
+    proofNote: string;
+    proofUrl: string;
+    status: string;
+  }>;
+  paymentTotal: string;
+  reservation: {
+    checkIn: Date | string;
+    checkOut: Date | string;
+    guestName: string;
+    id: string;
+    roomLabel: string;
+  };
+  subFolioTotal: string;
+  unbilledTotal: string;
+};
+
+function BillingSheet({
+  addingCharge,
+  billing,
+  generatingInvoice,
+  isLoading,
+  onAddCharge,
+  onGenerateInvoice,
+  onOpenChange,
+  onRecordPayment,
+  open,
+  recordingPayment,
+  reservationId,
+}: {
+  addingCharge: boolean;
+  billing?: BillingData;
+  generatingInvoice: boolean;
+  isLoading: boolean;
+  onAddCharge: (input: {
+    amount: string;
+    description: string;
+    quantity: number;
+    rate: string;
+    reservationId: string;
+    status: "Un-billed";
+    type: "Additional" | "Fee" | "Adjustment";
+  }) => void;
+  onGenerateInvoice: () => void;
+  onOpenChange: (open: boolean) => void;
+  onRecordPayment: (input: {
+    amount: string;
+    invoiceIds: string[];
+    paymentMethod: string;
+    proofNote?: string;
+    proofUrl?: string;
+    reservationId: string;
+  }) => void;
+  open: boolean;
+  recordingPayment: boolean;
+  reservationId: string;
+}) {
+  const [charge, setCharge] = useState({
+    amount: "",
+    description: "",
+    quantity: 1,
+    rate: "",
+    type: "Additional" as "Additional" | "Fee" | "Adjustment",
+  });
+  const [payment, setPayment] = useState({
+    amount: "",
+    method: "Cash",
+    proofNote: "",
+    proofUrl: "",
+  });
+  const unpaidInvoices = (billing?.invoices ?? []).filter(
+    (invoice) => !["Paid", "Void"].includes(invoice.status),
+  );
+  const unbilledTotal = parseMoney(billing?.unbilledTotal ?? "0");
+  const balanceDue = parseMoney(billing?.balanceDue ?? "0");
+
+  function submitCharge(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const rate = charge.rate || charge.amount;
+    const amount = charge.amount || String(parseMoney(rate) * charge.quantity);
+
+    if (!charge.description.trim() || parseMoney(amount) <= 0) {
+      toast.error("Charge description and amount are required.");
+      return;
+    }
+
+    onAddCharge({
+      amount,
+      description: charge.description.trim(),
+      quantity: charge.quantity,
+      rate,
+      reservationId,
+      status: "Un-billed",
+      type: charge.type,
+    });
+    setCharge({
+      amount: "",
+      description: "",
+      quantity: 1,
+      rate: "",
+      type: "Additional",
+    });
+  }
+
+  function submitPayment(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!payment.method || parseMoney(payment.amount) <= 0) {
+      toast.error("Payment method and amount are required.");
+      return;
+    }
+
+    onRecordPayment({
+      amount: payment.amount,
+      invoiceIds: unpaidInvoices.map((invoice) => invoice.id),
+      paymentMethod: payment.method,
+      proofNote: payment.proofNote || undefined,
+      proofUrl: payment.proofUrl || undefined,
+      reservationId,
+    });
+    setPayment({
+      amount: "",
+      method: "Cash",
+      proofNote: "",
+      proofUrl: "",
+    });
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent className="w-full gap-0 p-0 max-w-2xl!" side="right">
+        <SheetHeader className="border-b border-zinc-200 px-6 py-5">
+          <SheetTitle>Payment and finalized bills</SheetTitle>
+          <SheetDescription>
+            Folio charges must become invoices before final billing.
+          </SheetDescription>
+        </SheetHeader>
+
+        <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-5">
+          {isLoading || !billing ? (
+            <div className="space-y-3">
+              <Skeleton className="h-20 w-full rounded-xl" />
+              <Skeleton className="h-52 w-full rounded-xl" />
+              <Skeleton className="h-40 w-full rounded-xl" />
+            </div>
+          ) : (
+            <>
+              <div className="grid gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-sm sm:grid-cols-2">
+                <Detail label="Booking ref" value={billing.reservation.id} />
+                <Detail label="Guest" value={billing.reservation.guestName} />
+                <Detail label="Room" value={billing.reservation.roomLabel} />
+                <Detail label="Check-in date" value={formatDate(billing.reservation.checkIn)} />
+                <Detail label="Sub-folio" value={currency.format(parseMoney(billing.subFolioTotal))} />
+                <Detail label="Payment log" value={currency.format(parseMoney(billing.paymentTotal))} />
+              </div>
+
+              <section className="space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h3 className="text-sm font-bold text-zinc-950">Sub-booking folio</h3>
+                  <Button
+                    disabled={generatingInvoice || unbilledTotal <= 0}
+                    onClick={onGenerateInvoice}
+                    size="xs"
+                    type="button"
+                  >
+                    <FileText className="size-4" />
+                    Generate invoice
+                  </Button>
+                </div>
+                <div className="overflow-hidden rounded-xl border border-zinc-200">
+                  {(billing.charges ?? []).map((item) => (
+                    <div
+                      className="grid gap-2 border-b border-zinc-100 p-3 text-sm last:border-b-0 md:grid-cols-[1fr_90px_100px]"
+                      key={item.id}
+                    >
+                      <div>
+                        <p className="font-bold text-zinc-950">{item.description}</p>
+                        <p className="text-xs font-medium text-zinc-500">
+                          {item.code} - {item.type} {item.invoiceCode ? `- ${item.invoiceCode}` : ""}
+                        </p>
+                      </div>
+                      <Badge variant="outline" className="w-fit rounded-md">
+                        {item.status}
+                      </Badge>
+                      <p className="font-bold text-zinc-950 md:text-right">
+                        {currency.format(parseMoney(item.amount))}
+                      </p>
+                    </div>
+                  ))}
+                  {!billing.charges.length ? (
+                    <p className="p-4 text-sm font-medium text-zinc-500">
+                      No folio charges yet.
+                    </p>
+                  ) : null}
+                </div>
+              </section>
+
+              <form className="grid gap-3 rounded-xl border border-zinc-200 p-4" onSubmit={submitCharge}>
+                <h3 className="text-sm font-bold text-zinc-950">Add charge or fee</h3>
+                <div className="grid gap-3 md:grid-cols-[1fr_120px_110px_130px]">
+                  <Input
+                    className="rounded-lg"
+                    placeholder="Description"
+                    value={charge.description}
+                    onChange={(event) =>
+                      setCharge((current) => ({ ...current, description: event.target.value }))
+                    }
+                  />
+                  <Input
+                    className="rounded-lg"
+                    min={1}
+                    type="number"
+                    value={charge.quantity}
+                    onChange={(event) =>
+                      setCharge((current) => ({
+                        ...current,
+                        quantity: Number(event.target.value),
+                      }))
+                    }
+                  />
+                  <Input
+                    className="rounded-lg"
+                    placeholder="Rate"
+                    value={charge.rate}
+                    onChange={(event) =>
+                      setCharge((current) => ({ ...current, rate: event.target.value }))
+                    }
+                  />
+                  <Input
+                    className="rounded-lg"
+                    placeholder="Amount"
+                    value={charge.amount}
+                    onChange={(event) =>
+                      setCharge((current) => ({ ...current, amount: event.target.value }))
+                    }
+                  />
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <Select
+                    value={charge.type}
+                    onValueChange={(value) =>
+                      setCharge((current) => ({
+                        ...current,
+                        type: value as "Additional" | "Fee" | "Adjustment",
+                      }))
+                    }
+                  >
+                    <SelectTrigger className="h-9 w-40 rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Additional">Additional</SelectItem>
+                      <SelectItem value="Fee">Fee</SelectItem>
+                      <SelectItem value="Adjustment">Adjustment</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button disabled={addingCharge} size="xs" type="submit">
+                    <Plus className="size-4" />
+                    Add un-billed charge
+                  </Button>
+                </div>
+              </form>
+
+              <form className="grid gap-3 rounded-xl border border-zinc-200 p-4" onSubmit={submitPayment}>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h3 className="text-sm font-bold text-zinc-950">Payment form</h3>
+                  <Badge variant="outline" className="rounded-md">
+                    Balance {currency.format(balanceDue)}
+                  </Badge>
+                </div>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <Input
+                    className="rounded-lg"
+                    placeholder="Amount"
+                    value={payment.amount}
+                    onChange={(event) =>
+                      setPayment((current) => ({ ...current, amount: event.target.value }))
+                    }
+                  />
+                  <Select
+                    value={payment.method}
+                    onValueChange={(value) =>
+                      setPayment((current) => ({ ...current, method: value }))
+                    }
+                  >
+                    <SelectTrigger className="h-10 w-full rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Cash">Cash</SelectItem>
+                      <SelectItem value="Bank transfer">Bank transfer</SelectItem>
+                      <SelectItem value="E-wallet">E-wallet</SelectItem>
+                      <SelectItem value="Credit card">Credit card</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    className="rounded-lg"
+                    placeholder="Proof of payment URL"
+                    value={payment.proofUrl}
+                    onChange={(event) =>
+                      setPayment((current) => ({ ...current, proofUrl: event.target.value }))
+                    }
+                  />
+                  <Input
+                    className="rounded-lg"
+                    placeholder="Proof note / SS reference"
+                    value={payment.proofNote}
+                    onChange={(event) =>
+                      setPayment((current) => ({ ...current, proofNote: event.target.value }))
+                    }
+                  />
+                </div>
+                <Button
+                  disabled={recordingPayment || unpaidInvoices.length === 0 || unbilledTotal > 0}
+                  size="xs"
+                  type="submit"
+                >
+                  <ReceiptText className="size-4" />
+                  Record payment
+                </Button>
+                {unbilledTotal > 0 ? (
+                  <p className="text-xs font-semibold text-red-600">
+                    Generate invoice for un-billed charges before recording final payment.
+                  </p>
+                ) : null}
+              </form>
+
+              <section className="space-y-2">
+                <h3 className="text-sm font-bold text-zinc-950">Payment log</h3>
+                {billing.paymentLogs.map((item) => (
+                  <div className="rounded-xl border border-zinc-200 p-3 text-sm" key={item.code}>
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-bold text-zinc-950">
+                          {item.code} - {item.invoiceCode || "Invoice"}
+                        </p>
+                        <p className="text-xs font-medium text-zinc-500">
+                          {item.paymentMethod} - {formatDate(item.paidAt)} - {item.status}
+                        </p>
+                      </div>
+                      <p className="font-bold text-zinc-950">
+                        {currency.format(parseMoney(item.amount))}
+                      </p>
+                    </div>
+                    {item.proofUrl || item.proofNote ? (
+                      <p className="mt-2 text-xs font-medium text-zinc-500">
+                        {item.proofNote || item.proofUrl}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+                {!billing.paymentLogs.length ? (
+                  <p className="rounded-xl border border-dashed border-zinc-300 p-4 text-sm font-medium text-zinc-500">
+                    No payment logs yet.
+                  </p>
+                ) : null}
+              </section>
+            </>
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );

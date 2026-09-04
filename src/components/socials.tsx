@@ -1,11 +1,12 @@
 import React from "react";
 
-export function AppleMark() {
+export function AppleMark({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 20 20"
-      width="16"
-      height="16"
+      width="20"
+      height="20"
+      className={className}
       fill="none"
       aria-hidden="true"
     >
@@ -17,12 +18,13 @@ export function AppleMark() {
   );
 }
 
-export function GoogleMark() {
+export function GoogleMark({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 20 20"
-      width="16"
-      height="16"
+      width="20"
+      height="20"
+      className={className}
       fill="none"
       aria-hidden="true"
     >

@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.9.1
- * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.9.1",
-  engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -156,19 +156,6 @@ export type Subset<T, U> = {
 };
 
 /**
- * Resolved type of the argument passed to the `PrismaClient` constructor.
- *
- * When called without a narrower options type (the common case), this resolves
- * to `PrismaClientOptions` directly, which produces a clear TypeScript error
- * message (`not assignable to parameter of type 'PrismaClientOptions'`) when
- * the argument is missing or incomplete. When the user supplies a narrower
- * options type (e.g. via a literal), it falls back to `Subset` to keep
- * filtering out unknown properties.
- */
-export type PrismaClientConstructorArgs<Options extends PrismaClientOptions> =
-  [PrismaClientOptions] extends [Options] ? PrismaClientOptions : Subset<Options, PrismaClientOptions>;
-
-/**
  * SelectSubset
  * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
  * Additionally, it validates, if both select and include are present. If the case, it errors.
@@ -200,7 +187,7 @@ type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> =
   T extends object ?
   U extends object ?
-    ((Without<T, U> & U) | (Without<U, T> & T)) & object
+    (Without<T, U> & U) | (Without<U, T> & T)
   : U : T
 
 
@@ -429,8 +416,11 @@ export const ModelName = {
   TenantInventoryItem: 'TenantInventoryItem',
   TenantInventoryMovement: 'TenantInventoryMovement',
   TenantService: 'TenantService',
+  TenantPackage: 'TenantPackage',
   TenantInvoice: 'TenantInvoice',
   TenantInvoiceLineItem: 'TenantInvoiceLineItem',
+  TenantFolioCharge: 'TenantFolioCharge',
+  TenantPaymentLog: 'TenantPaymentLog',
   TenantFinanceEntry: 'TenantFinanceEntry',
   TenantTransactionExport: 'TenantTransactionExport'
 } as const
@@ -448,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "appUser" | "tenantProfile" | "tenantMessengerIntegration" | "tenantLead" | "tenantLeadMessage" | "tenantStaffProfile" | "tenantAccessRole" | "tenantTimeLog" | "tenantScheduleShift" | "tenantLeaveRequest" | "tenantOtUndertimeEntry" | "tenantPayrollRun" | "tenantPayrollItem" | "tenantDepartment" | "tenantStaffInvitation" | "tenantAmenity" | "tenantRoom" | "tenantRoomPhoto" | "tenantHousekeepingRoom" | "tenantHousekeepingDamageReport" | "tenantLaundryJob" | "tenantReservation" | "tenantReceptionRequest" | "tenantReceptionShiftNote" | "tenantMaintenanceRequest" | "tenantInventoryItem" | "tenantInventoryMovement" | "tenantService" | "tenantInvoice" | "tenantInvoiceLineItem" | "tenantFinanceEntry" | "tenantTransactionExport"
+    modelProps: "user" | "session" | "account" | "verification" | "appUser" | "tenantProfile" | "tenantMessengerIntegration" | "tenantLead" | "tenantLeadMessage" | "tenantStaffProfile" | "tenantAccessRole" | "tenantTimeLog" | "tenantScheduleShift" | "tenantLeaveRequest" | "tenantOtUndertimeEntry" | "tenantPayrollRun" | "tenantPayrollItem" | "tenantDepartment" | "tenantStaffInvitation" | "tenantAmenity" | "tenantRoom" | "tenantRoomPhoto" | "tenantHousekeepingRoom" | "tenantHousekeepingDamageReport" | "tenantLaundryJob" | "tenantReservation" | "tenantReceptionRequest" | "tenantReceptionShiftNote" | "tenantMaintenanceRequest" | "tenantInventoryItem" | "tenantInventoryMovement" | "tenantService" | "tenantPackage" | "tenantInvoice" | "tenantInvoiceLineItem" | "tenantFolioCharge" | "tenantPaymentLog" | "tenantFinanceEntry" | "tenantTransactionExport"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2820,6 +2810,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TenantPackage: {
+      payload: Prisma.$TenantPackagePayload<ExtArgs>
+      fields: Prisma.TenantPackageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TenantPackageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TenantPackageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>
+        }
+        findFirst: {
+          args: Prisma.TenantPackageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TenantPackageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>
+        }
+        findMany: {
+          args: Prisma.TenantPackageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>[]
+        }
+        create: {
+          args: Prisma.TenantPackageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>
+        }
+        createMany: {
+          args: Prisma.TenantPackageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TenantPackageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>[]
+        }
+        delete: {
+          args: Prisma.TenantPackageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>
+        }
+        update: {
+          args: Prisma.TenantPackageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>
+        }
+        deleteMany: {
+          args: Prisma.TenantPackageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TenantPackageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TenantPackageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>[]
+        }
+        upsert: {
+          args: Prisma.TenantPackageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPackagePayload>
+        }
+        aggregate: {
+          args: Prisma.TenantPackageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTenantPackage>
+        }
+        groupBy: {
+          args: Prisma.TenantPackageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TenantPackageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TenantPackageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TenantPackageCountAggregateOutputType> | number
+        }
+      }
+    }
     TenantInvoice: {
       payload: Prisma.$TenantInvoicePayload<ExtArgs>
       fields: Prisma.TenantInvoiceFieldRefs
@@ -2965,6 +3029,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TenantInvoiceLineItemCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TenantInvoiceLineItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    TenantFolioCharge: {
+      payload: Prisma.$TenantFolioChargePayload<ExtArgs>
+      fields: Prisma.TenantFolioChargeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TenantFolioChargeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TenantFolioChargeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>
+        }
+        findFirst: {
+          args: Prisma.TenantFolioChargeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TenantFolioChargeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>
+        }
+        findMany: {
+          args: Prisma.TenantFolioChargeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>[]
+        }
+        create: {
+          args: Prisma.TenantFolioChargeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>
+        }
+        createMany: {
+          args: Prisma.TenantFolioChargeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TenantFolioChargeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>[]
+        }
+        delete: {
+          args: Prisma.TenantFolioChargeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>
+        }
+        update: {
+          args: Prisma.TenantFolioChargeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>
+        }
+        deleteMany: {
+          args: Prisma.TenantFolioChargeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TenantFolioChargeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TenantFolioChargeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>[]
+        }
+        upsert: {
+          args: Prisma.TenantFolioChargeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantFolioChargePayload>
+        }
+        aggregate: {
+          args: Prisma.TenantFolioChargeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTenantFolioCharge>
+        }
+        groupBy: {
+          args: Prisma.TenantFolioChargeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TenantFolioChargeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TenantFolioChargeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TenantFolioChargeCountAggregateOutputType> | number
+        }
+      }
+    }
+    TenantPaymentLog: {
+      payload: Prisma.$TenantPaymentLogPayload<ExtArgs>
+      fields: Prisma.TenantPaymentLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TenantPaymentLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TenantPaymentLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>
+        }
+        findFirst: {
+          args: Prisma.TenantPaymentLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TenantPaymentLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>
+        }
+        findMany: {
+          args: Prisma.TenantPaymentLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>[]
+        }
+        create: {
+          args: Prisma.TenantPaymentLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>
+        }
+        createMany: {
+          args: Prisma.TenantPaymentLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TenantPaymentLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>[]
+        }
+        delete: {
+          args: Prisma.TenantPaymentLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>
+        }
+        update: {
+          args: Prisma.TenantPaymentLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.TenantPaymentLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TenantPaymentLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TenantPaymentLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.TenantPaymentLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TenantPaymentLogPayload>
+        }
+        aggregate: {
+          args: Prisma.TenantPaymentLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTenantPaymentLog>
+        }
+        groupBy: {
+          args: Prisma.TenantPaymentLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TenantPaymentLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TenantPaymentLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TenantPaymentLogCountAggregateOutputType> | number
         }
       }
     }
@@ -3299,6 +3511,7 @@ export const TenantLeadScalarFieldEnum = {
   id: 'id',
   tenantProfileId: 'tenantProfileId',
   messengerIntegrationId: 'messengerIntegrationId',
+  reservationId: 'reservationId',
   psid: 'psid',
   channel: 'channel',
   guestName: 'guestName',
@@ -3704,6 +3917,9 @@ export const TenantReservationScalarFieldEnum = {
   children: 'children',
   nights: 'nights',
   rate: 'rate',
+  packageName: 'packageName',
+  packagePrice: 'packagePrice',
+  roomsIncluded: 'roomsIncluded',
   deposit: 'deposit',
   totalAmount: 'totalAmount',
   paymentMethod: 'paymentMethod',
@@ -3821,6 +4037,29 @@ export const TenantServiceScalarFieldEnum = {
 export type TenantServiceScalarFieldEnum = (typeof TenantServiceScalarFieldEnum)[keyof typeof TenantServiceScalarFieldEnum]
 
 
+export const TenantPackageScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  code: 'code',
+  name: 'name',
+  category: 'category',
+  price: 'price',
+  compareAtPrice: 'compareAtPrice',
+  description: 'description',
+  inclusionsNote: 'inclusionsNote',
+  minNights: 'minNights',
+  maxGuests: 'maxGuests',
+  showOnBookingPage: 'showOnBookingPage',
+  featured: 'featured',
+  status: 'status',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantPackageScalarFieldEnum = (typeof TenantPackageScalarFieldEnum)[keyof typeof TenantPackageScalarFieldEnum]
+
+
 export const TenantInvoiceScalarFieldEnum = {
   id: 'id',
   tenantProfileId: 'tenantProfileId',
@@ -3863,6 +4102,43 @@ export const TenantInvoiceLineItemScalarFieldEnum = {
 } as const
 
 export type TenantInvoiceLineItemScalarFieldEnum = (typeof TenantInvoiceLineItemScalarFieldEnum)[keyof typeof TenantInvoiceLineItemScalarFieldEnum]
+
+
+export const TenantFolioChargeScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  reservationId: 'reservationId',
+  invoiceId: 'invoiceId',
+  code: 'code',
+  type: 'type',
+  description: 'description',
+  quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantFolioChargeScalarFieldEnum = (typeof TenantFolioChargeScalarFieldEnum)[keyof typeof TenantFolioChargeScalarFieldEnum]
+
+
+export const TenantPaymentLogScalarFieldEnum = {
+  id: 'id',
+  tenantProfileId: 'tenantProfileId',
+  reservationId: 'reservationId',
+  invoiceId: 'invoiceId',
+  code: 'code',
+  amount: 'amount',
+  paymentMethod: 'paymentMethod',
+  proofUrl: 'proofUrl',
+  proofNote: 'proofNote',
+  status: 'status',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TenantPaymentLogScalarFieldEnum = (typeof TenantPaymentLogScalarFieldEnum)[keyof typeof TenantPaymentLogScalarFieldEnum]
 
 
 export const TenantFinanceEntryScalarFieldEnum = {
@@ -4565,6 +4841,20 @@ export type ListEnumTenantServiceStatusFieldRefInput<$PrismaModel> = FieldRefInp
 
 
 /**
+ * Reference to a field of type 'TenantPackageStatus'
+ */
+export type EnumTenantPackageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantPackageStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantPackageStatus[]'
+ */
+export type ListEnumTenantPackageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantPackageStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'TenantInvoiceStatus'
  */
 export type EnumTenantInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantInvoiceStatus'>
@@ -4589,6 +4879,48 @@ export type EnumTenantInvoiceReminderCadenceFieldRefInput<$PrismaModel> = FieldR
  * Reference to a field of type 'TenantInvoiceReminderCadence[]'
  */
 export type ListEnumTenantInvoiceReminderCadenceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantInvoiceReminderCadence[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantFolioChargeType'
+ */
+export type EnumTenantFolioChargeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantFolioChargeType'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantFolioChargeType[]'
+ */
+export type ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantFolioChargeType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantFolioChargeStatus'
+ */
+export type EnumTenantFolioChargeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantFolioChargeStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantFolioChargeStatus[]'
+ */
+export type ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantFolioChargeStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantPaymentLogStatus'
+ */
+export type EnumTenantPaymentLogStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantPaymentLogStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TenantPaymentLogStatus[]'
+ */
+export type ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantPaymentLogStatus[]'>
     
 
 
@@ -4685,10 +5017,19 @@ export type BatchPayload = {
 export const defineExtension = runtime.Extensions.defineExtension as unknown as runtime.Types.Extensions.ExtendsHook<"define", TypeMapCb, runtime.Types.Extensions.DefaultArgs>
 export type DefaultPrismaClient = PrismaClient
 export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
-/**
- * Options common to all variants of `PrismaClientOptions`, regardless of whether you connect to your database through a driver adapter or through Prisma Accelerate.
- */
-export interface PrismaClientBaseOptions {
+export type PrismaClientOptions = ({
+  /**
+   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
+   */
+  adapter: runtime.SqlDriverAdapterFactory
+  accelerateUrl?: never
+} | {
+  /**
+   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
+   */
+  accelerateUrl: string
+  adapter?: never
+}) & {
   /**
    * @default "colorless"
    */
@@ -4775,56 +5116,6 @@ export interface PrismaClientBaseOptions {
    */
   queryPlanCacheMaxSize?: number
 }
-
-/**
- * `PrismaClient` options for connecting to your database through Prisma Accelerate instead of a driver adapter.
- * 
- * Learn more: https://pris.ly/d/accelerate
- */
-export interface PrismaClientOptionsWithAccelerateUrl extends PrismaClientBaseOptions {
-  /**
-   * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
-   * 
-   * Learn more: https://pris.ly/d/accelerate
-   */
-  accelerateUrl: string
-  adapter?: never
-}
-
-/**
- * `PrismaClient` options for connecting to your database through a driver adapter. This is the common case in Prisma 7.
- * 
- * Learn more: https://pris.ly/d/driver-adapters
- */
-export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions {
-  /**
-   * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
-   * 
-   * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
-   * 
-   * Learn more: https://pris.ly/d/driver-adapters
-   * 
-   * @example
-   * ```ts
-   * import { PrismaPg } from '@prisma/adapter-pg'
-   * import { PrismaClient } from './generated/prisma/client'
-   * 
-   * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
-   * const prisma = new PrismaClient({ adapter })
-   * ```
-   */
-  adapter: runtime.SqlDriverAdapterFactory
-  accelerateUrl?: never
-}
-
-/**
- * Options passed to the `PrismaClient` constructor.
- * 
- * A driver adapter (or, alternatively, a Prisma Accelerate URL) is **required**. See {@link PrismaClientOptionsWithAdapter} and {@link PrismaClientOptionsWithAccelerateUrl} for the two variants. All other properties live in {@link PrismaClientBaseOptions} and are optional.
- * 
- * Learn more about driver adapters: https://pris.ly/d/driver-adapters
- */
-export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
@@ -4858,8 +5149,11 @@ export type GlobalOmitConfig = {
   tenantInventoryItem?: Prisma.TenantInventoryItemOmit
   tenantInventoryMovement?: Prisma.TenantInventoryMovementOmit
   tenantService?: Prisma.TenantServiceOmit
+  tenantPackage?: Prisma.TenantPackageOmit
   tenantInvoice?: Prisma.TenantInvoiceOmit
   tenantInvoiceLineItem?: Prisma.TenantInvoiceLineItemOmit
+  tenantFolioCharge?: Prisma.TenantFolioChargeOmit
+  tenantPaymentLog?: Prisma.TenantPaymentLogOmit
   tenantFinanceEntry?: Prisma.TenantFinanceEntryOmit
   tenantTransactionExport?: Prisma.TenantTransactionExportOmit
 }

@@ -926,6 +926,23 @@ export type EnumTenantServiceStatusWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumTenantServiceStatusFilter<$PrismaModel>
 }
 
+export type EnumTenantPackageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPackageStatus | Prisma.EnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPackageStatusFilter<$PrismaModel> | $Enums.TenantPackageStatus
+}
+
+export type EnumTenantPackageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPackageStatus | Prisma.EnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPackageStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantPackageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantPackageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantPackageStatusFilter<$PrismaModel>
+}
+
 export type EnumTenantInvoiceStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.TenantInvoiceStatus | Prisma.EnumTenantInvoiceStatusFieldRefInput<$PrismaModel>
   in?: $Enums.TenantInvoiceStatus[] | Prisma.ListEnumTenantInvoiceStatusFieldRefInput<$PrismaModel>
@@ -958,6 +975,57 @@ export type EnumTenantInvoiceReminderCadenceWithAggregatesFilter<$PrismaModel = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTenantInvoiceReminderCadenceFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTenantInvoiceReminderCadenceFilter<$PrismaModel>
+}
+
+export type EnumTenantFolioChargeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeType | Prisma.EnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeTypeFilter<$PrismaModel> | $Enums.TenantFolioChargeType
+}
+
+export type EnumTenantFolioChargeStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeStatus | Prisma.EnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeStatusFilter<$PrismaModel> | $Enums.TenantFolioChargeStatus
+}
+
+export type EnumTenantFolioChargeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeType | Prisma.EnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeTypeWithAggregatesFilter<$PrismaModel> | $Enums.TenantFolioChargeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantFolioChargeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantFolioChargeTypeFilter<$PrismaModel>
+}
+
+export type EnumTenantFolioChargeStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeStatus | Prisma.EnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantFolioChargeStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantFolioChargeStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantFolioChargeStatusFilter<$PrismaModel>
+}
+
+export type EnumTenantPaymentLogStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPaymentLogStatus | Prisma.EnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPaymentLogStatusFilter<$PrismaModel> | $Enums.TenantPaymentLogStatus
+}
+
+export type EnumTenantPaymentLogStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPaymentLogStatus | Prisma.EnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPaymentLogStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantPaymentLogStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantPaymentLogStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantPaymentLogStatusFilter<$PrismaModel>
 }
 
 export type EnumTenantFinanceEntryTypeFilter<$PrismaModel = never> = {
@@ -1943,6 +2011,23 @@ export type NestedEnumTenantServiceStatusWithAggregatesFilter<$PrismaModel = nev
   _max?: Prisma.NestedEnumTenantServiceStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumTenantPackageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPackageStatus | Prisma.EnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPackageStatusFilter<$PrismaModel> | $Enums.TenantPackageStatus
+}
+
+export type NestedEnumTenantPackageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPackageStatus | Prisma.EnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPackageStatus[] | Prisma.ListEnumTenantPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPackageStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantPackageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantPackageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantPackageStatusFilter<$PrismaModel>
+}
+
 export type NestedEnumTenantInvoiceStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.TenantInvoiceStatus | Prisma.EnumTenantInvoiceStatusFieldRefInput<$PrismaModel>
   in?: $Enums.TenantInvoiceStatus[] | Prisma.ListEnumTenantInvoiceStatusFieldRefInput<$PrismaModel>
@@ -1975,6 +2060,57 @@ export type NestedEnumTenantInvoiceReminderCadenceWithAggregatesFilter<$PrismaMo
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTenantInvoiceReminderCadenceFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTenantInvoiceReminderCadenceFilter<$PrismaModel>
+}
+
+export type NestedEnumTenantFolioChargeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeType | Prisma.EnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeTypeFilter<$PrismaModel> | $Enums.TenantFolioChargeType
+}
+
+export type NestedEnumTenantFolioChargeStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeStatus | Prisma.EnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeStatusFilter<$PrismaModel> | $Enums.TenantFolioChargeStatus
+}
+
+export type NestedEnumTenantFolioChargeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeType | Prisma.EnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeType[] | Prisma.ListEnumTenantFolioChargeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeTypeWithAggregatesFilter<$PrismaModel> | $Enums.TenantFolioChargeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantFolioChargeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantFolioChargeTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumTenantFolioChargeStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantFolioChargeStatus | Prisma.EnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantFolioChargeStatus[] | Prisma.ListEnumTenantFolioChargeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantFolioChargeStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantFolioChargeStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantFolioChargeStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantFolioChargeStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumTenantPaymentLogStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPaymentLogStatus | Prisma.EnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPaymentLogStatusFilter<$PrismaModel> | $Enums.TenantPaymentLogStatus
+}
+
+export type NestedEnumTenantPaymentLogStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TenantPaymentLogStatus | Prisma.EnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TenantPaymentLogStatus[] | Prisma.ListEnumTenantPaymentLogStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTenantPaymentLogStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantPaymentLogStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTenantPaymentLogStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTenantPaymentLogStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumTenantFinanceEntryTypeFilter<$PrismaModel = never> = {

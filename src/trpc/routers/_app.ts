@@ -142,6 +142,7 @@ const tenantHousekeepingDamageSchema = z.object({
   title: z.string().trim().min(1, "Damage title is required."),
 });
 const tenantServiceStatusSchema = z.enum(["Active", "Inactive"]);
+const tenantPackageStatusSchema = z.enum(["Active", "Inactive", "Archived"]);
 const tenantServiceBillingTypeSchema = z.enum([
   "Fixed price",
   "Per hour",
@@ -154,6 +155,18 @@ const tenantInvoiceStatusSchema = z.enum([
   "Paid",
   "Overdue",
   "Void",
+]);
+const tenantFolioChargeStatusSchema = z.enum([
+  "Un-billed",
+  "Invoiced",
+  "Voided",
+  "Adjusted",
+]);
+const tenantFolioChargeTypeSchema = z.enum([
+  "Stay",
+  "Additional",
+  "Fee",
+  "Adjustment",
 ]);
 const tenantInvoiceReminderCadenceSchema = z.enum([
   "Standard",
@@ -404,6 +417,9 @@ const tenantReservationSchema = z.object({
   adults: z.coerce.number().int().min(1),
   children: z.coerce.number().int().min(0),
   rate: z.string().trim().min(1, "Rate is required."),
+  packageName: optionalTrimmedString,
+  packagePrice: optionalTrimmedString,
+  roomsIncluded: z.coerce.number().int().min(1).default(1),
   deposit: optionalString,
   totalAmount: z.string().trim().min(1, "Total amount is required."),
   paymentMethod: optionalString,
@@ -425,6 +441,25 @@ const tenantServiceSchema = z.object({
   showOnBookingPage: z.boolean(),
   status: tenantServiceStatusSchema,
   title: z.string().trim().min(1, "Service name is required."),
+});
+const tenantPackageSchema = z.object({
+  id: z.string().optional(),
+  amenityIds: z.array(z.string()).default([]),
+  category: z.string().trim().min(1, "Category is required."),
+  code: z.string().trim().min(1, "Package code is required."),
+  compareAtPrice: optionalString,
+  description: optionalString,
+  featured: z.boolean(),
+  inclusionsNote: optionalString,
+  maxGuests: z.coerce.number().int().min(0).optional(),
+  minNights: z.coerce.number().int().min(1),
+  name: z.string().trim().min(1, "Package name is required."),
+  price: z.string().trim().min(1, "Package price is required."),
+  roomIds: z.array(z.string()).default([]),
+  serviceIds: z.array(z.string()).default([]),
+  showOnBookingPage: z.boolean(),
+  sortOrder: z.coerce.number().int().min(0).default(0),
+  status: tenantPackageStatusSchema,
 });
 const tenantInvoiceLineItemSchema = z.object({
   amount: z.string().trim().min(1),
@@ -452,6 +487,40 @@ const tenantInvoiceSchema = z.object({
   subtotal: z.string().trim().min(1),
   tax: z.string().trim().default("0"),
   totalAmount: z.string().trim().min(1),
+});
+const tenantFolioChargeSchema = z.object({
+  amount: z.string().trim().min(1, "Amount is required."),
+  description: z.string().trim().min(1, "Description is required."),
+  quantity: z.coerce.number().int().min(1),
+  rate: z.string().trim().min(1, "Rate is required."),
+  reservationId: z.string().trim().min(1, "Reservation is required."),
+  status: tenantFolioChargeStatusSchema.default("Un-billed"),
+  type: tenantFolioChargeTypeSchema.default("Additional"),
+});
+const tenantPaymentLogSchema = z.object({
+  amount: z.string().trim().min(1, "Amount is required."),
+  invoiceIds: z.array(z.string()).default([]),
+  paymentMethod: z.string().trim().min(1, "Payment method is required."),
+  proofNote: optionalTrimmedString,
+  proofUrl: optionalTrimmedString,
+  reservationId: z.string().trim().min(1, "Reservation is required."),
+});
+const tenantLeadConvertReservationSchema = z.object({
+  adults: z.coerce.number().int().min(1),
+  checkIn: z.string().trim().min(1, "Check-in is required."),
+  checkOut: z.string().trim().min(1, "Check-out is required."),
+  children: z.coerce.number().int().min(0),
+  deposit: optionalString,
+  leadId: z.string().trim().min(1, "Lead is required."),
+  notes: optionalString,
+  packageName: optionalTrimmedString,
+  packagePrice: optionalTrimmedString,
+  paymentMethod: optionalString,
+  rate: z.string().trim().min(1, "Rate is required."),
+  roomId: z.string().trim().min(1, "Room is required."),
+  roomsIncluded: z.coerce.number().int().min(1).default(1),
+  status: tenantReservationStatusSchema.default("Confirmed"),
+  totalAmount: z.string().trim().min(1, "Total amount is required."),
 });
 const tenantFinanceEntrySchema = z.object({
   id: z.string().optional(),
@@ -712,6 +781,18 @@ function fromTenantServiceStatus(status: "ACTIVE" | "INACTIVE") {
   return status === "INACTIVE" ? "Inactive" : "Active";
 }
 
+function toTenantPackageStatus(
+  status: z.infer<typeof tenantPackageStatusSchema>,
+): "ACTIVE" | "INACTIVE" | "ARCHIVED" {
+  if (status === "Archived") return "ARCHIVED";
+  return status === "Inactive" ? "INACTIVE" : "ACTIVE";
+}
+
+function fromTenantPackageStatus(status: "ACTIVE" | "INACTIVE" | "ARCHIVED") {
+  if (status === "ARCHIVED") return "Archived";
+  return status === "INACTIVE" ? "Inactive" : "Active";
+}
+
 function toTenantServiceBillingType(
   billingType: z.infer<typeof tenantServiceBillingTypeSchema>,
 ): "FIXED_PRICE" | "PER_HOUR" | "PER_GUEST" | "CUSTOM_QUOTE" {
@@ -846,6 +927,28 @@ function getTenantInvoiceSuffix(tenantName?: string | null) {
     .toUpperCase();
 
   return letters.padEnd(2, "X") || "RC";
+}
+
+function getNextFolioChargeCode(tenantProfileId: string) {
+  return prisma.tenantFolioCharge.count({
+    where: {
+      tenantProfileId,
+      code: {
+        startsWith: "FOL-",
+      },
+    },
+  }).then((count) => `FOL-${String(count + 1).padStart(5, "0")}`);
+}
+
+function getNextPaymentLogCode(tenantProfileId: string) {
+  return prisma.tenantPaymentLog.count({
+    where: {
+      tenantProfileId,
+      code: {
+        startsWith: "PAY-",
+      },
+    },
+  }).then((count) => `PAY-${String(count + 1).padStart(5, "0")}`);
 }
 
 async function getNextInvoiceCode(tenantProfile: {
@@ -1094,17 +1197,94 @@ async function createInvoiceForReservation(input: {
     where: {
       reservationId: input.reservation.id,
       tenantProfileId: input.tenantProfileId,
+      folioCharges: {
+        some: {
+          type: "STAY",
+        },
+      },
     },
   });
 
   if (existingInvoice) return existingInvoice;
 
+  let stayCharge = await prisma.tenantFolioCharge.findFirst({
+    where: {
+      reservationId: input.reservation.id,
+      tenantProfileId: input.tenantProfileId,
+      type: "STAY",
+    },
+  });
+
+  if (!stayCharge) {
+    stayCharge = await prisma.tenantFolioCharge.create({
+      data: {
+        amount: input.reservation.totalAmount,
+        code: await getNextFolioChargeCode(input.tenantProfileId),
+        description: `${input.reservation.room.code} - ${input.reservation.room.name} (${input.reservation.nights} night${input.reservation.nights === 1 ? "" : "s"})`,
+        quantity: input.reservation.nights,
+        rate: input.reservation.rate,
+        reservationId: input.reservation.id,
+        status: "UNBILLED",
+        tenantProfileId: input.tenantProfileId,
+        type: "STAY",
+      },
+    });
+  }
+
+  return createInvoiceForFolioCharges({
+    chargeIds: [stayCharge.id],
+    depositPaid: input.reservation.deposit ?? "0",
+    paymentMethod: "Reservation payment",
+    tenantProfileId: input.tenantProfileId,
+  });
+}
+
+async function createInvoiceForFolioCharges(input: {
+  chargeIds: string[];
+  depositPaid?: string;
+  paymentMethod?: string;
+  tenantProfileId: string;
+}) {
+  const charges = await prisma.tenantFolioCharge.findMany({
+    where: {
+      id: {
+        in: input.chargeIds,
+      },
+      status: "UNBILLED",
+      tenantProfileId: input.tenantProfileId,
+    },
+    include: {
+      reservation: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  if (!charges.length) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "No un-billed folio charges found.",
+    });
+  }
+
+  const reservationIds = new Set(charges.map((charge) => charge.reservationId));
+  if (reservationIds.size > 1) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Generate one invoice per booking reference.",
+    });
+  }
+
+  const reservation = charges[0].reservation;
   const invoiceDate = new Date();
   const dueDate = new Date(invoiceDate);
   dueDate.setDate(invoiceDate.getDate() + 3);
 
-  const depositPaid = input.reservation.deposit ?? "0";
-  const subtotal = input.reservation.totalAmount;
+  const depositPaid = input.depositPaid ?? "0";
+  const subtotal = toMoneyString(
+    charges.reduce((total, charge) => total + parseMoneyAmount(charge.amount), 0),
+  );
   const discount = "0";
   const tax = "0";
   const totalAmount = String(
@@ -1132,37 +1312,137 @@ async function createInvoiceForReservation(input: {
   }
 
   const code = await getNextInvoiceCode(tenantProfile);
+  const depositAmount = parseMoneyAmount(depositPaid);
+  const shouldMarkPaid = parseMoneyAmount(balanceDue) <= 0 && depositAmount > 0;
+  const depositPaymentCode =
+    depositAmount > 0 ? await getNextPaymentLogCode(input.tenantProfileId) : "";
+  const financeCode =
+    depositAmount > 0
+      ? await getNextFinanceEntryCode(input.tenantProfileId, "Revenue")
+      : "";
 
-  return prisma.tenantInvoice.create({
-    data: {
-      balanceDue,
-      code,
-      depositPaid,
-      discount,
-      dueDate,
-      guestEmail: input.reservation.guestEmail,
-      guestName: input.reservation.guestName,
-      invoiceDate,
-      paymentMethod: "Reservation payment",
-      reminderCadence: "STANDARD",
-      reservationId: input.reservation.id,
-      status: "SENT",
-      subtotal,
-      tax,
-      tenantProfileId: input.tenantProfileId,
-      totalAmount,
-      lineItems: {
-        create: [
-          {
-            amount: subtotal,
-            description: `${input.reservation.room.code} - ${input.reservation.room.name} (${input.reservation.nights} night${input.reservation.nights === 1 ? "" : "s"})`,
-            quantity: input.reservation.nights,
-            rate: input.reservation.rate,
-            sortOrder: 0,
-          },
-        ],
+  return prisma.$transaction(async (tx) => {
+    const invoice = await tx.tenantInvoice.create({
+      data: {
+        balanceDue,
+        code,
+        depositPaid,
+        discount,
+        dueDate,
+        guestEmail: reservation.guestEmail,
+        guestName: reservation.guestName,
+        invoiceDate,
+        paidAt: shouldMarkPaid ? new Date() : undefined,
+        paymentMethod: input.paymentMethod ?? "Reservation payment",
+        reminderCadence: "STANDARD",
+        reservationId: reservation.id,
+        status: shouldMarkPaid ? "PAID" : "SENT",
+        subtotal,
+        tax,
+        tenantProfileId: input.tenantProfileId,
+        totalAmount,
+        lineItems: {
+          create: charges.map((charge, index) => ({
+            amount: charge.amount,
+            description: charge.description,
+            quantity: charge.quantity,
+            rate: charge.rate,
+            sortOrder: index,
+          })),
+        },
+      },
+    });
+
+    await tx.tenantFolioCharge.updateMany({
+      where: {
+        id: {
+          in: charges.map((charge) => charge.id),
+        },
+      },
+      data: {
+        invoiceId: invoice.id,
+        status: "INVOICED",
+      },
+    });
+
+    if (depositAmount > 0) {
+      await tx.tenantPaymentLog.create({
+        data: {
+          amount: depositPaid,
+          code: depositPaymentCode,
+          invoiceId: invoice.id,
+          paidAt: new Date(),
+          paymentMethod: input.paymentMethod ?? "Reservation payment",
+          proofNote: "Booking deposit",
+          reservationId: reservation.id,
+          status: "RECORDED",
+          tenantProfileId: input.tenantProfileId,
+        },
+      });
+
+      await tx.tenantFinanceEntry.create({
+        data: {
+          amount: depositPaid,
+          category: "Invoice payment",
+          code: financeCode,
+          description: `Deposit for booking ${reservation.id}`,
+          entryDate: new Date(),
+          notes: "Booking deposit",
+          source: "INVOICE_PAYMENT",
+          status: "CLEARED",
+          tenantProfileId: input.tenantProfileId,
+          type: "REVENUE",
+        },
+      });
+    }
+
+    return invoice;
+  });
+}
+
+async function requireInvoiceCreator(authUserId: string) {
+  const appUser = await prisma.appUser.findUnique({
+    where: {
+      authUserId,
+    },
+    include: {
+      staffProfile: {
+        include: {
+          accessRole: true,
+        },
       },
     },
+  });
+
+  if (appUser?.role === "TENANT") return;
+
+  const roleName = [
+    appUser?.staffProfile?.roleName,
+    appUser?.staffProfile?.accessRole?.name,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  const permissions =
+    appUser?.staffProfile?.accessRole?.permissions ??
+    appUser?.staffProfile?.permissions ??
+    [];
+  const accountingRole =
+    roleName.includes("acctg") ||
+    roleName.includes("account") ||
+    roleName.includes("finance");
+
+  if (
+    accountingRole ||
+    hasTenantPermission(permissions, "invoices.create") ||
+    hasTenantPermission(permissions, "finance.receipts.manage")
+  ) {
+    return;
+  }
+
+  throw new TRPCError({
+    code: "FORBIDDEN",
+    message: "Only owner or accounting staff can create invoices.",
   });
 }
 
@@ -2361,6 +2641,9 @@ function toTenantReservationOutput(reservation: {
   children: number;
   nights: number;
   rate: string;
+  packageName?: string | null;
+  packagePrice?: string | null;
+  roomsIncluded?: number;
   deposit: string | null;
   totalAmount: string;
   paymentMethod: string | null;
@@ -2389,6 +2672,9 @@ function toTenantReservationOutput(reservation: {
     children: reservation.children,
     nights: reservation.nights,
     rate: reservation.rate,
+    packageName: reservation.packageName ?? "",
+    packagePrice: reservation.packagePrice ?? "",
+    roomsIncluded: reservation.roomsIncluded ?? 1,
     deposit: reservation.deposit ?? "",
     totalAmount: reservation.totalAmount,
     paymentMethod: reservation.paymentMethod ?? "",
@@ -2519,7 +2805,18 @@ function toTenantReceptionGuestOutput(reservation: {
   updatedAt: Date;
   invoices: Array<{
     balanceDue: string;
+    code?: string;
+    id?: string;
     status: "DRAFT" | "SENT" | "PAID" | "OVERDUE" | "VOID";
+    totalAmount?: string;
+  }>;
+  folioCharges?: Array<{
+    amount: string;
+    status: "UNBILLED" | "INVOICED" | "VOIDED" | "ADJUSTED";
+  }>;
+  paymentLogs?: Array<{
+    amount: string;
+    status: "RECORDED" | "VOIDED";
   }>;
   room: {
     checkIn: string;
@@ -2529,13 +2826,20 @@ function toTenantReceptionGuestOutput(reservation: {
     type: string;
   };
 }, todayEnd: Date) {
-  const activeInvoice = reservation.invoices.find(
-    (invoice) => invoice.status !== "VOID",
-  );
-  const balance =
-    activeInvoice && activeInvoice.status !== "PAID"
-      ? parseMoneyAmount(activeInvoice.balanceDue)
-      : 0;
+  const billableCharges = reservation.folioCharges ?? [];
+  const subFolioTotal = billableCharges
+    .filter((charge) => !["VOIDED", "ADJUSTED"].includes(charge.status))
+    .reduce((total, charge) => total + parseMoneyAmount(charge.amount), 0);
+  const paymentTotal = (reservation.paymentLogs ?? [])
+    .filter((payment) => payment.status === "RECORDED")
+    .reduce((total, payment) => total + parseMoneyAmount(payment.amount), 0);
+  const openInvoiceBalance = reservation.invoices
+    .filter((invoice) => !["PAID", "VOID"].includes(invoice.status))
+    .reduce((total, invoice) => total + parseMoneyAmount(invoice.balanceDue), 0);
+  const balance = Math.max(subFolioTotal - paymentTotal, openInvoiceBalance, 0);
+  const unbilledTotal = billableCharges
+    .filter((charge) => charge.status === "UNBILLED")
+    .reduce((total, charge) => total + parseMoneyAmount(charge.amount), 0);
   const status = getReceptionQueueStatus({
     checkOut: reservation.checkOut,
     frontDeskStatus: reservation.frontDeskStatus,
@@ -2560,9 +2864,17 @@ function toTenantReceptionGuestOutput(reservation: {
     guest: reservation.guestName,
     guestPhone: reservation.guestPhone ?? "",
     id: reservation.id,
+    invoiceCodes: reservation.invoices
+      .filter((invoice) => invoice.status !== "VOID")
+      .map((invoice) => invoice.code ?? "")
+      .filter(Boolean),
     note:
       reservation.notes ??
-      (balance > 0 ? "Review balance before guest handoff." : "No open notes."),
+      (unbilledTotal > 0
+        ? "Un-billed folio charges need invoice before checkout."
+        : balance > 0
+          ? "Review balance before guest handoff."
+          : "No open notes."),
     pax: `${reservation.adults} adult${reservation.adults === 1 ? "" : "s"}${
       reservation.children > 0
         ? `, ${reservation.children} child${reservation.children === 1 ? "" : "ren"}`
@@ -2575,9 +2887,11 @@ function toTenantReceptionGuestOutput(reservation: {
     roomType: reservation.room.type,
     source: reservation.paymentMethod || "Reservation",
     status,
+    subFolioTotal,
     time,
     totalAmount: reservation.totalAmount,
     updatedAt: reservation.updatedAt,
+    unbilledTotal,
   };
 }
 
@@ -2904,6 +3218,70 @@ function toTenantServiceOutput(service: {
   };
 }
 
+function toTenantPackageOutput(pack: {
+  id: string;
+  amenityIds?: string[];
+  amenities: Array<{
+    id: string;
+    code: string;
+    icon: string;
+    name: string;
+  }>;
+  category: string;
+  code: string;
+  compareAtPrice: string | null;
+  createdAt: Date;
+  description: string | null;
+  featured: boolean;
+  inclusionsNote: string | null;
+  maxGuests: number | null;
+  minNights: number;
+  name: string;
+  price: string;
+  roomIds?: string[];
+  rooms: Array<{
+    id: string;
+    code: string;
+    name: string;
+    type: string;
+  }>;
+  serviceIds?: string[];
+  services: Array<{
+    id: string;
+    code: string;
+    title: string;
+  }>;
+  showOnBookingPage: boolean;
+  sortOrder: number;
+  status: "ACTIVE" | "INACTIVE" | "ARCHIVED";
+  updatedAt: Date;
+}) {
+  return {
+    id: pack.id,
+    amenityIds: pack.amenityIds ?? pack.amenities.map((amenity) => amenity.id),
+    amenities: pack.amenities,
+    category: pack.category,
+    code: pack.code,
+    compareAtPrice: pack.compareAtPrice ?? "",
+    createdAt: pack.createdAt,
+    description: pack.description ?? "",
+    featured: pack.featured,
+    inclusionsNote: pack.inclusionsNote ?? "",
+    maxGuests: pack.maxGuests ?? undefined,
+    minNights: pack.minNights,
+    name: pack.name,
+    price: pack.price,
+    roomIds: pack.roomIds ?? pack.rooms.map((room) => room.id),
+    rooms: pack.rooms,
+    serviceIds: pack.serviceIds ?? pack.services.map((service) => service.id),
+    services: pack.services,
+    showOnBookingPage: pack.showOnBookingPage,
+    sortOrder: pack.sortOrder,
+    status: fromTenantPackageStatus(pack.status),
+    updatedAt: pack.updatedAt,
+  };
+}
+
 function toTenantFinanceEntryOutput(entry: {
   id: string;
   amount: string;
@@ -3051,6 +3429,124 @@ function toTenantInvoiceOutput(invoice: {
     tax: invoice.tax,
     totalAmount: invoice.totalAmount,
     updatedAt: invoice.updatedAt,
+  };
+}
+
+function fromTenantFolioChargeStatus(
+  status: "UNBILLED" | "INVOICED" | "VOIDED" | "ADJUSTED",
+) {
+  const labels = {
+    ADJUSTED: "Adjusted",
+    INVOICED: "Invoiced",
+    UNBILLED: "Un-billed",
+    VOIDED: "Voided",
+  } as const;
+
+  return labels[status];
+}
+
+function toTenantFolioChargeStatus(
+  status: z.infer<typeof tenantFolioChargeStatusSchema>,
+): "UNBILLED" | "INVOICED" | "VOIDED" | "ADJUSTED" {
+  const values = {
+    Adjusted: "ADJUSTED",
+    Invoiced: "INVOICED",
+    "Un-billed": "UNBILLED",
+    Voided: "VOIDED",
+  } as const;
+
+  return values[status];
+}
+
+function fromTenantFolioChargeType(
+  type: "STAY" | "ADDITIONAL" | "FEE" | "ADJUSTMENT",
+) {
+  const labels = {
+    ADDITIONAL: "Additional",
+    ADJUSTMENT: "Adjustment",
+    FEE: "Fee",
+    STAY: "Stay",
+  } as const;
+
+  return labels[type];
+}
+
+function toTenantFolioChargeType(
+  type: z.infer<typeof tenantFolioChargeTypeSchema>,
+): "STAY" | "ADDITIONAL" | "FEE" | "ADJUSTMENT" {
+  const values = {
+    Additional: "ADDITIONAL",
+    Adjustment: "ADJUSTMENT",
+    Fee: "FEE",
+    Stay: "STAY",
+  } as const;
+
+  return values[type];
+}
+
+function toTenantFolioChargeOutput(charge: {
+  amount: string;
+  code: string;
+  createdAt: Date;
+  description: string;
+  id: string;
+  invoice?: {
+    code: string;
+  } | null;
+  invoiceId: string | null;
+  quantity: number;
+  rate: string;
+  reservationId: string;
+  status: "UNBILLED" | "INVOICED" | "VOIDED" | "ADJUSTED";
+  type: "STAY" | "ADDITIONAL" | "FEE" | "ADJUSTMENT";
+  updatedAt: Date;
+}) {
+  return {
+    amount: charge.amount,
+    code: charge.code,
+    createdAt: charge.createdAt,
+    description: charge.description,
+    id: charge.id,
+    invoiceCode: charge.invoice?.code ?? "",
+    invoiceId: charge.invoiceId ?? "",
+    quantity: charge.quantity,
+    rate: charge.rate,
+    reservationId: charge.reservationId,
+    status: fromTenantFolioChargeStatus(charge.status),
+    type: fromTenantFolioChargeType(charge.type),
+    updatedAt: charge.updatedAt,
+  };
+}
+
+function toTenantPaymentLogOutput(payment: {
+  amount: string;
+  code: string;
+  createdAt: Date;
+  id: string;
+  invoice?: {
+    code: string;
+  } | null;
+  invoiceId: string | null;
+  paidAt: Date;
+  paymentMethod: string;
+  proofNote: string | null;
+  proofUrl: string | null;
+  reservationId: string;
+  status: "RECORDED" | "VOIDED";
+}) {
+  return {
+    amount: payment.amount,
+    code: payment.code,
+    createdAt: payment.createdAt,
+    id: payment.id,
+    invoiceCode: payment.invoice?.code ?? "",
+    invoiceId: payment.invoiceId ?? "",
+    paidAt: payment.paidAt,
+    paymentMethod: payment.paymentMethod,
+    proofNote: payment.proofNote ?? "",
+    proofUrl: payment.proofUrl ?? "",
+    reservationId: payment.reservationId,
+    status: payment.status === "RECORDED" ? "Recorded" : "Voided",
   };
 }
 
@@ -7386,7 +7882,15 @@ export const appRouter = createTRPCRouter({
           }
 
           const tenantProfile = await getTenantProfileForSession(authUser.id);
+          await requireInvoiceCreator(authUser.id);
           const code = input.code.toUpperCase();
+
+          if (input.status === "Paid") {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Record a payment transaction to mark invoices paid.",
+            });
+          }
 
           if (input.reservationId) {
             const reservation = await prisma.tenantReservation.findFirst({
@@ -7550,12 +8054,18 @@ export const appRouter = createTRPCRouter({
             });
           }
 
+          if (input.status === "Paid") {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Record a payment transaction to mark invoices paid.",
+            });
+          }
+
           await prisma.tenantInvoice.update({
             where: {
               id: input.id,
             },
             data: {
-              paidAt: input.status === "Paid" ? new Date() : undefined,
               sentAt: input.status === "Sent" ? new Date() : undefined,
               status: toTenantInvoiceStatus(input.status),
             },
@@ -8074,6 +8584,406 @@ export const appRouter = createTRPCRouter({
           return toTenantTransactionExportOutput(updatedExport);
         }),
     }),
+    packages: createTRPCRouter({
+      list: baseProcedure.query(async ({ ctx }) => {
+        const authUser = ctx.session?.user;
+
+        if (!authUser?.id) {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "Sign in required.",
+          });
+        }
+
+        const tenantProfile = await getTenantProfileForSession(authUser.id);
+        const packages = await prisma.tenantPackage.findMany({
+          where: {
+            tenantProfileId: tenantProfile.id,
+          },
+          include: {
+            amenities: {
+              select: {
+                code: true,
+                icon: true,
+                id: true,
+                name: true,
+              },
+            },
+            rooms: {
+              select: {
+                code: true,
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+            services: {
+              select: {
+                code: true,
+                id: true,
+                title: true,
+              },
+            },
+          },
+          orderBy: [
+            {
+              sortOrder: "asc",
+            },
+            {
+              updatedAt: "desc",
+            },
+          ],
+        });
+
+        return packages.map(toTenantPackageOutput);
+      }),
+      get: baseProcedure
+        .input(
+          z.object({
+            id: z.string(),
+          }),
+        )
+        .query(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const pack = await prisma.tenantPackage.findFirst({
+            where: {
+              id: input.id,
+              tenantProfileId: tenantProfile.id,
+            },
+            include: {
+              amenities: {
+                select: {
+                  code: true,
+                  icon: true,
+                  id: true,
+                  name: true,
+                },
+              },
+              rooms: {
+                select: {
+                  code: true,
+                  id: true,
+                  name: true,
+                  type: true,
+                },
+              },
+              services: {
+                select: {
+                  code: true,
+                  id: true,
+                  title: true,
+                },
+              },
+            },
+          });
+
+          if (!pack) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Package not found.",
+            });
+          }
+
+          return toTenantPackageOutput(pack);
+        }),
+      save: baseProcedure
+        .input(tenantPackageSchema)
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const code = input.code.toUpperCase();
+
+          if (input.id) {
+            const existingPackage = await prisma.tenantPackage.findFirst({
+              where: {
+                id: input.id,
+                tenantProfileId: tenantProfile.id,
+              },
+            });
+
+            if (!existingPackage) {
+              throw new TRPCError({
+                code: "NOT_FOUND",
+                message: "Package not found.",
+              });
+            }
+          }
+
+          const duplicateCode = await prisma.tenantPackage.findFirst({
+            where: {
+              tenantProfileId: tenantProfile.id,
+              code,
+              id: input.id
+                ? {
+                    not: input.id,
+                  }
+                : undefined,
+            },
+          });
+
+          if (duplicateCode) {
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "Package code already exists.",
+            });
+          }
+
+          const [roomCount, serviceCount, amenityCount] = await Promise.all([
+            input.roomIds.length
+              ? prisma.tenantRoom.count({
+                  where: {
+                    id: {
+                      in: input.roomIds,
+                    },
+                    tenantProfileId: tenantProfile.id,
+                  },
+                })
+              : Promise.resolve(0),
+            input.serviceIds.length
+              ? prisma.tenantService.count({
+                  where: {
+                    id: {
+                      in: input.serviceIds,
+                    },
+                    tenantProfileId: tenantProfile.id,
+                  },
+                })
+              : Promise.resolve(0),
+            input.amenityIds.length
+              ? prisma.tenantAmenity.count({
+                  where: {
+                    id: {
+                      in: input.amenityIds,
+                    },
+                    tenantProfileId: tenantProfile.id,
+                  },
+                })
+              : Promise.resolve(0),
+          ]);
+
+          if (
+            roomCount !== input.roomIds.length ||
+            serviceCount !== input.serviceIds.length ||
+            amenityCount !== input.amenityIds.length
+          ) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Package includes an item from another tenant.",
+            });
+          }
+
+          const data = {
+            category: input.category,
+            code,
+            compareAtPrice: input.compareAtPrice ?? null,
+            description: input.description ?? null,
+            featured: input.featured,
+            inclusionsNote: input.inclusionsNote ?? null,
+            maxGuests: input.maxGuests ?? null,
+            minNights: input.minNights,
+            name: input.name,
+            price: input.price,
+            showOnBookingPage: input.showOnBookingPage,
+            sortOrder: input.sortOrder,
+            status: toTenantPackageStatus(input.status),
+          };
+          const updateRelations = {
+            amenities: {
+              set: input.amenityIds.map((id) => ({ id })),
+            },
+            rooms: {
+              set: input.roomIds.map((id) => ({ id })),
+            },
+            services: {
+              set: input.serviceIds.map((id) => ({ id })),
+            },
+          };
+          const createRelations = {
+            amenities: {
+              connect: input.amenityIds.map((id) => ({ id })),
+            },
+            rooms: {
+              connect: input.roomIds.map((id) => ({ id })),
+            },
+            services: {
+              connect: input.serviceIds.map((id) => ({ id })),
+            },
+          };
+
+          const pack = input.id
+            ? await prisma.tenantPackage.update({
+                where: {
+                  id: input.id,
+                },
+                data: {
+                  ...data,
+                  ...updateRelations,
+                },
+                include: {
+                  amenities: {
+                    select: {
+                      code: true,
+                      icon: true,
+                      id: true,
+                      name: true,
+                    },
+                  },
+                  rooms: {
+                    select: {
+                      code: true,
+                      id: true,
+                      name: true,
+                      type: true,
+                    },
+                  },
+                  services: {
+                    select: {
+                      code: true,
+                      id: true,
+                      title: true,
+                    },
+                  },
+                },
+              })
+            : await prisma.tenantPackage.create({
+                data: {
+                  ...data,
+                  ...createRelations,
+                  tenantProfileId: tenantProfile.id,
+                },
+                include: {
+                  amenities: {
+                    select: {
+                      code: true,
+                      icon: true,
+                      id: true,
+                      name: true,
+                    },
+                  },
+                  rooms: {
+                    select: {
+                      code: true,
+                      id: true,
+                      name: true,
+                      type: true,
+                    },
+                  },
+                  services: {
+                    select: {
+                      code: true,
+                      id: true,
+                      title: true,
+                    },
+                  },
+                },
+              });
+
+          return toTenantPackageOutput(pack);
+        }),
+      updateStatus: baseProcedure
+        .input(
+          z.object({
+            id: z.string(),
+            status: tenantPackageStatusSchema,
+          }),
+        )
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const pack = await prisma.tenantPackage.findFirst({
+            where: {
+              id: input.id,
+              tenantProfileId: tenantProfile.id,
+            },
+          });
+
+          if (!pack) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Package not found.",
+            });
+          }
+
+          await prisma.tenantPackage.update({
+            where: {
+              id: input.id,
+            },
+            data: {
+              status: toTenantPackageStatus(input.status),
+            },
+          });
+
+          return {
+            id: input.id,
+          };
+        }),
+      delete: baseProcedure
+        .input(
+          z.object({
+            id: z.string(),
+          }),
+        )
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const pack = await prisma.tenantPackage.findFirst({
+            where: {
+              id: input.id,
+              tenantProfileId: tenantProfile.id,
+            },
+          });
+
+          if (!pack) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Package not found.",
+            });
+          }
+
+          await prisma.tenantPackage.delete({
+            where: {
+              id: input.id,
+            },
+          });
+
+          return {
+            id: input.id,
+          };
+        }),
+    }),
     services: createTRPCRouter({
       list: baseProcedure.query(async ({ ctx }) => {
         const authUser = ctx.session?.user;
@@ -8426,6 +9336,9 @@ export const appRouter = createTRPCRouter({
               children: input.children,
               nights,
               rate: input.rate,
+              packageName: input.packageName ?? null,
+              packagePrice: input.packagePrice ?? null,
+              roomsIncluded: input.roomsIncluded,
               deposit: input.deposit ?? null,
               totalAmount: input.totalAmount,
               paymentMethod: input.paymentMethod ?? null,
@@ -8543,6 +9456,21 @@ export const appRouter = createTRPCRouter({
                 },
                 select: {
                   balanceDue: true,
+                  code: true,
+                  id: true,
+                  status: true,
+                  totalAmount: true,
+                },
+              },
+              folioCharges: {
+                select: {
+                  amount: true,
+                  status: true,
+                },
+              },
+              paymentLogs: {
+                select: {
+                  amount: true,
                   status: true,
                 },
               },
@@ -8619,6 +9547,9 @@ export const appRouter = createTRPCRouter({
               tenantProfileId: tenantProfile.id,
             },
             include: {
+              folioCharges: true,
+              invoices: true,
+              paymentLogs: true,
               room: true,
             },
           });
@@ -8628,6 +9559,46 @@ export const appRouter = createTRPCRouter({
               code: "NOT_FOUND",
               message: "Reservation not found.",
             });
+          }
+
+          if (input.status === "Completed") {
+            const activeCharges = reservation.folioCharges.filter(
+              (charge) => !["VOIDED", "ADJUSTED"].includes(charge.status),
+            );
+            const unbilledTotal = activeCharges
+              .filter((charge) => charge.status === "UNBILLED")
+              .reduce((total, charge) => total + parseMoneyAmount(charge.amount), 0);
+            const folioTotal = activeCharges.reduce(
+              (total, charge) => total + parseMoneyAmount(charge.amount),
+              0,
+            );
+            const invoiceTotal = reservation.invoices
+              .filter((invoice) => invoice.status !== "VOID")
+              .reduce((total, invoice) => total + parseMoneyAmount(invoice.totalAmount), 0);
+            const paymentTotal = reservation.paymentLogs
+              .filter((payment) => payment.status === "RECORDED")
+              .reduce((total, payment) => total + parseMoneyAmount(payment.amount), 0);
+
+            if (unbilledTotal > 0) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "Cannot check out with un-billed folio charges. Generate invoice first.",
+              });
+            }
+
+            if (Math.abs(folioTotal - invoiceTotal) > 0.01) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "Cannot check out until folio total matches generated invoices.",
+              });
+            }
+
+            if (Math.abs(invoiceTotal - paymentTotal) > 0.01) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "Cannot check out until payment log matches generated invoices.",
+              });
+            }
           }
 
           const status =
@@ -8666,6 +9637,335 @@ export const appRouter = createTRPCRouter({
           return {
             id: input.id,
             status: fromTenantReservationStatus(status),
+          };
+        }),
+      getBilling: baseProcedure
+        .input(
+          z.object({
+            reservationId: z.string(),
+          }),
+        )
+        .query(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const reservation = await prisma.tenantReservation.findFirst({
+            where: {
+              id: input.reservationId,
+              tenantProfileId: tenantProfile.id,
+            },
+            include: {
+              folioCharges: {
+                include: {
+                  invoice: {
+                    select: {
+                      code: true,
+                    },
+                  },
+                },
+                orderBy: {
+                  createdAt: "asc",
+                },
+              },
+              invoices: {
+                include: {
+                  lineItems: {
+                    orderBy: {
+                      sortOrder: "asc",
+                    },
+                  },
+                  reservation: {
+                    select: {
+                      id: true,
+                      room: {
+                        select: {
+                          code: true,
+                          name: true,
+                        },
+                      },
+                    },
+                  },
+                },
+                orderBy: {
+                  createdAt: "asc",
+                },
+              },
+              paymentLogs: {
+                include: {
+                  invoice: {
+                    select: {
+                      code: true,
+                    },
+                  },
+                },
+                orderBy: {
+                  paidAt: "desc",
+                },
+              },
+              room: {
+                select: {
+                  code: true,
+                  name: true,
+                  type: true,
+                },
+              },
+            },
+          });
+
+          if (!reservation) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Reservation not found.",
+            });
+          }
+
+          const activeCharges = reservation.folioCharges.filter(
+            (charge) => !["VOIDED", "ADJUSTED"].includes(charge.status),
+          );
+          const subFolioTotal = activeCharges.reduce(
+            (total, charge) => total + parseMoneyAmount(charge.amount),
+            0,
+          );
+          const invoiceTotal = reservation.invoices
+            .filter((invoice) => invoice.status !== "VOID")
+            .reduce((total, invoice) => total + parseMoneyAmount(invoice.totalAmount), 0);
+          const paymentTotal = reservation.paymentLogs
+            .filter((payment) => payment.status === "RECORDED")
+            .reduce((total, payment) => total + parseMoneyAmount(payment.amount), 0);
+          const unbilledTotal = activeCharges
+            .filter((charge) => charge.status === "UNBILLED")
+            .reduce((total, charge) => total + parseMoneyAmount(charge.amount), 0);
+
+          return {
+            balanceDue: toMoneyString(Math.max(subFolioTotal - paymentTotal, 0)),
+            charges: reservation.folioCharges.map(toTenantFolioChargeOutput),
+            invoiceTotal: toMoneyString(invoiceTotal),
+            invoices: reservation.invoices.map(toTenantInvoiceOutput),
+            paymentLogs: reservation.paymentLogs.map(toTenantPaymentLogOutput),
+            paymentTotal: toMoneyString(paymentTotal),
+            reservation: {
+              checkIn: reservation.checkIn,
+              checkOut: reservation.checkOut,
+              guestName: reservation.guestName,
+              id: reservation.id,
+              roomLabel: `${reservation.room.code} - ${reservation.room.name}`,
+              status: fromTenantReservationStatus(reservation.status),
+            },
+            subFolioTotal: toMoneyString(subFolioTotal),
+            unbilledTotal: toMoneyString(unbilledTotal),
+          };
+        }),
+      createFolioCharge: baseProcedure
+        .input(tenantFolioChargeSchema)
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const reservation = await prisma.tenantReservation.findFirst({
+            where: {
+              id: input.reservationId,
+              tenantProfileId: tenantProfile.id,
+            },
+          });
+
+          if (!reservation) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Reservation not found.",
+            });
+          }
+
+          const charge = await prisma.tenantFolioCharge.create({
+            data: {
+              amount: input.amount,
+              code: await getNextFolioChargeCode(tenantProfile.id),
+              description: input.description,
+              quantity: input.quantity,
+              rate: input.rate,
+              reservationId: input.reservationId,
+              status: toTenantFolioChargeStatus(input.status),
+              tenantProfileId: tenantProfile.id,
+              type: toTenantFolioChargeType(input.type),
+            },
+            include: {
+              invoice: {
+                select: {
+                  code: true,
+                },
+              },
+            },
+          });
+
+          return toTenantFolioChargeOutput(charge);
+        }),
+      generateInvoiceFromFolio: baseProcedure
+        .input(
+          z.object({
+            reservationId: z.string(),
+          }),
+        )
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          await requireInvoiceCreator(authUser.id);
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const charges = await prisma.tenantFolioCharge.findMany({
+            where: {
+              reservationId: input.reservationId,
+              status: "UNBILLED",
+              tenantProfileId: tenantProfile.id,
+            },
+            select: {
+              id: true,
+            },
+          });
+
+          const invoice = await createInvoiceForFolioCharges({
+            chargeIds: charges.map((charge) => charge.id),
+            tenantProfileId: tenantProfile.id,
+          });
+
+          return {
+            id: invoice.id,
+          };
+        }),
+      recordPayment: baseProcedure
+        .input(tenantPaymentLogSchema)
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const reservation = await prisma.tenantReservation.findFirst({
+            where: {
+              id: input.reservationId,
+              tenantProfileId: tenantProfile.id,
+            },
+          });
+
+          if (!reservation) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Reservation not found.",
+            });
+          }
+
+          const invoices = await prisma.tenantInvoice.findMany({
+            where: {
+              id: input.invoiceIds.length
+                ? {
+                    in: input.invoiceIds,
+                  }
+                : undefined,
+              reservationId: input.reservationId,
+              status: {
+                notIn: ["PAID", "VOID"],
+              },
+              tenantProfileId: tenantProfile.id,
+            },
+            orderBy: {
+              createdAt: "asc",
+            },
+          });
+
+          if (!invoices.length) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "No unpaid invoices found for payment.",
+            });
+          }
+
+          const invoiceBalance = invoices.reduce(
+            (total, invoice) => total + parseMoneyAmount(invoice.balanceDue),
+            0,
+          );
+          const paymentAmount = parseMoneyAmount(input.amount);
+
+          if (Math.abs(paymentAmount - invoiceBalance) > 0.01) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Payment amount must match selected invoice balance.",
+            });
+          }
+
+          const financeCode = await getNextFinanceEntryCode(tenantProfile.id, "Revenue");
+          const firstPaymentCode = await getNextPaymentLogCode(tenantProfile.id);
+          const firstPaymentNumber = Number(firstPaymentCode.replace(/\D/g, ""));
+          await prisma.$transaction(async (tx) => {
+            await tx.tenantPaymentLog.createMany({
+              data: invoices.map((invoice, index) => ({
+                amount: invoice.balanceDue,
+                code: `PAY-${String(firstPaymentNumber + index).padStart(5, "0")}`,
+                invoiceId: invoice.id,
+                paidAt: new Date(),
+                paymentMethod: input.paymentMethod,
+                proofNote: input.proofNote ?? null,
+                proofUrl: input.proofUrl ?? null,
+                reservationId: input.reservationId,
+                status: "RECORDED",
+                tenantProfileId: tenantProfile.id,
+              })),
+            });
+
+            await tx.tenantInvoice.updateMany({
+              where: {
+                id: {
+                  in: invoices.map((invoice) => invoice.id),
+                },
+              },
+              data: {
+                balanceDue: "0",
+                paidAt: new Date(),
+                status: "PAID",
+              },
+            });
+
+            await tx.tenantFinanceEntry.create({
+              data: {
+                amount: input.amount,
+                category: "Invoice payment",
+                code: financeCode,
+                description: `Payment for booking ${reservation.id}`,
+                entryDate: new Date(),
+                notes: input.proofNote ?? null,
+                receiptUrl: input.proofUrl ?? null,
+                source: "INVOICE_PAYMENT",
+                status: "CLEARED",
+                tenantProfileId: tenantProfile.id,
+                type: "REVENUE",
+              },
+            });
+          });
+
+          return {
+            id: input.reservationId,
           };
         }),
       createRequest: baseProcedure
@@ -10449,6 +11749,164 @@ export const appRouter = createTRPCRouter({
             id: input.id,
           };
         }),
+      convertToReservation: baseProcedure
+        .input(tenantLeadConvertReservationSchema)
+        .mutation(async ({ ctx, input }) => {
+          const authUser = ctx.session?.user;
+
+          if (!authUser?.id) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "Sign in required.",
+            });
+          }
+
+          const tenantProfile = await getTenantProfileForSession(authUser.id);
+          const [lead, room] = await Promise.all([
+            prisma.tenantLead.findFirst({
+              where: {
+                id: input.leadId,
+                tenantProfileId: tenantProfile.id,
+              },
+            }),
+            prisma.tenantRoom.findFirst({
+              where: {
+                id: input.roomId,
+                tenantProfileId: tenantProfile.id,
+              },
+            }),
+          ]);
+
+          if (!lead) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Lead not found.",
+            });
+          }
+
+          if (lead.reservationId) {
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "Lead already linked to a reservation.",
+            });
+          }
+
+          if (!room) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Room not found.",
+            });
+          }
+
+          if (room.status === "OUT_OF_SERVICE") {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Room is out of service.",
+            });
+          }
+
+          if (input.adults > room.maxAdults || input.children > room.childrenOccupancy) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Guest count exceeds room capacity.",
+            });
+          }
+
+          const checkIn = parseReservationDate(input.checkIn, "Check-in");
+          const checkOut = parseReservationDate(input.checkOut, "Check-out");
+          const nights = getReservationNights(checkIn, checkOut);
+
+          if (nights < room.minNights) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Minimum stay is ${room.minNights} night${room.minNights === 1 ? "" : "s"}.`,
+            });
+          }
+
+          const overlappingReservation = await prisma.tenantReservation.findFirst({
+            where: {
+              checkIn: {
+                lt: checkOut,
+              },
+              checkOut: {
+                gt: checkIn,
+              },
+              roomId: input.roomId,
+              status: {
+                notIn: ["CANCELED", "CHECKED_OUT"],
+              },
+              tenantProfileId: tenantProfile.id,
+            },
+          });
+
+          if (overlappingReservation) {
+            throw new TRPCError({
+              code: "CONFLICT",
+              message: "Room already has a booking for selected dates.",
+            });
+          }
+
+          const reservation = await prisma.tenantReservation.create({
+            data: {
+              adults: input.adults,
+              checkIn,
+              checkOut,
+              children: input.children,
+              deposit: input.deposit ?? null,
+              guestName: lead.guestName,
+              nights,
+              notes:
+                input.notes ??
+                `Converted from lead ${lead.id}${lead.inquiry ? `: ${lead.inquiry}` : ""}`,
+              packageName: input.packageName ?? null,
+              packagePrice: input.packagePrice ?? null,
+              paymentMethod: input.paymentMethod ?? null,
+              rate: input.rate,
+              roomId: input.roomId,
+              roomsIncluded: input.roomsIncluded,
+              status: toTenantReservationStatus(input.status),
+              tenantProfileId: tenantProfile.id,
+              totalAmount: input.totalAmount,
+            },
+            include: {
+              room: {
+                select: {
+                  code: true,
+                  name: true,
+                  type: true,
+                },
+              },
+            },
+          });
+
+          if (input.status === "Checked in") {
+            await prisma.tenantRoom.update({
+              where: {
+                id: input.roomId,
+              },
+              data: {
+                status: "OCCUPIED",
+              },
+            });
+          }
+
+          await createInvoiceForReservation({
+            reservation,
+            tenantProfileId: tenantProfile.id,
+          });
+
+          await prisma.tenantLead.update({
+            where: {
+              id: input.leadId,
+            },
+            data: {
+              reservationId: reservation.id,
+              stage: "CONVERTED",
+            },
+          });
+
+          return toTenantReservationOutput(reservation);
+        }),
       sendReply: baseProcedure
         .input(tenantLeadReplySchema)
         .mutation(async ({ ctx, input }) => {
@@ -10625,6 +12083,20 @@ export const appRouter = createTRPCRouter({
               },
             },
             messengerIntegration: true,
+            reservation: {
+              select: {
+                id: true,
+                checkIn: true,
+                checkOut: true,
+                status: true,
+                room: {
+                  select: {
+                    code: true,
+                    name: true,
+                  },
+                },
+              },
+            },
           },
           orderBy: [
             {
@@ -10655,6 +12127,16 @@ export const appRouter = createTRPCRouter({
           pageId: lead.messengerIntegration?.pageId ?? null,
           profilePictureUrl: lead.profilePictureUrl,
           psid: lead.psid,
+          reservation: lead.reservation
+            ? {
+                checkIn: lead.reservation.checkIn.toISOString(),
+                checkOut: lead.reservation.checkOut.toISOString(),
+                id: lead.reservation.id,
+                roomLabel: `${lead.reservation.room.code} - ${lead.reservation.room.name}`,
+                status: fromTenantReservationStatus(lead.reservation.status),
+              }
+            : null,
+          reservationId: lead.reservationId,
           source: lead.source,
           stage: lead.stage,
           targetDate: lead.targetDate?.toISOString() ?? null,

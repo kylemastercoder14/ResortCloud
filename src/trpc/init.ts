@@ -108,6 +108,7 @@ function getTenantProcedurePermission(path: string, type: "query" | "mutation" |
   if (path.startsWith("tenant.rooms.")) return isWrite ? "rooms.manage" : "rooms.view";
   if (path.startsWith("tenant.amenities.")) return isWrite ? "amenities.manage" : "amenities.view";
   if (path.startsWith("tenant.services.")) return isWrite ? "services.manage" : "services.view";
+  if (path.startsWith("tenant.packages.")) return isWrite ? "services.manage" : "services.view";
   if (path.startsWith("tenant.invoices.")) return isWrite ? "invoices.create" : "invoices.view";
   if (path.startsWith("tenant.financeEntries.")) {
     return isWrite ? "finance.receipts.manage" : "finance.revenueExpenses.view";

@@ -30,12 +30,14 @@ export type TenantReservationAvgAggregateOutputType = {
   adults: number | null
   children: number | null
   nights: number | null
+  roomsIncluded: number | null
 }
 
 export type TenantReservationSumAggregateOutputType = {
   adults: number | null
   children: number | null
   nights: number | null
+  roomsIncluded: number | null
 }
 
 export type TenantReservationMinAggregateOutputType = {
@@ -51,6 +53,9 @@ export type TenantReservationMinAggregateOutputType = {
   children: number | null
   nights: number | null
   rate: string | null
+  packageName: string | null
+  packagePrice: string | null
+  roomsIncluded: number | null
   deposit: string | null
   totalAmount: string | null
   paymentMethod: string | null
@@ -74,6 +79,9 @@ export type TenantReservationMaxAggregateOutputType = {
   children: number | null
   nights: number | null
   rate: string | null
+  packageName: string | null
+  packagePrice: string | null
+  roomsIncluded: number | null
   deposit: string | null
   totalAmount: string | null
   paymentMethod: string | null
@@ -97,6 +105,9 @@ export type TenantReservationCountAggregateOutputType = {
   children: number
   nights: number
   rate: number
+  packageName: number
+  packagePrice: number
+  roomsIncluded: number
   deposit: number
   totalAmount: number
   paymentMethod: number
@@ -113,12 +124,14 @@ export type TenantReservationAvgAggregateInputType = {
   adults?: true
   children?: true
   nights?: true
+  roomsIncluded?: true
 }
 
 export type TenantReservationSumAggregateInputType = {
   adults?: true
   children?: true
   nights?: true
+  roomsIncluded?: true
 }
 
 export type TenantReservationMinAggregateInputType = {
@@ -134,6 +147,9 @@ export type TenantReservationMinAggregateInputType = {
   children?: true
   nights?: true
   rate?: true
+  packageName?: true
+  packagePrice?: true
+  roomsIncluded?: true
   deposit?: true
   totalAmount?: true
   paymentMethod?: true
@@ -157,6 +173,9 @@ export type TenantReservationMaxAggregateInputType = {
   children?: true
   nights?: true
   rate?: true
+  packageName?: true
+  packagePrice?: true
+  roomsIncluded?: true
   deposit?: true
   totalAmount?: true
   paymentMethod?: true
@@ -180,6 +199,9 @@ export type TenantReservationCountAggregateInputType = {
   children?: true
   nights?: true
   rate?: true
+  packageName?: true
+  packagePrice?: true
+  roomsIncluded?: true
   deposit?: true
   totalAmount?: true
   paymentMethod?: true
@@ -290,6 +312,9 @@ export type TenantReservationGroupByOutputType = {
   children: number
   nights: number
   rate: string
+  packageName: string | null
+  packagePrice: string | null
+  roomsIncluded: number
   deposit: string | null
   totalAmount: string
   paymentMethod: string | null
@@ -336,6 +361,9 @@ export type TenantReservationWhereInput = {
   children?: Prisma.IntFilter<"TenantReservation"> | number
   nights?: Prisma.IntFilter<"TenantReservation"> | number
   rate?: Prisma.StringFilter<"TenantReservation"> | string
+  packageName?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
+  packagePrice?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
+  roomsIncluded?: Prisma.IntFilter<"TenantReservation"> | number
   deposit?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
   totalAmount?: Prisma.StringFilter<"TenantReservation"> | string
   paymentMethod?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
@@ -347,6 +375,9 @@ export type TenantReservationWhereInput = {
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   room?: Prisma.XOR<Prisma.TenantRoomScalarRelationFilter, Prisma.TenantRoomWhereInput>
   invoices?: Prisma.TenantInvoiceListRelationFilter
+  folioCharges?: Prisma.TenantFolioChargeListRelationFilter
+  paymentLogs?: Prisma.TenantPaymentLogListRelationFilter
+  leads?: Prisma.TenantLeadListRelationFilter
   receptionRequests?: Prisma.TenantReceptionRequestListRelationFilter
 }
 
@@ -363,6 +394,9 @@ export type TenantReservationOrderByWithRelationInput = {
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
   rate?: Prisma.SortOrder
+  packageName?: Prisma.SortOrderInput | Prisma.SortOrder
+  packagePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
   deposit?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -374,6 +408,9 @@ export type TenantReservationOrderByWithRelationInput = {
   tenantProfile?: Prisma.TenantProfileOrderByWithRelationInput
   room?: Prisma.TenantRoomOrderByWithRelationInput
   invoices?: Prisma.TenantInvoiceOrderByRelationAggregateInput
+  folioCharges?: Prisma.TenantFolioChargeOrderByRelationAggregateInput
+  paymentLogs?: Prisma.TenantPaymentLogOrderByRelationAggregateInput
+  leads?: Prisma.TenantLeadOrderByRelationAggregateInput
   receptionRequests?: Prisma.TenantReceptionRequestOrderByRelationAggregateInput
 }
 
@@ -393,6 +430,9 @@ export type TenantReservationWhereUniqueInput = Prisma.AtLeast<{
   children?: Prisma.IntFilter<"TenantReservation"> | number
   nights?: Prisma.IntFilter<"TenantReservation"> | number
   rate?: Prisma.StringFilter<"TenantReservation"> | string
+  packageName?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
+  packagePrice?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
+  roomsIncluded?: Prisma.IntFilter<"TenantReservation"> | number
   deposit?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
   totalAmount?: Prisma.StringFilter<"TenantReservation"> | string
   paymentMethod?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
@@ -404,6 +444,9 @@ export type TenantReservationWhereUniqueInput = Prisma.AtLeast<{
   tenantProfile?: Prisma.XOR<Prisma.TenantProfileScalarRelationFilter, Prisma.TenantProfileWhereInput>
   room?: Prisma.XOR<Prisma.TenantRoomScalarRelationFilter, Prisma.TenantRoomWhereInput>
   invoices?: Prisma.TenantInvoiceListRelationFilter
+  folioCharges?: Prisma.TenantFolioChargeListRelationFilter
+  paymentLogs?: Prisma.TenantPaymentLogListRelationFilter
+  leads?: Prisma.TenantLeadListRelationFilter
   receptionRequests?: Prisma.TenantReceptionRequestListRelationFilter
 }, "id">
 
@@ -420,6 +463,9 @@ export type TenantReservationOrderByWithAggregationInput = {
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
   rate?: Prisma.SortOrder
+  packageName?: Prisma.SortOrderInput | Prisma.SortOrder
+  packagePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
   deposit?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -451,6 +497,9 @@ export type TenantReservationScalarWhereWithAggregatesInput = {
   children?: Prisma.IntWithAggregatesFilter<"TenantReservation"> | number
   nights?: Prisma.IntWithAggregatesFilter<"TenantReservation"> | number
   rate?: Prisma.StringWithAggregatesFilter<"TenantReservation"> | string
+  packageName?: Prisma.StringNullableWithAggregatesFilter<"TenantReservation"> | string | null
+  packagePrice?: Prisma.StringNullableWithAggregatesFilter<"TenantReservation"> | string | null
+  roomsIncluded?: Prisma.IntWithAggregatesFilter<"TenantReservation"> | number
   deposit?: Prisma.StringNullableWithAggregatesFilter<"TenantReservation"> | string | null
   totalAmount?: Prisma.StringWithAggregatesFilter<"TenantReservation"> | string
   paymentMethod?: Prisma.StringNullableWithAggregatesFilter<"TenantReservation"> | string | null
@@ -472,6 +521,9 @@ export type TenantReservationCreateInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -483,6 +535,9 @@ export type TenantReservationCreateInput = {
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
   room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
 }
 
@@ -499,6 +554,9 @@ export type TenantReservationUncheckedCreateInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -508,6 +566,9 @@ export type TenantReservationUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
 }
 
@@ -522,6 +583,9 @@ export type TenantReservationUpdateInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -533,6 +597,9 @@ export type TenantReservationUpdateInput = {
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
   room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
 }
 
@@ -549,6 +616,9 @@ export type TenantReservationUncheckedUpdateInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -558,6 +628,9 @@ export type TenantReservationUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
 }
 
@@ -574,6 +647,9 @@ export type TenantReservationCreateManyInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -595,6 +671,9 @@ export type TenantReservationUpdateManyMutationInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -618,6 +697,9 @@ export type TenantReservationUncheckedUpdateManyInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -638,6 +720,11 @@ export type TenantReservationOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TenantReservationNullableScalarRelationFilter = {
+  is?: Prisma.TenantReservationWhereInput | null
+  isNot?: Prisma.TenantReservationWhereInput | null
+}
+
 export type TenantReservationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantProfileId?: Prisma.SortOrder
@@ -651,6 +738,9 @@ export type TenantReservationCountOrderByAggregateInput = {
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
   rate?: Prisma.SortOrder
+  packageName?: Prisma.SortOrder
+  packagePrice?: Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
   deposit?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
@@ -665,6 +755,7 @@ export type TenantReservationAvgOrderByAggregateInput = {
   adults?: Prisma.SortOrder
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
 }
 
 export type TenantReservationMaxOrderByAggregateInput = {
@@ -680,6 +771,9 @@ export type TenantReservationMaxOrderByAggregateInput = {
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
   rate?: Prisma.SortOrder
+  packageName?: Prisma.SortOrder
+  packagePrice?: Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
   deposit?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
@@ -703,6 +797,9 @@ export type TenantReservationMinOrderByAggregateInput = {
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
   rate?: Prisma.SortOrder
+  packageName?: Prisma.SortOrder
+  packagePrice?: Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
   deposit?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
@@ -717,11 +814,12 @@ export type TenantReservationSumOrderByAggregateInput = {
   adults?: Prisma.SortOrder
   children?: Prisma.SortOrder
   nights?: Prisma.SortOrder
+  roomsIncluded?: Prisma.SortOrder
 }
 
-export type TenantReservationNullableScalarRelationFilter = {
-  is?: Prisma.TenantReservationWhereInput | null
-  isNot?: Prisma.TenantReservationWhereInput | null
+export type TenantReservationScalarRelationFilter = {
+  is?: Prisma.TenantReservationWhereInput
+  isNot?: Prisma.TenantReservationWhereInput
 }
 
 export type TenantReservationCreateNestedManyWithoutTenantProfileInput = {
@@ -764,6 +862,22 @@ export type TenantReservationUncheckedUpdateManyWithoutTenantProfileNestedInput 
   update?: Prisma.TenantReservationUpdateWithWhereUniqueWithoutTenantProfileInput | Prisma.TenantReservationUpdateWithWhereUniqueWithoutTenantProfileInput[]
   updateMany?: Prisma.TenantReservationUpdateManyWithWhereWithoutTenantProfileInput | Prisma.TenantReservationUpdateManyWithWhereWithoutTenantProfileInput[]
   deleteMany?: Prisma.TenantReservationScalarWhereInput | Prisma.TenantReservationScalarWhereInput[]
+}
+
+export type TenantReservationCreateNestedOneWithoutLeadsInput = {
+  create?: Prisma.XOR<Prisma.TenantReservationCreateWithoutLeadsInput, Prisma.TenantReservationUncheckedCreateWithoutLeadsInput>
+  connectOrCreate?: Prisma.TenantReservationCreateOrConnectWithoutLeadsInput
+  connect?: Prisma.TenantReservationWhereUniqueInput
+}
+
+export type TenantReservationUpdateOneWithoutLeadsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantReservationCreateWithoutLeadsInput, Prisma.TenantReservationUncheckedCreateWithoutLeadsInput>
+  connectOrCreate?: Prisma.TenantReservationCreateOrConnectWithoutLeadsInput
+  upsert?: Prisma.TenantReservationUpsertWithoutLeadsInput
+  disconnect?: Prisma.TenantReservationWhereInput | boolean
+  delete?: Prisma.TenantReservationWhereInput | boolean
+  connect?: Prisma.TenantReservationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantReservationUpdateToOneWithWhereWithoutLeadsInput, Prisma.TenantReservationUpdateWithoutLeadsInput>, Prisma.TenantReservationUncheckedUpdateWithoutLeadsInput>
 }
 
 export type TenantReservationCreateNestedManyWithoutRoomInput = {
@@ -848,6 +962,34 @@ export type TenantReservationUpdateOneWithoutInvoicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantReservationUpdateToOneWithWhereWithoutInvoicesInput, Prisma.TenantReservationUpdateWithoutInvoicesInput>, Prisma.TenantReservationUncheckedUpdateWithoutInvoicesInput>
 }
 
+export type TenantReservationCreateNestedOneWithoutFolioChargesInput = {
+  create?: Prisma.XOR<Prisma.TenantReservationCreateWithoutFolioChargesInput, Prisma.TenantReservationUncheckedCreateWithoutFolioChargesInput>
+  connectOrCreate?: Prisma.TenantReservationCreateOrConnectWithoutFolioChargesInput
+  connect?: Prisma.TenantReservationWhereUniqueInput
+}
+
+export type TenantReservationUpdateOneRequiredWithoutFolioChargesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantReservationCreateWithoutFolioChargesInput, Prisma.TenantReservationUncheckedCreateWithoutFolioChargesInput>
+  connectOrCreate?: Prisma.TenantReservationCreateOrConnectWithoutFolioChargesInput
+  upsert?: Prisma.TenantReservationUpsertWithoutFolioChargesInput
+  connect?: Prisma.TenantReservationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantReservationUpdateToOneWithWhereWithoutFolioChargesInput, Prisma.TenantReservationUpdateWithoutFolioChargesInput>, Prisma.TenantReservationUncheckedUpdateWithoutFolioChargesInput>
+}
+
+export type TenantReservationCreateNestedOneWithoutPaymentLogsInput = {
+  create?: Prisma.XOR<Prisma.TenantReservationCreateWithoutPaymentLogsInput, Prisma.TenantReservationUncheckedCreateWithoutPaymentLogsInput>
+  connectOrCreate?: Prisma.TenantReservationCreateOrConnectWithoutPaymentLogsInput
+  connect?: Prisma.TenantReservationWhereUniqueInput
+}
+
+export type TenantReservationUpdateOneRequiredWithoutPaymentLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantReservationCreateWithoutPaymentLogsInput, Prisma.TenantReservationUncheckedCreateWithoutPaymentLogsInput>
+  connectOrCreate?: Prisma.TenantReservationCreateOrConnectWithoutPaymentLogsInput
+  upsert?: Prisma.TenantReservationUpsertWithoutPaymentLogsInput
+  connect?: Prisma.TenantReservationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantReservationUpdateToOneWithWhereWithoutPaymentLogsInput, Prisma.TenantReservationUpdateWithoutPaymentLogsInput>, Prisma.TenantReservationUncheckedUpdateWithoutPaymentLogsInput>
+}
+
 export type TenantReservationCreateWithoutTenantProfileInput = {
   id?: string
   guestName: string
@@ -859,6 +1001,9 @@ export type TenantReservationCreateWithoutTenantProfileInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -869,6 +1014,9 @@ export type TenantReservationCreateWithoutTenantProfileInput = {
   updatedAt?: Date | string
   room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
 }
 
@@ -884,6 +1032,9 @@ export type TenantReservationUncheckedCreateWithoutTenantProfileInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -893,6 +1044,9 @@ export type TenantReservationUncheckedCreateWithoutTenantProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
 }
 
@@ -938,6 +1092,9 @@ export type TenantReservationScalarWhereInput = {
   children?: Prisma.IntFilter<"TenantReservation"> | number
   nights?: Prisma.IntFilter<"TenantReservation"> | number
   rate?: Prisma.StringFilter<"TenantReservation"> | string
+  packageName?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
+  packagePrice?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
+  roomsIncluded?: Prisma.IntFilter<"TenantReservation"> | number
   deposit?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
   totalAmount?: Prisma.StringFilter<"TenantReservation"> | string
   paymentMethod?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
@@ -946,6 +1103,142 @@ export type TenantReservationScalarWhereInput = {
   notes?: Prisma.StringNullableFilter<"TenantReservation"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantReservation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantReservation"> | Date | string
+}
+
+export type TenantReservationCreateWithoutLeadsInput = {
+  id?: string
+  guestName: string
+  guestEmail?: string | null
+  guestPhone?: string | null
+  checkIn: Date | string
+  checkOut: Date | string
+  adults?: number
+  children?: number
+  nights?: number
+  rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
+  deposit?: string | null
+  totalAmount: string
+  paymentMethod?: string | null
+  status?: $Enums.TenantReservationStatus
+  frontDeskStatus?: $Enums.TenantReceptionQueueStatus | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
+  room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
+}
+
+export type TenantReservationUncheckedCreateWithoutLeadsInput = {
+  id?: string
+  tenantProfileId: string
+  roomId: string
+  guestName: string
+  guestEmail?: string | null
+  guestPhone?: string | null
+  checkIn: Date | string
+  checkOut: Date | string
+  adults?: number
+  children?: number
+  nights?: number
+  rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
+  deposit?: string | null
+  totalAmount: string
+  paymentMethod?: string | null
+  status?: $Enums.TenantReservationStatus
+  frontDeskStatus?: $Enums.TenantReceptionQueueStatus | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
+}
+
+export type TenantReservationCreateOrConnectWithoutLeadsInput = {
+  where: Prisma.TenantReservationWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantReservationCreateWithoutLeadsInput, Prisma.TenantReservationUncheckedCreateWithoutLeadsInput>
+}
+
+export type TenantReservationUpsertWithoutLeadsInput = {
+  update: Prisma.XOR<Prisma.TenantReservationUpdateWithoutLeadsInput, Prisma.TenantReservationUncheckedUpdateWithoutLeadsInput>
+  create: Prisma.XOR<Prisma.TenantReservationCreateWithoutLeadsInput, Prisma.TenantReservationUncheckedCreateWithoutLeadsInput>
+  where?: Prisma.TenantReservationWhereInput
+}
+
+export type TenantReservationUpdateToOneWithWhereWithoutLeadsInput = {
+  where?: Prisma.TenantReservationWhereInput
+  data: Prisma.XOR<Prisma.TenantReservationUpdateWithoutLeadsInput, Prisma.TenantReservationUncheckedUpdateWithoutLeadsInput>
+}
+
+export type TenantReservationUpdateWithoutLeadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adults?: Prisma.IntFieldUpdateOperationsInput | number
+  children?: Prisma.IntFieldUpdateOperationsInput | number
+  nights?: Prisma.IntFieldUpdateOperationsInput | number
+  rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
+  deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantReservationStatusFieldUpdateOperationsInput | $Enums.TenantReservationStatus
+  frontDeskStatus?: Prisma.NullableEnumTenantReceptionQueueStatusFieldUpdateOperationsInput | $Enums.TenantReceptionQueueStatus | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
+  room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
+}
+
+export type TenantReservationUncheckedUpdateWithoutLeadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adults?: Prisma.IntFieldUpdateOperationsInput | number
+  children?: Prisma.IntFieldUpdateOperationsInput | number
+  nights?: Prisma.IntFieldUpdateOperationsInput | number
+  rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
+  deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantReservationStatusFieldUpdateOperationsInput | $Enums.TenantReservationStatus
+  frontDeskStatus?: Prisma.NullableEnumTenantReceptionQueueStatusFieldUpdateOperationsInput | $Enums.TenantReceptionQueueStatus | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
 }
 
 export type TenantReservationCreateWithoutRoomInput = {
@@ -959,6 +1252,9 @@ export type TenantReservationCreateWithoutRoomInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -969,6 +1265,9 @@ export type TenantReservationCreateWithoutRoomInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
 }
 
@@ -984,6 +1283,9 @@ export type TenantReservationUncheckedCreateWithoutRoomInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -993,6 +1295,9 @@ export type TenantReservationUncheckedCreateWithoutRoomInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
 }
 
@@ -1033,6 +1338,9 @@ export type TenantReservationCreateWithoutReceptionRequestsInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -1044,6 +1352,9 @@ export type TenantReservationCreateWithoutReceptionRequestsInput = {
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
   room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
   invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
 }
 
 export type TenantReservationUncheckedCreateWithoutReceptionRequestsInput = {
@@ -1059,6 +1370,9 @@ export type TenantReservationUncheckedCreateWithoutReceptionRequestsInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -1068,6 +1382,9 @@ export type TenantReservationUncheckedCreateWithoutReceptionRequestsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
 }
 
 export type TenantReservationCreateOrConnectWithoutReceptionRequestsInput = {
@@ -1097,6 +1414,9 @@ export type TenantReservationUpdateWithoutReceptionRequestsInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1108,6 +1428,9 @@ export type TenantReservationUpdateWithoutReceptionRequestsInput = {
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
   room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
 }
 
 export type TenantReservationUncheckedUpdateWithoutReceptionRequestsInput = {
@@ -1123,6 +1446,9 @@ export type TenantReservationUncheckedUpdateWithoutReceptionRequestsInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1132,6 +1458,9 @@ export type TenantReservationUncheckedUpdateWithoutReceptionRequestsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
 }
 
 export type TenantReservationCreateWithoutInvoicesInput = {
@@ -1145,6 +1474,9 @@ export type TenantReservationCreateWithoutInvoicesInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -1155,6 +1487,9 @@ export type TenantReservationCreateWithoutInvoicesInput = {
   updatedAt?: Date | string
   tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
   room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
 }
 
@@ -1171,6 +1506,9 @@ export type TenantReservationUncheckedCreateWithoutInvoicesInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -1179,6 +1517,9 @@ export type TenantReservationUncheckedCreateWithoutInvoicesInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
 }
 
@@ -1209,6 +1550,9 @@ export type TenantReservationUpdateWithoutInvoicesInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1219,6 +1563,9 @@ export type TenantReservationUpdateWithoutInvoicesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
   room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
 }
 
@@ -1235,6 +1582,9 @@ export type TenantReservationUncheckedUpdateWithoutInvoicesInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1243,6 +1593,281 @@ export type TenantReservationUncheckedUpdateWithoutInvoicesInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
+}
+
+export type TenantReservationCreateWithoutFolioChargesInput = {
+  id?: string
+  guestName: string
+  guestEmail?: string | null
+  guestPhone?: string | null
+  checkIn: Date | string
+  checkOut: Date | string
+  adults?: number
+  children?: number
+  nights?: number
+  rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
+  deposit?: string | null
+  totalAmount: string
+  paymentMethod?: string | null
+  status?: $Enums.TenantReservationStatus
+  frontDeskStatus?: $Enums.TenantReceptionQueueStatus | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
+  room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
+}
+
+export type TenantReservationUncheckedCreateWithoutFolioChargesInput = {
+  id?: string
+  tenantProfileId: string
+  roomId: string
+  guestName: string
+  guestEmail?: string | null
+  guestPhone?: string | null
+  checkIn: Date | string
+  checkOut: Date | string
+  adults?: number
+  children?: number
+  nights?: number
+  rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
+  deposit?: string | null
+  totalAmount: string
+  paymentMethod?: string | null
+  status?: $Enums.TenantReservationStatus
+  frontDeskStatus?: $Enums.TenantReceptionQueueStatus | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
+}
+
+export type TenantReservationCreateOrConnectWithoutFolioChargesInput = {
+  where: Prisma.TenantReservationWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantReservationCreateWithoutFolioChargesInput, Prisma.TenantReservationUncheckedCreateWithoutFolioChargesInput>
+}
+
+export type TenantReservationUpsertWithoutFolioChargesInput = {
+  update: Prisma.XOR<Prisma.TenantReservationUpdateWithoutFolioChargesInput, Prisma.TenantReservationUncheckedUpdateWithoutFolioChargesInput>
+  create: Prisma.XOR<Prisma.TenantReservationCreateWithoutFolioChargesInput, Prisma.TenantReservationUncheckedCreateWithoutFolioChargesInput>
+  where?: Prisma.TenantReservationWhereInput
+}
+
+export type TenantReservationUpdateToOneWithWhereWithoutFolioChargesInput = {
+  where?: Prisma.TenantReservationWhereInput
+  data: Prisma.XOR<Prisma.TenantReservationUpdateWithoutFolioChargesInput, Prisma.TenantReservationUncheckedUpdateWithoutFolioChargesInput>
+}
+
+export type TenantReservationUpdateWithoutFolioChargesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adults?: Prisma.IntFieldUpdateOperationsInput | number
+  children?: Prisma.IntFieldUpdateOperationsInput | number
+  nights?: Prisma.IntFieldUpdateOperationsInput | number
+  rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
+  deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantReservationStatusFieldUpdateOperationsInput | $Enums.TenantReservationStatus
+  frontDeskStatus?: Prisma.NullableEnumTenantReceptionQueueStatusFieldUpdateOperationsInput | $Enums.TenantReceptionQueueStatus | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
+  room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
+}
+
+export type TenantReservationUncheckedUpdateWithoutFolioChargesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adults?: Prisma.IntFieldUpdateOperationsInput | number
+  children?: Prisma.IntFieldUpdateOperationsInput | number
+  nights?: Prisma.IntFieldUpdateOperationsInput | number
+  rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
+  deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantReservationStatusFieldUpdateOperationsInput | $Enums.TenantReservationStatus
+  frontDeskStatus?: Prisma.NullableEnumTenantReceptionQueueStatusFieldUpdateOperationsInput | $Enums.TenantReceptionQueueStatus | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
+}
+
+export type TenantReservationCreateWithoutPaymentLogsInput = {
+  id?: string
+  guestName: string
+  guestEmail?: string | null
+  guestPhone?: string | null
+  checkIn: Date | string
+  checkOut: Date | string
+  adults?: number
+  children?: number
+  nights?: number
+  rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
+  deposit?: string | null
+  totalAmount: string
+  paymentMethod?: string | null
+  status?: $Enums.TenantReservationStatus
+  frontDeskStatus?: $Enums.TenantReceptionQueueStatus | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantProfile: Prisma.TenantProfileCreateNestedOneWithoutReservationsInput
+  room: Prisma.TenantRoomCreateNestedOneWithoutReservationsInput
+  invoices?: Prisma.TenantInvoiceCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadCreateNestedManyWithoutReservationInput
+  receptionRequests?: Prisma.TenantReceptionRequestCreateNestedManyWithoutReservationInput
+}
+
+export type TenantReservationUncheckedCreateWithoutPaymentLogsInput = {
+  id?: string
+  tenantProfileId: string
+  roomId: string
+  guestName: string
+  guestEmail?: string | null
+  guestPhone?: string | null
+  checkIn: Date | string
+  checkOut: Date | string
+  adults?: number
+  children?: number
+  nights?: number
+  rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
+  deposit?: string | null
+  totalAmount: string
+  paymentMethod?: string | null
+  status?: $Enums.TenantReservationStatus
+  frontDeskStatus?: $Enums.TenantReceptionQueueStatus | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invoices?: Prisma.TenantInvoiceUncheckedCreateNestedManyWithoutReservationInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedCreateNestedManyWithoutReservationInput
+  leads?: Prisma.TenantLeadUncheckedCreateNestedManyWithoutReservationInput
+  receptionRequests?: Prisma.TenantReceptionRequestUncheckedCreateNestedManyWithoutReservationInput
+}
+
+export type TenantReservationCreateOrConnectWithoutPaymentLogsInput = {
+  where: Prisma.TenantReservationWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantReservationCreateWithoutPaymentLogsInput, Prisma.TenantReservationUncheckedCreateWithoutPaymentLogsInput>
+}
+
+export type TenantReservationUpsertWithoutPaymentLogsInput = {
+  update: Prisma.XOR<Prisma.TenantReservationUpdateWithoutPaymentLogsInput, Prisma.TenantReservationUncheckedUpdateWithoutPaymentLogsInput>
+  create: Prisma.XOR<Prisma.TenantReservationCreateWithoutPaymentLogsInput, Prisma.TenantReservationUncheckedCreateWithoutPaymentLogsInput>
+  where?: Prisma.TenantReservationWhereInput
+}
+
+export type TenantReservationUpdateToOneWithWhereWithoutPaymentLogsInput = {
+  where?: Prisma.TenantReservationWhereInput
+  data: Prisma.XOR<Prisma.TenantReservationUpdateWithoutPaymentLogsInput, Prisma.TenantReservationUncheckedUpdateWithoutPaymentLogsInput>
+}
+
+export type TenantReservationUpdateWithoutPaymentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adults?: Prisma.IntFieldUpdateOperationsInput | number
+  children?: Prisma.IntFieldUpdateOperationsInput | number
+  nights?: Prisma.IntFieldUpdateOperationsInput | number
+  rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
+  deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantReservationStatusFieldUpdateOperationsInput | $Enums.TenantReservationStatus
+  frontDeskStatus?: Prisma.NullableEnumTenantReceptionQueueStatusFieldUpdateOperationsInput | $Enums.TenantReceptionQueueStatus | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
+  room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
+  invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
+  receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
+}
+
+export type TenantReservationUncheckedUpdateWithoutPaymentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
+  guestName?: Prisma.StringFieldUpdateOperationsInput | string
+  guestEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adults?: Prisma.IntFieldUpdateOperationsInput | number
+  children?: Prisma.IntFieldUpdateOperationsInput | number
+  nights?: Prisma.IntFieldUpdateOperationsInput | number
+  rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
+  deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantReservationStatusFieldUpdateOperationsInput | $Enums.TenantReservationStatus
+  frontDeskStatus?: Prisma.NullableEnumTenantReceptionQueueStatusFieldUpdateOperationsInput | $Enums.TenantReceptionQueueStatus | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
 }
 
@@ -1258,6 +1883,9 @@ export type TenantReservationCreateManyTenantProfileInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -1279,6 +1907,9 @@ export type TenantReservationUpdateWithoutTenantProfileInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1289,6 +1920,9 @@ export type TenantReservationUpdateWithoutTenantProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   room?: Prisma.TenantRoomUpdateOneRequiredWithoutReservationsNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
 }
 
@@ -1304,6 +1938,9 @@ export type TenantReservationUncheckedUpdateWithoutTenantProfileInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1313,6 +1950,9 @@ export type TenantReservationUncheckedUpdateWithoutTenantProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
 }
 
@@ -1328,6 +1968,9 @@ export type TenantReservationUncheckedUpdateManyWithoutTenantProfileInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1350,6 +1993,9 @@ export type TenantReservationCreateManyRoomInput = {
   children?: number
   nights?: number
   rate: string
+  packageName?: string | null
+  packagePrice?: string | null
+  roomsIncluded?: number
   deposit?: string | null
   totalAmount: string
   paymentMethod?: string | null
@@ -1371,6 +2017,9 @@ export type TenantReservationUpdateWithoutRoomInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1381,6 +2030,9 @@ export type TenantReservationUpdateWithoutRoomInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantProfile?: Prisma.TenantProfileUpdateOneRequiredWithoutReservationsNestedInput
   invoices?: Prisma.TenantInvoiceUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUpdateManyWithoutReservationNestedInput
 }
 
@@ -1396,6 +2048,9 @@ export type TenantReservationUncheckedUpdateWithoutRoomInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1405,6 +2060,9 @@ export type TenantReservationUncheckedUpdateWithoutRoomInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoices?: Prisma.TenantInvoiceUncheckedUpdateManyWithoutReservationNestedInput
+  folioCharges?: Prisma.TenantFolioChargeUncheckedUpdateManyWithoutReservationNestedInput
+  paymentLogs?: Prisma.TenantPaymentLogUncheckedUpdateManyWithoutReservationNestedInput
+  leads?: Prisma.TenantLeadUncheckedUpdateManyWithoutReservationNestedInput
   receptionRequests?: Prisma.TenantReceptionRequestUncheckedUpdateManyWithoutReservationNestedInput
 }
 
@@ -1420,6 +2078,9 @@ export type TenantReservationUncheckedUpdateManyWithoutRoomInput = {
   children?: Prisma.IntFieldUpdateOperationsInput | number
   nights?: Prisma.IntFieldUpdateOperationsInput | number
   rate?: Prisma.StringFieldUpdateOperationsInput | string
+  packageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packagePrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomsIncluded?: Prisma.IntFieldUpdateOperationsInput | number
   deposit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1437,11 +2098,17 @@ export type TenantReservationUncheckedUpdateManyWithoutRoomInput = {
 
 export type TenantReservationCountOutputType = {
   invoices: number
+  folioCharges: number
+  paymentLogs: number
+  leads: number
   receptionRequests: number
 }
 
 export type TenantReservationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoices?: boolean | TenantReservationCountOutputTypeCountInvoicesArgs
+  folioCharges?: boolean | TenantReservationCountOutputTypeCountFolioChargesArgs
+  paymentLogs?: boolean | TenantReservationCountOutputTypeCountPaymentLogsArgs
+  leads?: boolean | TenantReservationCountOutputTypeCountLeadsArgs
   receptionRequests?: boolean | TenantReservationCountOutputTypeCountReceptionRequestsArgs
 }
 
@@ -1465,6 +2132,27 @@ export type TenantReservationCountOutputTypeCountInvoicesArgs<ExtArgs extends ru
 /**
  * TenantReservationCountOutputType without action
  */
+export type TenantReservationCountOutputTypeCountFolioChargesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantFolioChargeWhereInput
+}
+
+/**
+ * TenantReservationCountOutputType without action
+ */
+export type TenantReservationCountOutputTypeCountPaymentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantPaymentLogWhereInput
+}
+
+/**
+ * TenantReservationCountOutputType without action
+ */
+export type TenantReservationCountOutputTypeCountLeadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantLeadWhereInput
+}
+
+/**
+ * TenantReservationCountOutputType without action
+ */
 export type TenantReservationCountOutputTypeCountReceptionRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantReceptionRequestWhereInput
 }
@@ -1483,6 +2171,9 @@ export type TenantReservationSelect<ExtArgs extends runtime.Types.Extensions.Int
   children?: boolean
   nights?: boolean
   rate?: boolean
+  packageName?: boolean
+  packagePrice?: boolean
+  roomsIncluded?: boolean
   deposit?: boolean
   totalAmount?: boolean
   paymentMethod?: boolean
@@ -1494,6 +2185,9 @@ export type TenantReservationSelect<ExtArgs extends runtime.Types.Extensions.Int
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   room?: boolean | Prisma.TenantRoomDefaultArgs<ExtArgs>
   invoices?: boolean | Prisma.TenantReservation$invoicesArgs<ExtArgs>
+  folioCharges?: boolean | Prisma.TenantReservation$folioChargesArgs<ExtArgs>
+  paymentLogs?: boolean | Prisma.TenantReservation$paymentLogsArgs<ExtArgs>
+  leads?: boolean | Prisma.TenantReservation$leadsArgs<ExtArgs>
   receptionRequests?: boolean | Prisma.TenantReservation$receptionRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantReservationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenantReservation"]>
@@ -1511,6 +2205,9 @@ export type TenantReservationSelectCreateManyAndReturn<ExtArgs extends runtime.T
   children?: boolean
   nights?: boolean
   rate?: boolean
+  packageName?: boolean
+  packagePrice?: boolean
+  roomsIncluded?: boolean
   deposit?: boolean
   totalAmount?: boolean
   paymentMethod?: boolean
@@ -1536,6 +2233,9 @@ export type TenantReservationSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   children?: boolean
   nights?: boolean
   rate?: boolean
+  packageName?: boolean
+  packagePrice?: boolean
+  roomsIncluded?: boolean
   deposit?: boolean
   totalAmount?: boolean
   paymentMethod?: boolean
@@ -1561,6 +2261,9 @@ export type TenantReservationSelectScalar = {
   children?: boolean
   nights?: boolean
   rate?: boolean
+  packageName?: boolean
+  packagePrice?: boolean
+  roomsIncluded?: boolean
   deposit?: boolean
   totalAmount?: boolean
   paymentMethod?: boolean
@@ -1571,11 +2274,14 @@ export type TenantReservationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TenantReservationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "roomId" | "guestName" | "guestEmail" | "guestPhone" | "checkIn" | "checkOut" | "adults" | "children" | "nights" | "rate" | "deposit" | "totalAmount" | "paymentMethod" | "status" | "frontDeskStatus" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantReservation"]>
+export type TenantReservationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantProfileId" | "roomId" | "guestName" | "guestEmail" | "guestPhone" | "checkIn" | "checkOut" | "adults" | "children" | "nights" | "rate" | "packageName" | "packagePrice" | "roomsIncluded" | "deposit" | "totalAmount" | "paymentMethod" | "status" | "frontDeskStatus" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantReservation"]>
 export type TenantReservationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenantProfile?: boolean | Prisma.TenantProfileDefaultArgs<ExtArgs>
   room?: boolean | Prisma.TenantRoomDefaultArgs<ExtArgs>
   invoices?: boolean | Prisma.TenantReservation$invoicesArgs<ExtArgs>
+  folioCharges?: boolean | Prisma.TenantReservation$folioChargesArgs<ExtArgs>
+  paymentLogs?: boolean | Prisma.TenantReservation$paymentLogsArgs<ExtArgs>
+  leads?: boolean | Prisma.TenantReservation$leadsArgs<ExtArgs>
   receptionRequests?: boolean | Prisma.TenantReservation$receptionRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantReservationCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1594,6 +2300,9 @@ export type $TenantReservationPayload<ExtArgs extends runtime.Types.Extensions.I
     tenantProfile: Prisma.$TenantProfilePayload<ExtArgs>
     room: Prisma.$TenantRoomPayload<ExtArgs>
     invoices: Prisma.$TenantInvoicePayload<ExtArgs>[]
+    folioCharges: Prisma.$TenantFolioChargePayload<ExtArgs>[]
+    paymentLogs: Prisma.$TenantPaymentLogPayload<ExtArgs>[]
+    leads: Prisma.$TenantLeadPayload<ExtArgs>[]
     receptionRequests: Prisma.$TenantReceptionRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1609,6 +2318,9 @@ export type $TenantReservationPayload<ExtArgs extends runtime.Types.Extensions.I
     children: number
     nights: number
     rate: string
+    packageName: string | null
+    packagePrice: string | null
+    roomsIncluded: number
     deposit: string | null
     totalAmount: string
     paymentMethod: string | null
@@ -2014,6 +2726,9 @@ export interface Prisma__TenantReservationClient<T, Null = never, ExtArgs extend
   tenantProfile<T extends Prisma.TenantProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantProfileClient<runtime.Types.Result.GetResult<Prisma.$TenantProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   room<T extends Prisma.TenantRoomDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantRoomDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantRoomClient<runtime.Types.Result.GetResult<Prisma.$TenantRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   invoices<T extends Prisma.TenantReservation$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantReservation$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantInvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  folioCharges<T extends Prisma.TenantReservation$folioChargesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantReservation$folioChargesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantFolioChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentLogs<T extends Prisma.TenantReservation$paymentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantReservation$paymentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPaymentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leads<T extends Prisma.TenantReservation$leadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantReservation$leadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantLeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receptionRequests<T extends Prisma.TenantReservation$receptionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantReservation$receptionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantReceptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2056,6 +2771,9 @@ export interface TenantReservationFieldRefs {
   readonly children: Prisma.FieldRef<"TenantReservation", 'Int'>
   readonly nights: Prisma.FieldRef<"TenantReservation", 'Int'>
   readonly rate: Prisma.FieldRef<"TenantReservation", 'String'>
+  readonly packageName: Prisma.FieldRef<"TenantReservation", 'String'>
+  readonly packagePrice: Prisma.FieldRef<"TenantReservation", 'String'>
+  readonly roomsIncluded: Prisma.FieldRef<"TenantReservation", 'Int'>
   readonly deposit: Prisma.FieldRef<"TenantReservation", 'String'>
   readonly totalAmount: Prisma.FieldRef<"TenantReservation", 'String'>
   readonly paymentMethod: Prisma.FieldRef<"TenantReservation", 'String'>
@@ -2486,6 +3204,78 @@ export type TenantReservation$invoicesArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.TenantInvoiceScalarFieldEnum | Prisma.TenantInvoiceScalarFieldEnum[]
+}
+
+/**
+ * TenantReservation.folioCharges
+ */
+export type TenantReservation$folioChargesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantFolioCharge
+   */
+  select?: Prisma.TenantFolioChargeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantFolioCharge
+   */
+  omit?: Prisma.TenantFolioChargeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantFolioChargeInclude<ExtArgs> | null
+  where?: Prisma.TenantFolioChargeWhereInput
+  orderBy?: Prisma.TenantFolioChargeOrderByWithRelationInput | Prisma.TenantFolioChargeOrderByWithRelationInput[]
+  cursor?: Prisma.TenantFolioChargeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantFolioChargeScalarFieldEnum | Prisma.TenantFolioChargeScalarFieldEnum[]
+}
+
+/**
+ * TenantReservation.paymentLogs
+ */
+export type TenantReservation$paymentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantPaymentLog
+   */
+  select?: Prisma.TenantPaymentLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantPaymentLog
+   */
+  omit?: Prisma.TenantPaymentLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantPaymentLogInclude<ExtArgs> | null
+  where?: Prisma.TenantPaymentLogWhereInput
+  orderBy?: Prisma.TenantPaymentLogOrderByWithRelationInput | Prisma.TenantPaymentLogOrderByWithRelationInput[]
+  cursor?: Prisma.TenantPaymentLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantPaymentLogScalarFieldEnum | Prisma.TenantPaymentLogScalarFieldEnum[]
+}
+
+/**
+ * TenantReservation.leads
+ */
+export type TenantReservation$leadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantLead
+   */
+  select?: Prisma.TenantLeadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantLead
+   */
+  omit?: Prisma.TenantLeadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantLeadInclude<ExtArgs> | null
+  where?: Prisma.TenantLeadWhereInput
+  orderBy?: Prisma.TenantLeadOrderByWithRelationInput | Prisma.TenantLeadOrderByWithRelationInput[]
+  cursor?: Prisma.TenantLeadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantLeadScalarFieldEnum | Prisma.TenantLeadScalarFieldEnum[]
 }
 
 /**
